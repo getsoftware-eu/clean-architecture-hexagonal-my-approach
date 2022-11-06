@@ -1,6 +1,6 @@
 # my-onion-clean-architecture
 
-## My view of implementing an Onion Clean-Architecture with Java (Domain-driven Design, 'Hexagon' architecture) 
+## My view of implementing an Onion "Clean-Architecture" with Java (Domain-driven Design, 'Hexagon' architecture) 
 
 - Domain Layer (private Entities and public Aggregate)
 - Application Layer (Use Cases)
