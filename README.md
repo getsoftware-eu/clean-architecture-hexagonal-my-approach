@@ -1,6 +1,6 @@
 # my-onion-clean-architecture
 
-## My opinion on Onion CleanArchitecture
+## My view of implementing an onion clean-architecture with Java
 
 - Domain Layer (private Entity and public Aggregates)
 - Application Layer (Use Cases)
