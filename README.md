@@ -17,6 +17,9 @@
     - Spring Config from Main injects DI Classes (architectonic border)
         - Inject Interactor as Boundary-Interface
 
+- ![cross the architectonic boundaries](/docs/img/onion1.JPG)
+- ![onion layers interactions](/docs/img/onion1.JPG)
+
 
 ### Used Article as a basis:
 
