@@ -6,7 +6,7 @@ import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.mode
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserRequestModel;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserResponseModel;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.UserEntity;
-import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.UserFactoryAggregator;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.UserFactoryAggregate;
 
 /**
  * eugen:
@@ -22,13 +22,13 @@ public class UserRegisterInteractor implements UserInputBoundary
 
     final UserRegisterDsGateway userDsGateway;
     final UserOutputPresenter userOutputPresenter;
-    final UserFactoryAggregator userFactoryAggregator;
+    final UserFactoryAggregate userFactoryAggregate;
 
     public UserRegisterInteractor(UserRegisterDsGateway userRegisterDfGateway, UserOutputPresenter userOutputPresenter,
-        UserFactoryAggregator userFactoryAggregator) {
+        UserFactoryAggregate userFactoryAggregate) {
         this.userDsGateway = userRegisterDfGateway;
         this.userOutputPresenter = userOutputPresenter;
-        this.userFactoryAggregator = userFactoryAggregator;
+        this.userFactoryAggregate = userFactoryAggregate;
     }
     
     /**
@@ -50,7 +50,7 @@ public class UserRegisterInteractor implements UserInputBoundary
             return userOutputPresenter.prepareFailView("User already exists.");
         }
         //Domain creation
-        UserEntity userEntity = userFactoryAggregator.create(requestModel.getName(), requestModel.getPassword());
+        UserEntity userEntity = userFactoryAggregate.create(requestModel.getName(), requestModel.getPassword());
         if (!userEntity.passwordIsValid()) {
             return userOutputPresenter.prepareFailView("User password must have more than 5 characters.");
         }
