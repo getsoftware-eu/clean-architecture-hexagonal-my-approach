@@ -1,4 +1,4 @@
-package eu.getsoftware.onion.cleanarchitecture.usercreation.main;
+package eu.getsoftware.onion.cleanarchitecture.usercreation;
 
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
