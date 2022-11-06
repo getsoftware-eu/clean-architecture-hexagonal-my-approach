@@ -1,10 +1,10 @@
 # my-onion-clean-architecture
 
-## My view of implementing an onion clean-architecture with Java (Domain-driven Design, 'Hexagon' architekture) 
+## My view of implementing an onion clean-architecture with Java (Domain-driven Design, 'Hexagon' architecture) 
 
-- Domain Layer (private Entity and public Aggregates)
+- Domain Layer (private Entities and public Aggregate)
 - Application Layer (Use Cases)
-- Infrastructure Layer (MVC)
+- Infrastructure Layer (MVC, interface adapter)
 - Extra Main Package (SpringConfig //as Martin Fowler describes in his book)
 
 ### My differences to base article:
