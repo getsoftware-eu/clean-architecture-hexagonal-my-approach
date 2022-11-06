@@ -9,8 +9,5 @@ import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.model.Com
 @Configuration
 public class DomainConfiguration
 {
-//  @Bean
-//  public UserFactoryAggregator apiService() {
-//    return new CommonUserFactoryAggregator();
-//  }
+
 }

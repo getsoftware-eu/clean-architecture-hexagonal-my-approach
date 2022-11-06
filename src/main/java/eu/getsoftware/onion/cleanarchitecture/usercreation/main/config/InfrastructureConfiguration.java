@@ -1,13 +1,41 @@
 package eu.getsoftware.onion.cleanarchitecture.usercreation.main.config;
 
+import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
+import org.springframework.beans.factory.support.BeanDefinitionRegistry;
+import org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ClassPathBeanDefinitionScanner;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.type.classreading.MetadataReader;
+import org.springframework.core.type.classreading.MetadataReaderFactory;
+import org.springframework.core.type.filter.TypeFilter;
+
+import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.UserInputBoundary;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.UserOutputPresenter;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.UserRegisterDsGateway;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.UserRegisterInteractor;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.UserFactoryAggregator;
 
 @Configuration
 public class InfrastructureConfiguration
 {
-//  @Bean
-//  public UserInputBoundary useCaseService(UserRegisterDsGateway userRegisterDfGateway, UserOutputPresenter userOutputPresenter,
-//          UserFactoryAggregator userFactoryAggregator) {
-//    return new UserRegisterInteractor(userRegisterDfGateway, userOutputPresenter, userFactoryAggregator);
-//  }
+	@Bean
+	BeanFactoryPostProcessor beanFactoryPostProcessor(ApplicationContext beanRegistry) {
+		return beanFactory -> {
+			genericApplicationContext((BeanDefinitionRegistry) ((AnnotationConfigServletWebServerApplicationContext) beanRegistry).getBeanFactory());
+		};
+	}
+	
+	void genericApplicationContext(BeanDefinitionRegistry beanRegistry) {
+		ClassPathBeanDefinitionScanner beanDefinitionScanner = new ClassPathBeanDefinitionScanner(beanRegistry);
+		beanDefinitionScanner.addIncludeFilter(removeModelAndEntitiesFilter());
+		beanDefinitionScanner.scan("eu.getsoftware.onion.cleanarchitecture.usercreation");
+	}
+	
+	static TypeFilter removeModelAndEntitiesFilter() {
+		return (MetadataReader mr, MetadataReaderFactory mrf) -> !mr.getClassMetadata()
+				.getClassName()
+				.endsWith("Model");
+	}
 }
