@@ -2,6 +2,7 @@ package eu.getsoftware.onion.cleanarchitecture.usercreation.main.config;
 
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -14,6 +15,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Configuration
 @EnableJpaRepositories(basePackages = { "eu.getsoftware.onion.cleanarchitecture.usercreation.infrastructure.repository" })
+@EntityScan(basePackages = {"eu.getsoftware.onion.cleanarchitecture.usercreation.infrastructure.model"})
 public class InfrastructureConfiguration
 {
 	@Bean
