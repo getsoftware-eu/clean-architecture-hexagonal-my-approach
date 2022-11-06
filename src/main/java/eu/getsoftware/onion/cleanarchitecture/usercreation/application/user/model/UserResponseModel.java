@@ -1,5 +1,9 @@
 package eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter @Setter
 public class UserResponseModel {
 
     String login;
@@ -9,21 +13,4 @@ public class UserResponseModel {
         this.login = login;
         this.creationTime = creationTime;
     }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getCreationTime() {
-        return creationTime;
-    }
-
-    public void setCreationTime(String creationTime) {
-        this.creationTime = creationTime;
-    }
-
 }

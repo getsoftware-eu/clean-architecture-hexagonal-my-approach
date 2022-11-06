@@ -1,15 +1,14 @@
 package eu.getsoftware.onion.cleanarchitecture.usercreation.infrastructure.service;
 
-import com.baeldung.pattern.cleanarchitecture.usercreation.infrastructure.UserDataMapper;
-import com.baeldung.pattern.cleanarchitecture.usercreation.infrastructure.repository.JpaUserRepository;
-import com.baeldung.pattern.cleanarchitecture.usercreation.service.user.UserDsRequestModel;
-import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.UserRegisterDsGateway;
-import eu.getsoftware.onion.cleanarchitecture.usercreation.infrastructure.UserDataMapper;
+import org.springframework.stereotype.Service;
+
+import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserDsRequestModel;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.infrastructure.model.UserDataMapper;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.infrastructure.repository.JpaUserRepository;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.UserRegisterDsGateway;
 
 class JpaUserService implements UserRegisterDsGateway
 {
-
     final JpaUserRepository repository;
 
     JpaUserService(JpaUserRepository repository) {

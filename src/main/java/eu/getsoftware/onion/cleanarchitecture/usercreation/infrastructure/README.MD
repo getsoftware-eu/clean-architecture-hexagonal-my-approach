@@ -1,0 +1,1 @@
+interface adapter layer is responsible for converting the data.

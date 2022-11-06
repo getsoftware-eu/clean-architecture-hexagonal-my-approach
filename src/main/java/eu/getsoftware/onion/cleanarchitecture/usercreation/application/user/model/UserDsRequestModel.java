@@ -2,6 +2,10 @@ package eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.mod
 
 import java.time.LocalDateTime;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter @Setter
 public class UserDsRequestModel {
 
     String name;
@@ -13,29 +17,4 @@ public class UserDsRequestModel {
         this.password = password;
         this.creationTime = creationTime;
     }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public LocalDateTime getCreationTime() {
-        return creationTime;
-    }
-
-    public void setCreationTime(LocalDateTime creationTime) {
-        this.creationTime = creationTime;
-    }
-
 }

@@ -1,5 +1,9 @@
 package eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter @Setter
 public class UserRequestModel {
 
     String name;
@@ -15,19 +19,4 @@ public class UserRequestModel {
         this.password = password;
     }
 
-    String getName() {
-        return name;
-    }
-
-    void setName(String name) {
-        this.name = name;
-    }
-
-    String getPassword() {
-        return password;
-    }
-
-    void setPassword(String password) {
-        this.password = password;
-    }
 }

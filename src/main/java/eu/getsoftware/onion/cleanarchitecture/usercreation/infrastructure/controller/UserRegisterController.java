@@ -8,8 +8,8 @@ import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.User
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserRequestModel;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserResponseModel;
 
-@RestController public
-class UserRegisterController {
+@RestController 
+public class UserRegisterController {
 
     final UserInputBoundary userInput;
 
