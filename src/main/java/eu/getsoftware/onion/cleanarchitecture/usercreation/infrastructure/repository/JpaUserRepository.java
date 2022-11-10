@@ -2,8 +2,8 @@ package eu.getsoftware.onion.cleanarchitecture.usercreation.infrastructure.repos
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import eu.getsoftware.onion.cleanarchitecture.usercreation.infrastructure.model.UserDataMapper;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.infrastructure.model.UserDataMapperEntity;
 
 @Repository 
-public interface JpaUserRepository extends JpaRepository<UserDataMapper, String> {
+public interface JpaUserRepository extends JpaRepository<UserDataMapperEntity, String> {
 }

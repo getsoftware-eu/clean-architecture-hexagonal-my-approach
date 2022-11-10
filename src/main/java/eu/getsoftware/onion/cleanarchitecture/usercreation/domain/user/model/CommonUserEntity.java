@@ -4,24 +4,23 @@ import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.UserEntit
 
 /**
  * Eugen:
- * Слой of "business rules" + Entity (data):
+ * Layer of "business rules" + Entity (data):
  * 
- * Package PRIVACY: не должен быть public OUTSIDE PACKAGE
+ * Package PRIVACY: should be not public OUTSIDE PACKAGE
  * 
- * Eugen: maybe nur ValueObject is record
  */
-class CommonUserEntityEntity implements UserEntity
+class CommonUserEntity implements UserEntity
 {
     String name;
     String password;
+    UserAddresValueObject userAddresValueObject;
 
-    CommonUserEntityEntity(String name, String password) {
+    CommonUserEntity(String name, String password) {
         this.name = name;
         this.password = password;
     }
 
-    CommonUserEntityEntity() {
-    }
+    CommonUserEntity() {}
     
     /**
      * Eugen:

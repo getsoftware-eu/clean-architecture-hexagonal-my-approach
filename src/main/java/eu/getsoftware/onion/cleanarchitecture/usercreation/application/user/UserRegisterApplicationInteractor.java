@@ -2,9 +2,9 @@ package eu.getsoftware.onion.cleanarchitecture.usercreation.application.user;
 
 import java.time.LocalDateTime;
 
-import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserDsRequestModel;
-import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserRequestModel;
-import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserResponseModel;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserDsRequestApplicationModel;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserRequestApplicationModel;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserResponseApplicationModel;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.UserEntity;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.UserFactoryAggregate;
 
@@ -17,17 +17,16 @@ import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.UserFacto
  * "use cases" are the rules related to the automatization of our system
  * In Clean Architecture, we call them Interactors.
  */
-public class UserRegisterInteractor implements UserInputBoundary
+public class UserRegisterApplicationInteractor implements UserInputApplicationBoundary
 {
-
-    final UserRegisterDsGateway userDsGateway;
-    final UserOutputPresenter userOutputPresenter;
-    final UserFactoryAggregate userFactoryAggregate;
-
-    public UserRegisterInteractor(UserRegisterDsGateway userRegisterDfGateway, UserOutputPresenter userOutputPresenter,
+    private final UserRegisterApplicationDsGateway userDsGateway;
+    private final UserFactoryAggregate userFactoryAggregate;
+    private final UserOutputApplicationPresenter userOutputApplicationPresenter;
+    
+    public UserRegisterApplicationInteractor(UserRegisterApplicationDsGateway userRegisterDfGateway, UserOutputApplicationPresenter userOutputApplicationPresenter,
         UserFactoryAggregate userFactoryAggregate) {
         this.userDsGateway = userRegisterDfGateway;
-        this.userOutputPresenter = userOutputPresenter;
+        this.userOutputApplicationPresenter = userOutputApplicationPresenter;
         this.userFactoryAggregate = userFactoryAggregate;
     }
     
@@ -44,24 +43,24 @@ public class UserRegisterInteractor implements UserInputBoundary
      * @return
      */
     @Override
-    public UserResponseModel create(UserRequestModel requestModel) {
+    public UserResponseApplicationModel create(UserRequestApplicationModel requestModel) {
         //A1
         if (userDsGateway.existsByName(requestModel.getName())) {
-            return userOutputPresenter.prepareFailView("User already exists.");
+            return userOutputApplicationPresenter.prepareFailView("User already exists.");
         }
         //Domain creation
         UserEntity userEntity = userFactoryAggregate.create(requestModel.getName(), requestModel.getPassword());
         if (!userEntity.passwordIsValid()) {
-            return userOutputPresenter.prepareFailView("User password must have more than 5 characters.");
+            return userOutputApplicationPresenter.prepareFailView("User password must have more than 5 characters.");
         }
         //A3
         LocalDateTime now = LocalDateTime.now();
-        UserDsRequestModel userDsModel = new UserDsRequestModel(userEntity.getName(), userEntity.getPassword(), now);
+        UserDsRequestApplicationModel userDsModel = new UserDsRequestApplicationModel(userEntity.getName(), userEntity.getPassword(), now);
 
         userDsGateway.save(userDsModel);
 
         // ResponseModel
-        UserResponseModel accountResponseModel = new UserResponseModel(userEntity.getName(), now.toString());
-        return userOutputPresenter.prepareSuccessView(accountResponseModel);
+        UserResponseApplicationModel accountResponseModel = new UserResponseApplicationModel(userEntity.getName(), now.toString());
+        return userOutputApplicationPresenter.prepareSuccessView(accountResponseModel);
     }
 }

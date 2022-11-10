@@ -6,21 +6,21 @@ import java.time.format.DateTimeFormatter;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
-import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.UserOutputPresenter;
-import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserResponseModel;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.UserOutputApplicationPresenter;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserResponseApplicationModel;
 
-public class UserResponseFormatter implements UserOutputPresenter
+public class UserResponseFormatter implements UserOutputApplicationPresenter
 {
-
     @Override
-    public UserResponseModel prepareSuccessView(UserResponseModel response) {
+    public UserResponseApplicationModel prepareSuccessView(UserResponseApplicationModel response) {
         LocalDateTime responseTime = LocalDateTime.parse(response.getCreationTime());
-        response.setCreationTime(responseTime.format(DateTimeFormatter.ofPattern("hh:mm:ss")));
-        return response;
+        String formattedResponseTime = responseTime.format(DateTimeFormatter.ofPattern("hh:mm:ss"));
+        
+        return response.withCreationTime(formattedResponseTime);
     }
 
     @Override
-    public UserResponseModel prepareFailView(String error) {
+    public UserResponseApplicationModel prepareFailView(String error) {
         throw new ResponseStatusException(HttpStatus.CONFLICT, error);
     }
 }

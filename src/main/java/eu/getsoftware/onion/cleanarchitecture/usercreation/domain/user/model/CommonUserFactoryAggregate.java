@@ -12,6 +12,7 @@ public class CommonUserFactoryAggregate implements UserFactoryAggregate
 {
     @Override
     public UserEntity create(String name, String password) {
-        return new CommonUserEntityEntity(name, password);
+        return new CommonUserEntity(name, password);
     }
+    
 }
