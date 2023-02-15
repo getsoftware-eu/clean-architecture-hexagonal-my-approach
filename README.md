@@ -20,8 +20,24 @@
 - ![cross the architectonic boundaries](/docs/img/onion1.JPG)
 - ![onion layers](/docs/img/onion3.JPG)
 - ![onion layers interactions](/docs/img/onion2.JPG)
-- ![onion layers visibility encapsulation](/docs/img/onion4.JPG)
+- ![alternative layers encapsulation](/docs/img/onion4.JPG)
 
+einzigen Eintrittspunkt in das Package, sodass alles andere als protected gekenn-
+zeichnet werden kann. Der große Nachteil hierbei ist, dass nichts anderes in der
+
+Codebasis außerhalb dieses Pakets auf Informationen zugreifen kann, die sich auf
+Bestellungen (Orders) beziehen, es sei denn, es durchläuft den Controller – und
+das kann entweder wünschenswert sein oder auch nicht.
+Beim Ports and Adapters-Ansatz weisen die Schnittstellen OrdersService und
+Orders eingehende Abhängigkeiten von anderen Packages auf, deshalb müssen
+
+sie als public gekennzeichnet werden. Auch hier gilt, dass die Implementierungs-
+klassen zur Laufzeit paketgeschützt sein und mit Dependency Injection versehen
+
+werden können.
+
+Und schließlich hat die OrdersComponent-Schnittstelle beim Package by Compo-
+nent-Ansatz eine eingehende Abhängigkeit vom Controller,
 
 ### Used Article as a basis:
 
