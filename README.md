@@ -3,6 +3,8 @@
 "Clean" (Layered) Architecture is another way to provide for <b>separation of concerns</b>, <b>encapsulation</b> and <b>decoupling</b>, by grouping code units by their domain and functional role within the application.
 
 ## My view of implementing an Onion "Clean-Architecture" with Java (Domain-driven Design, 'Hexagon' architecture) 
+ 
+![cross the architectonic boundaries](/docs/img/onion1.JPG)
 
 ### Architecture Structure
 - <b>Domain</b> Layer
@@ -17,7 +19,6 @@
 - Extra "Main" (<b>Config</b>) Package
   - SpringConfig //as Martin Fowler describes in his book
 
-- ![cross the architectonic boundaries](/docs/img/onion1.JPG)
 - ![structure](/docs/img/onion0.jpg)
 
 ### My differences to base article:
