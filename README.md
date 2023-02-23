@@ -34,10 +34,10 @@
 - ![onion layers](/docs/img/onion3.JPG)
 - ![onion layers interactions](/docs/img/onion2.JPG)
 - Alternative layers structure and encapsulation
-- ![alternative layers encapsulation](/docs/img/onion4.JPG)
+- ![alternative layers encapsulation](/docs/img/other_layers.JPG)
 - ![DDD layers](/docs/img/ddd_layers.jpg)
 
-### Used Article as a basis:
+### Used articles as a basis:
 
 - [Clean Architecture with Spring Boot](https://www.baeldung.com/spring-boot-clean-architecture)
 - [Architecture rules & ArchUnit check](https://www.jvt.me/posts/2022/01/28/spring-boot-onion-architecture/)
