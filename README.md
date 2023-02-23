@@ -17,8 +17,8 @@
 - Extra "Main" (<b>Config</b>) Package
   - SpringConfig //as Martin Fowler describes in his book
 
-- ![structure](/docs/img/onion0.jpg)
 - ![cross the architectonic boundaries](/docs/img/onion1.JPG)
+- ![structure](/docs/img/onion0.jpg)
 
 ### My differences to base article:
 - My changes and corrections
