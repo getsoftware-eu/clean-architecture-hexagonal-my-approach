@@ -2,7 +2,7 @@
 
 ## My view of implementing an Onion "Clean-Architecture" with Java (Domain-driven Design, 'Hexagon' architecture) 
 
-## Package Structure
+### Package Structure
 - Domain Layer (private Entities and public Aggregate)
 - Application Layer (Use Cases)
 - Infrastructure Layer (MVC, interface adapter)
