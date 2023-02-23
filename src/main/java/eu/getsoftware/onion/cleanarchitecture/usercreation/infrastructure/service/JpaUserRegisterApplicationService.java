@@ -3,7 +3,7 @@ package eu.getsoftware.onion.cleanarchitecture.usercreation.infrastructure.servi
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserDsRequestApplicationModelDTO;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.infrastructure.model.UserDataMapperEntity;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.infrastructure.repository.JpaUserRepository;
-import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.UserRegisterApplicationDsGateway;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.IUserRegisterApplicationDsGateway;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
  * no creation hier, controller direct to application layer (registerGateway)
  */
 @RequiredArgsConstructor
-class JpaUserRegisterApplicationService implements UserRegisterApplicationDsGateway
+class JpaUserRegisterApplicationService implements IUserRegisterApplicationDsGateway
 {
     private final JpaUserRepository repository;
 
