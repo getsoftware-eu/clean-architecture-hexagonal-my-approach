@@ -2,10 +2,13 @@
 
 ## My view of implementing an Onion "Clean-Architecture" with Java (Domain-driven Design, 'Hexagon' architecture) 
 
+## Package Structure
 - Domain Layer (private Entities and public Aggregate)
 - Application Layer (Use Cases)
 - Infrastructure Layer (MVC, interface adapter)
 - Extra Main Package (SpringConfig //as Martin Fowler describes in his book)
+
+- ![structure](/docs/img/onion0.jpg)
 
 ### My differences to base article:
 - My changes and corrections
