@@ -6,7 +6,7 @@
  
 ![cross the architectonic boundaries](/docs/img/onion1.JPG)
 
-### Architecture Structure
+### Layer Structure:
 - <b>Domain</b> Layer
   - All business logic is here. 
   - Private Entities, Events and public Aggregates
