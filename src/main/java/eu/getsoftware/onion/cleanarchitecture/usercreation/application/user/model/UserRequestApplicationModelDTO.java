@@ -1,7 +1,5 @@
 package eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model;
 
-import java.time.LocalDateTime;
-
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.With;
@@ -9,9 +7,8 @@ import lombok.With;
 @With
 @Getter 
 @RequiredArgsConstructor
-public class UserDsRequestApplicationModel
+public class UserRequestApplicationModelDTO
 {
     private final String name;
-    private final String password;
-    private final LocalDateTime creationTime;
+	private final String password;
 }

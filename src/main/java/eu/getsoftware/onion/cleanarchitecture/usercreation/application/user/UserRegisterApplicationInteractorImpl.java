@@ -2,9 +2,9 @@ package eu.getsoftware.onion.cleanarchitecture.usercreation.application.user;
 
 import java.time.LocalDateTime;
 
-import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserDsRequestApplicationModel;
-import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserRequestApplicationModel;
-import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserResponseApplicationModel;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserDsRequestApplicationModelDTO;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserRequestApplicationModelDTO;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserResponseApplicationModelDTO;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.UserEntity;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.UserFactoryAggregate;
 
@@ -17,13 +17,13 @@ import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.UserFacto
  * "use cases" are the rules related to the automatization of our system
  * In Clean Architecture, we call them Interactors.
  */
-public class UserRegisterApplicationInteractor implements UserInputApplicationBoundary
+class UserRegisterApplicationInteractorImpl implements IUserInputApplicationBoundary
 {
     private final UserRegisterApplicationDsGateway userDsGateway;
     private final UserFactoryAggregate userFactoryAggregate;
     private final UserOutputApplicationPresenter userOutputApplicationPresenter;
     
-    public UserRegisterApplicationInteractor(UserRegisterApplicationDsGateway userRegisterDfGateway, UserOutputApplicationPresenter userOutputApplicationPresenter,
+    public UserRegisterApplicationInteractorImpl(UserRegisterApplicationDsGateway userRegisterDfGateway, UserOutputApplicationPresenter userOutputApplicationPresenter,
         UserFactoryAggregate userFactoryAggregate) {
         this.userDsGateway = userRegisterDfGateway;
         this.userOutputApplicationPresenter = userOutputApplicationPresenter;
@@ -43,7 +43,7 @@ public class UserRegisterApplicationInteractor implements UserInputApplicationBo
      * @return
      */
     @Override
-    public UserResponseApplicationModel create(UserRequestApplicationModel requestModel) {
+    public UserResponseApplicationModelDTO create(UserRequestApplicationModelDTO requestModel) {
         //A1
         if (userDsGateway.existsByName(requestModel.getName())) {
             return userOutputApplicationPresenter.prepareFailView("User already exists.");
@@ -55,12 +55,12 @@ public class UserRegisterApplicationInteractor implements UserInputApplicationBo
         }
         //A3
         LocalDateTime now = LocalDateTime.now();
-        UserDsRequestApplicationModel userDsModel = new UserDsRequestApplicationModel(userEntity.getName(), userEntity.getPassword(), now);
+        UserDsRequestApplicationModelDTO userDsModel = new UserDsRequestApplicationModelDTO(userEntity.getName(), userEntity.getPassword(), now);
 
         userDsGateway.save(userDsModel);
 
         // ResponseModel
-        UserResponseApplicationModel accountResponseModel = new UserResponseApplicationModel(userEntity.getName(), now.toString());
+        UserResponseApplicationModelDTO accountResponseModel = new UserResponseApplicationModelDTO(userEntity.getName(), now.toString());
         return userOutputApplicationPresenter.prepareSuccessView(accountResponseModel);
     }
 }

@@ -1,10 +1,10 @@
 package eu.getsoftware.onion.cleanarchitecture.usercreation.application.user;
 
-import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserResponseApplicationModel;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserResponseApplicationModelDTO;
 
 public interface UserOutputApplicationPresenter
 {
-    UserResponseApplicationModel prepareSuccessView(UserResponseApplicationModel user);
+    UserResponseApplicationModelDTO prepareSuccessView(UserResponseApplicationModelDTO user);
 
-    UserResponseApplicationModel prepareFailView(String error);
+    UserResponseApplicationModelDTO prepareFailView(String error);
 }

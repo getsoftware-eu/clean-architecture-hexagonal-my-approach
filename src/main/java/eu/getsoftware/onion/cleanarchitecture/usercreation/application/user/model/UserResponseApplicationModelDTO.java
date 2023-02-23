@@ -7,7 +7,7 @@ import lombok.With;
 @With
 @Getter 
 @RequiredArgsConstructor
-public class UserResponseApplicationModel
+public class UserResponseApplicationModelDTO
 {
     private final String login;
     private final String creationTime;

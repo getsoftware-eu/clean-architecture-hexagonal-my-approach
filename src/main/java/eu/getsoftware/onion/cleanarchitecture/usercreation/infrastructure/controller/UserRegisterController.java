@@ -4,21 +4,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.UserInputApplicationBoundary;
-import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserRequestApplicationModel;
-import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserResponseApplicationModel;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.IUserInputApplicationBoundary;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserRequestApplicationModelDTO;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserResponseApplicationModelDTO;
 
 @RestController 
 public class UserRegisterController {
 
-    final UserInputApplicationBoundary userInput;
+    final IUserInputApplicationBoundary userInput;
 
-    UserRegisterController(UserInputApplicationBoundary accountGateway) {
+    UserRegisterController(IUserInputApplicationBoundary accountGateway) {
         this.userInput = accountGateway;
     }
 
     @PostMapping("/user")
-    UserResponseApplicationModel create(@RequestBody UserRequestApplicationModel requestModel) {
+    UserResponseApplicationModelDTO create(@RequestBody UserRequestApplicationModelDTO requestModel) {
         return userInput.create(requestModel);
     }
 }
