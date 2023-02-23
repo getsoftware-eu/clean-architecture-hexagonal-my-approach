@@ -8,13 +8,13 @@
 
 ### Layer Structure:
 - <b>Domain</b> Layer
-  - All business logic is here. 
+  - All <b>business logic</b> is here. 
   - Private Entities, Events and public Aggregates
 - <b>Application</b> Layer
-  - Use Cases (Interactors)
+  - <b>Use Cases</b> (Interactors)
   - It does not contain business logic 
 - <b>Infrastructure</b> Layer
-  - The technical capabilities that support the layers above, ie. persistence or messaging.
+  - The technical capabilities that <b>support</b> the layers above, ie. persistence or messaging.
   - MVC, interface adapters
 - Extra "Main" (<b>Config</b>) Package
   - SpringConfig //as Martin Fowler describes in his book
