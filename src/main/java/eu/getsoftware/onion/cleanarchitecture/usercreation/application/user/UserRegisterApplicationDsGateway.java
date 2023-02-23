@@ -2,7 +2,7 @@ package eu.getsoftware.onion.cleanarchitecture.usercreation.application.user;
 
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserDsRequestApplicationModelDTO;
 
-public interface IUserRegisterApplicationDsGateway
+public interface UserRegisterApplicationDsGateway
 {
     boolean existsByName(String identifier);
 

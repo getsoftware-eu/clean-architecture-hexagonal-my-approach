@@ -3,7 +3,7 @@ package eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.use
 import java.time.LocalDateTime;
 
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.IUserInputApplicationBoundary;
-import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.IUserRegisterApplicationDsGateway;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.UserRegisterApplicationDsGateway;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.UserOutputApplicationPresenter;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserDsRequestApplicationModelDTO;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserRequestApplicationModelDTO;
@@ -22,11 +22,11 @@ import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.UserFacto
  */
 class UserRegisterApplicationInteractorImpl implements IUserInputApplicationBoundary
 {
-    private final IUserRegisterApplicationDsGateway userDsGateway;
+    private final UserRegisterApplicationDsGateway userDsGateway;
     private final UserFactoryAggregate userFactoryAggregate;
     private final UserOutputApplicationPresenter userOutputApplicationPresenter;
     
-    public UserRegisterApplicationInteractorImpl(IUserRegisterApplicationDsGateway userRegisterDfGateway, UserOutputApplicationPresenter userOutputApplicationPresenter,
+    public UserRegisterApplicationInteractorImpl(UserRegisterApplicationDsGateway userRegisterDfGateway, UserOutputApplicationPresenter userOutputApplicationPresenter,
         UserFactoryAggregate userFactoryAggregate) {
         this.userDsGateway = userRegisterDfGateway;
         this.userOutputApplicationPresenter = userOutputApplicationPresenter;
