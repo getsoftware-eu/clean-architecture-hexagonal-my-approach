@@ -7,6 +7,7 @@
 ## My view of implementing an Onion "Clean-Architecture" with Java (Domain-driven Design, 'Hexagon' architecture) 
  
 ![cross the architectonic boundaries](/docs/img/onion1.JPG)
+![Aggregate root](/docs/img/ddd.webp)
 
 ### Layer Structure:
 - <b>Domain</b> Layer
