@@ -1,8 +1,8 @@
-# my-onion-clean-architecture
+# My vision of Clean (onion) Architecture implementation
 
 "Clean" (Layered) Architecture is another way to provide for <b>separation of concerns</b>, <b>encapsulation</b> and <b>decoupling</b>, by grouping code units by their domain and functional role within the application. 
 
-<b>We don't have to mix business-logik and application-logik in one service class</b> (it is practically impossible to separate them from service classes if they were together)
+<b>We don't have to mix business-logik and application-logik in one service class</b> (it is practically impossible to separate them from service classes if it was implemented together)
 
 ## My view of implementing an Onion "Clean-Architecture" with Java (Domain-driven Design, 'Hexagon' architecture) 
  
