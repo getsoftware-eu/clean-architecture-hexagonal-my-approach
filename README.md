@@ -37,7 +37,9 @@
 
 - ![onion layers](/docs/img/onion3.JPG)
 - ![onion layers interactions](/docs/img/onion2.JPG)
-- Alternative layers structure and encapsulation
+- 
+## Alternative layers structure and encapsulation
+
 - ![alternative layers encapsulation](/docs/img/other_layers.JPG)
 - ![DDD layers](/docs/img/ddd_layers.jpg)
 
