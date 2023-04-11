@@ -1,6 +1,9 @@
 package eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.usecases;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
+
+import org.springframework.stereotype.Service;
 
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.IUserInputApplicationBoundary;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.UserRegisterApplicationDsGateway;
@@ -10,6 +13,7 @@ import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.mode
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserResponseApplicationModelDTO;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.UserEntity;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.UserFactoryAggregate;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.infrastructure.error.UserNotFoundException;
 
 /**
  * eugen:
@@ -20,6 +24,7 @@ import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.UserFacto
  * "use cases" are the rules related to the automatization of our system
  * In Clean Architecture, we call them Interactors.
  */
+@Service
 class UserRegisterApplicationInteractorImpl implements IUserInputApplicationBoundary
 {
     private final UserRegisterApplicationDsGateway userDsGateway;
@@ -37,17 +42,17 @@ class UserRegisterApplicationInteractorImpl implements IUserInputApplicationBoun
      * Eugen:
      * Слой of "application rules" (Use Cases). 
      *
-     * The system receives the user name and password, 
-     * A1: validates if the user doesn't exist, 
-     * A3: and saves the new user along with the creation time
+     * The system receives the (session)user name and password, 
+     * A1: validates if the user doesn't exist,  (check DTO)
+     * A3: and saves the new user ENTITY along with the creation time
      * (Use Cases be in different formats: as use cases or stories. We'll use a storytelling phrase:)
      * 
-     * @param requestModel
+     * @param requestModel (session requester)
      * @return
      */
     @Override
     public UserResponseApplicationModelDTO create(UserRequestApplicationModelDTO requestModel) {
-        //A1
+        //A1 - ONLY DTOs
         if (userDsGateway.existsByName(requestModel.name())) {
             return userOutputApplicationPresenter.prepareFailView("User already exists.");
         }
@@ -58,12 +63,26 @@ class UserRegisterApplicationInteractorImpl implements IUserInputApplicationBoun
         }
         //A3
         LocalDateTime now = LocalDateTime.now();
-        UserDsRequestApplicationModelDTO userDsModel = new UserDsRequestApplicationModelDTO(userEntity.getName(), userEntity.getPassword(), now);
+        UserDsRequestApplicationModelDTO userDsModelDTO = new UserDsRequestApplicationModelDTO(userEntity.getName(), userEntity.getPassword(), now);
 
-        userDsGateway.save(userDsModel);
+        userDsGateway.save(userDsModelDTO);
 
+        // ResponseModel != userDTO (UserDsRequestApplicationModelDTO)
+        UserResponseApplicationModelDTO accountResponseModel = new UserResponseApplicationModelDTO(userDsModelDTO.name(), LocalDateTime.now().toString());
+        return userOutputApplicationPresenter.prepareSuccessView(accountResponseModel);
+    }
+    
+    @Override 
+    public UserResponseApplicationModelDTO findById(UserRequestApplicationModelDTO requestModel, long userId)
+    {
+        if (! userDsGateway.existsByName(requestModel.name())) {
+            return userOutputApplicationPresenter.prepareFailView("User not exists.");
+        }
+        
+        UserDsRequestApplicationModelDTO userEntityDTO = userDsGateway.getById(userId);
+        
         // ResponseModel
-        UserResponseApplicationModelDTO accountResponseModel = new UserResponseApplicationModelDTO(userEntity.getName(), now.toString());
+        UserResponseApplicationModelDTO accountResponseModel = new UserResponseApplicationModelDTO(userEntityDTO.name(), LocalDateTime.now().toString());
         return userOutputApplicationPresenter.prepareSuccessView(accountResponseModel);
     }
 }

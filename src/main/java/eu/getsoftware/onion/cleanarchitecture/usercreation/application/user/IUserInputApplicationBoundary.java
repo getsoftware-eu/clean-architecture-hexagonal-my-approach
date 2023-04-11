@@ -1,5 +1,7 @@
 package eu.getsoftware.onion.cleanarchitecture.usercreation.application.user;
 
+import java.util.Optional;
+
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserRequestApplicationModelDTO;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserResponseApplicationModelDTO;
 
@@ -10,4 +12,6 @@ import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.mode
 public interface IUserInputApplicationBoundary
 {
     UserResponseApplicationModelDTO create(UserRequestApplicationModelDTO requestModel);
+	
+	UserResponseApplicationModelDTO findById(UserRequestApplicationModelDTO requestModel, long userId);
 }

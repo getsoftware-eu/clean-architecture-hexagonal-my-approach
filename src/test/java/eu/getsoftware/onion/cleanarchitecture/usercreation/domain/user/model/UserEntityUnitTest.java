@@ -11,7 +11,7 @@ class UserEntityUnitTest
 
     @Test
     void given123Password_whenPasswordIsNotValid_thenIsFalse() {
-        UserEntity userEntity = new CommonUserEntityEntity("Baeldung", "123");
+        UserEntity userEntity = new CommonUserEntity("Baeldung", "123");
 
         assertThat(userEntity.passwordIsValid()).isFalse();
     }

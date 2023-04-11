@@ -9,6 +9,9 @@ import org.springframework.web.server.ResponseStatusException;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.UserOutputApplicationPresenter;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserResponseApplicationModelDTO;
 
+/**
+ * Eugen: //TODO: We assign HttpStatus to every error.
+ */
 public class UserResponseFormatter implements UserOutputApplicationPresenter
 {
     @Override
@@ -19,8 +22,10 @@ public class UserResponseFormatter implements UserOutputApplicationPresenter
         return response.withCreationTime(formattedResponseTime);
     }
 
+    
     @Override
     public UserResponseApplicationModelDTO prepareFailView(String error) {
+        //TODO usage of all possible exceptions with different returning HttpCodes to client!
         throw new ResponseStatusException(HttpStatus.CONFLICT, error);
     }
 }

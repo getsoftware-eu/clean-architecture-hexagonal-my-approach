@@ -1,6 +1,12 @@
 package eu.getsoftware.onion.cleanarchitecture.usercreation.infrastructure.service;
 
+import java.util.Optional;
+
+import org.springframework.stereotype.Service;
+
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserDsRequestApplicationModelDTO;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.UserEntity;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.infrastructure.error.UserNotFoundException;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.infrastructure.model.UserDataMapperEntity;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.infrastructure.repository.JpaUserRepository;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.UserRegisterApplicationDsGateway;
@@ -11,6 +17,7 @@ import lombok.RequiredArgsConstructor;
  * 
  * no creation hier, controller direct to application layer (registerGateway)
  */
+@Service
 @RequiredArgsConstructor
 class JpaUserRegisterApplicationService implements UserRegisterApplicationDsGateway
 {
@@ -19,6 +26,18 @@ class JpaUserRegisterApplicationService implements UserRegisterApplicationDsGate
     @Override
     public boolean existsByName(String name) {
         return repository.existsById(name);
+    }    
+    
+    @Override
+    public UserDsRequestApplicationModelDTO getById(long id) {
+        Optional<UserDataMapperEntity> optionalUser = repository.findById(String.valueOf(id));
+        
+        if(optionalUser.isPresent())
+        {
+            UserDataMapperEntity user = optionalUser.get();
+            return new UserDsRequestApplicationModelDTO(user.getName(), user.getPassword(), user.getCreationTime());
+        }
+        else throw new UserNotFoundException(id);
     }
     
     @Override

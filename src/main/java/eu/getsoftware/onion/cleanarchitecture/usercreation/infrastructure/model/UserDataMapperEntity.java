@@ -15,6 +15,9 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+/**
+ * DB-Mapping of DOMAIN Entity
+ */
 
 @Entity
 @Table(name = "user")

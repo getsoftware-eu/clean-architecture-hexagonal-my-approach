@@ -1,24 +1,21 @@
-package eu.getsoftware.onion.cleanarchitecture.usercreation.application.user;
+package eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.usecases;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 import org.junit.Ignore;
-import org.mockito.ArgumentCaptor;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.springframework.web.server.ResponseStatusException;
 
-import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.UserOutputApplicationPresenter;
-import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.UserRegisterApplicationInteractorImpl;
-import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserRequestApplicationModelDTO;
-import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.UserFactoryAggregate;
-import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.IUserInputApplicationBoundary;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.UserRegisterApplicationDsGateway;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.UserOutputApplicationPresenter;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserRequestApplicationModelDTO;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserResponseApplicationModelDTO;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.UserFactoryAggregate;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.infrastructure.UserResponseFormatter;
 
 class UserEntityResponseFormatterUnitTest
@@ -27,7 +24,7 @@ class UserEntityResponseFormatterUnitTest
     UserRegisterApplicationDsGateway userDsGateway = mock(UserRegisterApplicationDsGateway.class);
     UserOutputApplicationPresenter userPresenter = mock(UserOutputApplicationPresenter.class);
     UserFactoryAggregate userFactoryAggregate = mock(UserFactoryAggregate.class);
-    IUserInputApplicationBoundary IUserInputApplicationBoundary = new UserRegisterApplicationInteractorImpl(userDsGateway, userPresenter, userFactoryAggregate);
+    eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.IUserInputApplicationBoundary IUserInputApplicationBoundary = new UserRegisterApplicationInteractorImpl(userDsGateway, userPresenter, userFactoryAggregate);
     ArgumentCaptor<String> userRequestModelArgumentCaptor = ArgumentCaptor.forClass(String.class);
 
     @Test
@@ -35,7 +32,7 @@ class UserEntityResponseFormatterUnitTest
         UserResponseApplicationModelDTO modelResponse = new UserResponseApplicationModelDTO("baeldung", "2020-12-20T03:00:00.000");
         UserResponseApplicationModelDTO formattedResponse = userResponseFormatter.prepareSuccessView(modelResponse);
 
-        assertThat(formattedResponse.getCreationTime()).isEqualTo("03:00:00");
+        assertThat(formattedResponse.creationTime()).isEqualTo("03:00:00");
     }
 
     @Test
@@ -53,7 +50,7 @@ class UserEntityResponseFormatterUnitTest
         IUserInputApplicationBoundary.create(userRequestApplicationModelDTO);
 
         verify(userDsGateway).existsByName(userRequestModelArgumentCaptor.capture());
-        String name = userRequestApplicationModelDTO.getName();
+        String name = userRequestApplicationModelDTO.name();
         assertEquals("baeldung", name);
     }
 }
