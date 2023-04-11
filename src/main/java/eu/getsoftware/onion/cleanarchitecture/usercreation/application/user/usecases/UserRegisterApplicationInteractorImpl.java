@@ -48,11 +48,11 @@ class UserRegisterApplicationInteractorImpl implements IUserInputApplicationBoun
     @Override
     public UserResponseApplicationModelDTO create(UserRequestApplicationModelDTO requestModel) {
         //A1
-        if (userDsGateway.existsByName(requestModel.getName())) {
+        if (userDsGateway.existsByName(requestModel.name())) {
             return userOutputApplicationPresenter.prepareFailView("User already exists.");
         }
         //Domain creation
-        UserEntity userEntity = userFactoryAggregate.create(requestModel.getName(), requestModel.getPassword());
+        UserEntity userEntity = userFactoryAggregate.create(requestModel.name(), requestModel.password());
         if (!userEntity.passwordIsValid()) {
             return userOutputApplicationPresenter.prepareFailView("User password must have more than 5 characters.");
         }

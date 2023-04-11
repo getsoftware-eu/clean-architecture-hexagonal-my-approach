@@ -23,7 +23,7 @@ class JpaUserRegisterApplicationService implements UserRegisterApplicationDsGate
     
     @Override
     public void save(UserDsRequestApplicationModelDTO requestModel) {
-        UserDataMapperEntity accountDataMapper = new UserDataMapperEntity(requestModel.getName(), requestModel.getPassword(), requestModel.getCreationTime());
+        UserDataMapperEntity accountDataMapper = new UserDataMapperEntity(requestModel.name(), requestModel.password(), requestModel.creationTime());
         repository.save(accountDataMapper);
     }
 }
