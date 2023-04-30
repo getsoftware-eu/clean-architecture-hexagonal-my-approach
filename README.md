@@ -1,8 +1,10 @@
 # My vision of Clean (onion) Architecture implementation
 
-"Clean" (Layered) Architecture is another way to provide for <b>separation of concerns</b>, <b>encapsulation</b> and <b>decoupling</b>, by grouping code units by their domain and functional role within the application. 
+"Clean" (Layered) Architecture is another way to achieve <b>separation of concerns</b>, <b>encapsulation</b> and <b>decoupling</b>, by grouping code units based on their domain and functional role within the application. 
 
-<b>We don't have to mix business-logik and application-logik in one service class</b> (it is practically impossible to separate them from service classes if it was implemented together)
+One of the main property of this architecture:
+<b>We should never mix business-logik and application-logik in one service class</b>.
+This is because it becomes practically impossible to separate the two logics once they are implemented (mixed) together.
 
 ## My view of implementing an Onion "Clean-Architecture" with Java (Domain-driven Design, 'Hexagon' architecture) 
  
@@ -26,13 +28,13 @@
 
 ### My differences to base article:
 - My changes and corrections
-    - 4 Layers Package-Hierarchie
-    - I believe, Aggregates (DDD) should be an EntryPoint to Domain.Module (not just Factory)
+    - 4 basic Layers ("Domain", "Application", "Infrastructure", "Main") for Project Package-Hierarchie 
+    - I believe, Aggregates (DDD) should be an EntryPoint to Domain.Module (not just a Factory)
     - Domain-Entities should be not accessible outside of the domain Layer
     - Records (Java17) as valueObjects
-    - ArchUnit for insuring DDD Onion Architecture Rules
-    - Spring Config from Main injects DI Classes (architectonic border)
-        - Inject Interactor as Boundary-Interface
+    - <b>ArchUnit</b> for insuring DDD Onion Architecture Rules
+    - Spring Config from "Main" layer injects DI Classes (architectonic border)
+    - Inject Interactor as Boundary-Interface
 
 
 - ![onion layers](/docs/img/onion3.JPG)
