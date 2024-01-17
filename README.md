@@ -20,11 +20,12 @@ This is because it becomes practically impossible to separate the two logics onc
   - <b>Separation of usecase-logik-methods from technical (low-level) service-help-methods<b>
   - <b>Use Cases</b> (<b>Interactors</b> with Domains: create Entity, findByName, 'as a role X, I except special behavior'...)
     - e.g. 'UserRegisterInteractor'
-    - uses Gateway (technical interface-service-methods) + DTOs
+    - define own IGateway (technical interface-service-methods) + define DTOs (with other layers)
+    - injects und uses (low) implementation of own defined IGateway
   - It does not contain business-logic (=inner rules in Domains). But should contain interactor-logik (extern actions with Entities-Aggregates).
   - and we didn’t use any spring annotation in our business.
 - <b>Infrastructure</b> Layer
-  - Implementation of Gateway (technical help-services for upper layer)
+  - Implementation of IGateway (technical help-services, defined in upper layer)
     - e.g. 'JpaUserRegisterApplicationService'
   - The technical capabilities that <b>support</b> the layers above, ie. persistence or messaging.
   - MVC, interface adapters
