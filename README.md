@@ -17,10 +17,13 @@ This is because it becomes practically impossible to separate the two logics onc
     - e.g. isPasswordIsValid(): 5 digits...
   - Private Entities, Events, Inner-Procedures(?) and public Aggregates
 - <b>Application</b> Layer
-  - <b>Use Cases</b> (<b>Interactors</b> with Domains: create Entity, update, 'as a role X, I except special behavior'...)
+  - <b>Separation of Usecase methods from technical (low-level) service-help-methods<b>
+  - <b>Use Cases</b> (<b>Interactors</b> with Domains: create Entity, findByName, 'as a role X, I except special behavior'...)
+    - uses technical interface-methods
   - It does not contain business-logic (=inner rules in Domains). But should contain interactor-logik (extern actions with Entities-Aggregates).
   - and we didn’t use any spring annotation in our business.
 - <b>Infrastructure</b> Layer
+  - Implementation of technical help-services for upper layer
   - The technical capabilities that <b>support</b> the layers above, ie. persistence or messaging.
   - MVC, interface adapters
 - Extra "Main" (<b>Config</b>) Package
