@@ -17,10 +17,11 @@ This is because it becomes practically impossible to separate the two logics onc
     - e.g. isPasswordIsValid(): 5 digits...
   - Private Entities, Events, Inner-Procedures(?) and public Aggregates
 - <b>Application</b> Layer
-  - <b>Separation of usecase-logik-methods from technical (low-level) service-help-methods<b>
+  - <b>Separation of usecase-logik-methods from technical (low-level) service-help-methods</b>
   - <b>Use Cases</b> (<b>Interactors</b> with Domains: create Entity, findByName, 'as a role X, I except special behavior'...)
     - e.g. 'UserRegisterInteractor'
-    - define own IGateway (technical interface-service-methods) + define DTOs (with other layers)
+    - define DTOs (with other layers)
+    - define own IGateway (technical interface-service-methods) 
     - injects und uses (low) implementation of own defined IGateway
   - It does not contain business-logic (=inner rules in Domains). But should contain interactor-logik (extern actions with Entities-Aggregates).
   - and we didn’t use any spring annotation in our business.
