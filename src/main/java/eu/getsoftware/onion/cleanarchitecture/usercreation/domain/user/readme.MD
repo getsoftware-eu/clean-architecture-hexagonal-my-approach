@@ -1,6 +1,7 @@
 If we have a complex business, then we should build our domain code as clear as possible. 
 
-All business logic is here.
+All business logic is here (e.g. isPasswordIsValid(): 5 digits... )
+
 Private Entities, Events and public Aggregates
 
 So, this layer is a great place to apply design patterns. 

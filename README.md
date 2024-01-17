@@ -13,7 +13,8 @@ This is because it becomes practically impossible to separate the two logics onc
 
 ### Layer Structure:
 - <b>Domain</b> Layer
-  - All <b>business logic</b> is here (only fields and accessors)
+  - All <b>business logic</b> is here (only fields and accessors and rules)
+    - e.g. isPasswordIsValid(): 5 digits...
   - Private Entities, Events, Inner-Procedures(?) and public Aggregates
 - <b>Application</b> Layer
   - <b>Use Cases</b> (<b>Interactors</b> with Domains: create Entity, update, 'as a role X, I except special behavior'...)

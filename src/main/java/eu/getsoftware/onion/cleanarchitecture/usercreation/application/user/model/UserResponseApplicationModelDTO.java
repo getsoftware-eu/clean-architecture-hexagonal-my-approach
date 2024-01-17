@@ -7,7 +7,6 @@ package eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.mod
  * @param creationTime
  */
 public record UserResponseApplicationModelDTO(
-
       String login,
       String creationTime
 ){

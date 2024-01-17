@@ -7,7 +7,6 @@ package eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.mod
  * @param password
  */
 public record UserRequestApplicationModelDTO(
-
     String name,
 	String password
 ) {}
