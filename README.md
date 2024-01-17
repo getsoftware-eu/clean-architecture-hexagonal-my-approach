@@ -13,11 +13,12 @@ This is because it becomes practically impossible to separate the two logics onc
 
 ### Layer Structure:
 - <b>Domain</b> Layer
-  - All <b>business logic</b> is here. 
-  - Private Entities, Events and public Aggregates
+  - All <b>business logic</b> is here (only fields and accessors)
+  - Private Entities, Events, Inner-Procedures(?) and public Aggregates
 - <b>Application</b> Layer
-  - <b>Use Cases</b> (Interactors)
-  - It does not contain business logic 
+  - <b>Use Cases</b> (<b>Interactors</b> with Domains: create Entity, update, 'as a role X, I except special behavior'...)
+  - It does not contain business-logic (=inner rules in Domains). But should contain interactor-logik (extern actions with Entities-Aggregates).
+  - and we didn’t use any spring annotation in our business.
 - <b>Infrastructure</b> Layer
   - The technical capabilities that <b>support</b> the layers above, ie. persistence or messaging.
   - MVC, interface adapters
