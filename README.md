@@ -13,9 +13,10 @@ This is because it becomes practically impossible to separate the two logics onc
 
 ### Layer Structure:
 - <b>Domain</b> Layer
-  - All <b>business logic</b> is here (only fields and accessors and rules)
-    - e.g. isPasswordIsValid(): 5 digits...
-  - Private Entities, Events, Inner-Procedures(?) and public Aggregates
+  - All <b>business logic</b> is here (only fields and accessors and Aggregate Methods and Operations)
+    - e.g. Consistency Rules: isPasswordIsValid(): >5 digits... (enforcing the aggregate’s business rules.)
+  - Private Entities, Events, Inner-Operations and public Aggregat-Roots (entry point)
+
 - <b>Application</b> Layer
   - <b>Separation of usecase-logik-methods from technical (low-level) service-help-methods</b>
   - <b>Use Cases</b> (<b>Interactors</b> with Domains: create Entity, findByName, 'as a role X, I except special behavior'...)
