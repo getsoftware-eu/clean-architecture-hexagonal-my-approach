@@ -33,6 +33,8 @@ This is because it becomes practically impossible to separate the two logics onc
 - Extra "Main" (<b>Config</b>) Package
   - SpringConfig //as Martin Fowler describes in his book
 
+- ![cca with spring boot](/docs/img/boot-cca.jpg)
+
 - ![structure](/docs/img/onion0.jpg)
 
 ### My differences to base article:
