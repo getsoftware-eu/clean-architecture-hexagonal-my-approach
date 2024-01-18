@@ -3,8 +3,10 @@ package eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.model.do
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserDsRequestApplicationModelDTO
 import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.IUserDTO
 import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.IUserEntity
-import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.IUserRepository
+import eu.getsoftware.onion.cleanarchitecture.usercreation.infrastructure.error.UserNotFoundException
+import eu.getsoftware.onion.cleanarchitecture.usercreation.infrastructure.model.UserDataMapperEntity
 import org.springframework.data.repository.CrudRepository
+import java.util.*
 
 abstract class IRegisterService<T: IUserEntity, Z: IUserDTO>(
     val entityMapper: IEntityMapper<T, Z>,
@@ -22,6 +24,17 @@ abstract class IRegisterService<T: IUserEntity, Z: IUserDTO>(
         return entity
     }
 
+    fun getById(id: Long): Z? {
+        val optionalUser: Optional<T> = entityRepository.findById(id)
+
+        if (optionalUser.isPresent) {
+            val user = optionalUser.get()
+            val dto: Z? = entityMapper.toDsRequestDTO(user)
+            //            return new UserDsRequestApplicationModelDTO(user.getName(), user.getPassword(), user.getCreationTime());
+            return dto
+        } else throw UserNotFoundException(id)
+    }
+    
     @Throws(InstantiationException::class, IllegalAccessException::class)
     inline fun createInstance(assetClass: Class<T>): T {
         return assetClass.getDeclaredConstructor().newInstance()

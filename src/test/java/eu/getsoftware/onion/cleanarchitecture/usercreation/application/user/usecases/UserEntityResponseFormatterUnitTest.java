@@ -6,11 +6,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserMapper;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserDtoMapper;
 import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.server.ResponseStatusException;
 
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.IUserRegisterApplicationDsGatewayService;
@@ -22,12 +21,12 @@ import eu.getsoftware.onion.cleanarchitecture.usercreation.infrastructure.UserRe
 
 class UserEntityResponseFormatterUnitTest
 {
-    UserMapper userMapper;
+    UserDtoMapper userDtoMapper;
     UserResponseFormatter userResponseFormatter = new UserResponseFormatter();
     IUserRegisterApplicationDsGatewayService userDsGateway = mock(IUserRegisterApplicationDsGatewayService.class);
     IUserOutputApplicationPresenter userPresenter = mock(IUserOutputApplicationPresenter.class);
     IUserFactoryAggregate userFactoryAggregate = mock(IUserFactoryAggregate.class);
-    eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.IUserInputApplicationBoundary IUserInputApplicationBoundary = new UserRegisterApplicationInteractorImpl(userDsGateway, userPresenter, userFactoryAggregate, userMapper);
+    eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.IUserInputApplicationBoundary IUserInputApplicationBoundary = new UserRegisterApplicationInteractorImpl(userDsGateway, userPresenter, userFactoryAggregate, userDtoMapper);
     ArgumentCaptor<String> userRequestModelArgumentCaptor = ArgumentCaptor.forClass(String.class);
 
     @Test

@@ -1,5 +1,7 @@
 package eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.model.domainservice
 
+import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserDsRequestApplicationModelDTO
+import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserResponseApplicationModelDTO
 import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.IUserDTO
 import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.IUserEntity
 import org.mapstruct.Mapping
@@ -11,6 +13,14 @@ interface IEntityMapper<T: IUserEntity, Z: IUserDTO>{
     fun toEntityById(id: Long?): T
 
     fun toDTO(entity: T?): Z?
+//    @Mapping(target = "login", source = "name")
+//    @Mapping(target = "creationTime", defaultValue = "LocalDateTime.now()")
+//    fun toResponseDTOFromRequest(input: UserDsRequestApplicationModelDTO?): UserResponseApplicationModelDTO?
+
+    @Mapping(target = "creationTime", defaultValue = "LocalDateTime.now()")
+    fun toDsRequestDTO(entity: T?): Z?
+
+    
     fun toListDTO(assigmentFiles: List<T>): List<Z>
     
     fun updateAllFromDto(assetFormDto: Z?, @MappingTarget asset: T?)

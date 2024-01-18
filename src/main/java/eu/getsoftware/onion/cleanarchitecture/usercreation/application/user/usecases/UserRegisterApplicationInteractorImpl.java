@@ -2,7 +2,7 @@ package eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.use
 
 import java.time.LocalDateTime;
 
-import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserMapper;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserDtoMapper;
 import org.springframework.stereotype.Service;
 
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.IUserInputApplicationBoundary;
@@ -29,14 +29,14 @@ class UserRegisterApplicationInteractorImpl implements IUserInputApplicationBoun
     private final IUserRegisterApplicationDsGatewayService userDsGatewayService;
     private final IUserFactoryAggregate userFactoryAggregate;
     private final IUserOutputApplicationPresenter userOutputApplicationPresenter;
-    private final UserMapper userMapper;
+    private final UserDtoMapper userDtoMapper;
 
     public UserRegisterApplicationInteractorImpl(IUserRegisterApplicationDsGatewayService userRegisterDfGateway, IUserOutputApplicationPresenter userOutputApplicationPresenter,
-                                                 IUserFactoryAggregate userFactoryAggregate, UserMapper userMapper) {
+                                                 IUserFactoryAggregate userFactoryAggregate, UserDtoMapper userDtoMapper) {
         this.userDsGatewayService = userRegisterDfGateway;
         this.userOutputApplicationPresenter = userOutputApplicationPresenter;
         this.userFactoryAggregate = userFactoryAggregate;
-        this.userMapper = userMapper;
+        this.userDtoMapper = userDtoMapper;
     }
     
     /**
@@ -63,11 +63,11 @@ class UserRegisterApplicationInteractorImpl implements IUserInputApplicationBoun
             return userOutputApplicationPresenter.prepareFailView("User password must have more than 5 characters.");
         }
         //A3
-        UserDsRequestApplicationModelDTO userDsModelDTO = userMapper.toDsRequestDTO(userEntity);
+        UserDsRequestApplicationModelDTO userDsModelDTO = userDtoMapper.toDsRequestDTO(userEntity);
         userDsGatewayService.save(userDsModelDTO);
 
         // ResponseModel != userDTO (UserDsRequestApplicationModelDTO)
-        UserResponseApplicationModelDTO accountResponseModel = userMapper.toResponseDTOFromRequest(userDsModelDTO);
+        UserResponseApplicationModelDTO accountResponseModel = userDtoMapper.toResponseDTOFromRequest(userDsModelDTO);
 //        UserResponseApplicationModelDTO accountResponseModel = new UserResponseApplicationModelDTO(userDsModelDTO.name(), LocalDateTime.now().toString());
         return userOutputApplicationPresenter.prepareSuccessView(accountResponseModel);
     }

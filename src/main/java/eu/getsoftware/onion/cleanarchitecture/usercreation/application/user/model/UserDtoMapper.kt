@@ -2,12 +2,12 @@ package eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.mod
 
 import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.IUserDTO
 import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.IUserEntity
-import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.IUserRepository
 import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.model.domainservice.IEntityMapper
+import eu.getsoftware.onion.cleanarchitecture.usercreation.infrastructure.model.UserDataMapperEntity
 import org.mapstruct.*
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE /*, uses = [IUserRepository::class]*/)
-interface UserMapper : IEntityMapper<IUserEntity, IUserDTO> {
+interface UserDtoMapper : IEntityMapper<UserDataMapperEntity, UserDsRequestApplicationModelDTO> {
     
 //    override fun toEntityById(id: Long?): IUserEntity
 
