@@ -7,7 +7,7 @@ package eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user;
  * To stock to the stable abstractions principle 
  * and to isolate the user creation.
  */
-public interface UserFactoryAggregate
+public interface IUserFactoryAggregate
 {
-    UserEntity create(String name, String password);
+    IUserEntityDataRules create(String name, String password);
 }

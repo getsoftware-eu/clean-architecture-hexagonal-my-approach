@@ -6,6 +6,7 @@ import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.mode
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserResponseApplicationModelDTO;
 
 /**
+ * DTO creation for Grenzen
  * The boundaries are contracts defining how components can interact. 
  * The input boundary exposes our use case to outer layers:
  */

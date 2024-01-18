@@ -6,13 +6,13 @@ import java.time.format.DateTimeFormatter;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
-import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.UserOutputApplicationPresenter;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.IUserOutputApplicationPresenter;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserResponseApplicationModelDTO;
 
 /**
  * Eugen: //TODO: We assign HttpStatus to every error.
  */
-public class UserResponseFormatter implements UserOutputApplicationPresenter
+public class UserResponseFormatter implements IUserOutputApplicationPresenter
 {
     @Override
     public UserResponseApplicationModelDTO prepareSuccessView(UserResponseApplicationModelDTO response) {

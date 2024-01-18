@@ -5,11 +5,10 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserDsRequestApplicationModelDTO;
-import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.UserEntity;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.infrastructure.error.UserNotFoundException;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.infrastructure.model.UserDataMapperEntity;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.infrastructure.repository.JpaUserRepository;
-import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.UserRegisterApplicationDsGateway;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.IUserRegisterApplicationDsGatewayService;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -19,7 +18,7 @@ import lombok.RequiredArgsConstructor;
  */
 @Service
 @RequiredArgsConstructor
-class JpaUserRegisterApplicationService implements UserRegisterApplicationDsGateway
+class JpaUserRegisterApplicationService implements IUserRegisterApplicationDsGatewayService
 {
     private final JpaUserRepository repository;
 

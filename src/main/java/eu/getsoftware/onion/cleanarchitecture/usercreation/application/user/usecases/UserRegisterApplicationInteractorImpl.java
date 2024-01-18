@@ -1,19 +1,17 @@
 package eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.usecases;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.IUserInputApplicationBoundary;
-import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.UserRegisterApplicationDsGateway;
-import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.UserOutputApplicationPresenter;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.IUserRegisterApplicationDsGatewayService;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.IUserOutputApplicationPresenter;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserDsRequestApplicationModelDTO;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserRequestApplicationModelDTO;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserResponseApplicationModelDTO;
-import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.UserEntity;
-import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.UserFactoryAggregate;
-import eu.getsoftware.onion.cleanarchitecture.usercreation.infrastructure.error.UserNotFoundException;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.IUserEntityDataRules;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.IUserFactoryAggregate;
 
 /**
  * eugen:
@@ -27,13 +25,13 @@ import eu.getsoftware.onion.cleanarchitecture.usercreation.infrastructure.error.
 @Service
 class UserRegisterApplicationInteractorImpl implements IUserInputApplicationBoundary
 {
-    private final UserRegisterApplicationDsGateway userDsGateway;
-    private final UserFactoryAggregate userFactoryAggregate;
-    private final UserOutputApplicationPresenter userOutputApplicationPresenter;
+    private final IUserRegisterApplicationDsGatewayService userDsGatewayService;
+    private final IUserFactoryAggregate userFactoryAggregate;
+    private final IUserOutputApplicationPresenter userOutputApplicationPresenter;
     
-    public UserRegisterApplicationInteractorImpl(UserRegisterApplicationDsGateway userRegisterDfGateway, UserOutputApplicationPresenter userOutputApplicationPresenter,
-        UserFactoryAggregate userFactoryAggregate) {
-        this.userDsGateway = userRegisterDfGateway;
+    public UserRegisterApplicationInteractorImpl(IUserRegisterApplicationDsGatewayService userRegisterDfGateway, IUserOutputApplicationPresenter userOutputApplicationPresenter,
+                                                 IUserFactoryAggregate userFactoryAggregate) {
+        this.userDsGatewayService = userRegisterDfGateway;
         this.userOutputApplicationPresenter = userOutputApplicationPresenter;
         this.userFactoryAggregate = userFactoryAggregate;
     }
@@ -53,11 +51,11 @@ class UserRegisterApplicationInteractorImpl implements IUserInputApplicationBoun
     @Override
     public UserResponseApplicationModelDTO create(UserRequestApplicationModelDTO requestModel) {
         //A1 - ONLY DTOs
-        if (userDsGateway.existsByName(requestModel.name())) {
+        if (userDsGatewayService.existsByName(requestModel.name())) {
             return userOutputApplicationPresenter.prepareFailView("User already exists.");
         }
         //Domain creation
-        UserEntity userEntity = userFactoryAggregate.create(requestModel.name(), requestModel.password());
+        IUserEntityDataRules userEntity = userFactoryAggregate.create(requestModel.name(), requestModel.password());
         if (!userEntity.passwordIsValid()) {
             return userOutputApplicationPresenter.prepareFailView("User password must have more than 5 characters.");
         }
@@ -65,7 +63,7 @@ class UserRegisterApplicationInteractorImpl implements IUserInputApplicationBoun
         LocalDateTime now = LocalDateTime.now();
         UserDsRequestApplicationModelDTO userDsModelDTO = new UserDsRequestApplicationModelDTO(userEntity.getName(), userEntity.getPassword(), now);
 
-        userDsGateway.save(userDsModelDTO);
+        userDsGatewayService.save(userDsModelDTO);
 
         // ResponseModel != userDTO (UserDsRequestApplicationModelDTO)
         UserResponseApplicationModelDTO accountResponseModel = new UserResponseApplicationModelDTO(userDsModelDTO.name(), LocalDateTime.now().toString());
@@ -75,11 +73,11 @@ class UserRegisterApplicationInteractorImpl implements IUserInputApplicationBoun
     @Override 
     public UserResponseApplicationModelDTO findById(UserRequestApplicationModelDTO requestModel, long userId)
     {
-        if (! userDsGateway.existsByName(requestModel.name())) {
+        if (! userDsGatewayService.existsByName(requestModel.name())) {
             return userOutputApplicationPresenter.prepareFailView("User not exists.");
         }
         
-        UserDsRequestApplicationModelDTO userEntityDTO = userDsGateway.getById(userId);
+        UserDsRequestApplicationModelDTO userEntityDTO = userDsGatewayService.getById(userId);
         
         // ResponseModel
         UserResponseApplicationModelDTO accountResponseModel = new UserResponseApplicationModelDTO(userEntityDTO.name(), LocalDateTime.now().toString());

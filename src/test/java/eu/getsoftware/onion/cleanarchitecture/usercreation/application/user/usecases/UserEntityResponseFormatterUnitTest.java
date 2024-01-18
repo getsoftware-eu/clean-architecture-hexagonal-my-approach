@@ -11,19 +11,19 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.springframework.web.server.ResponseStatusException;
 
-import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.UserRegisterApplicationDsGateway;
-import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.UserOutputApplicationPresenter;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.IUserRegisterApplicationDsGatewayService;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.IUserOutputApplicationPresenter;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserRequestApplicationModelDTO;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserResponseApplicationModelDTO;
-import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.UserFactoryAggregate;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.IUserFactoryAggregate;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.infrastructure.UserResponseFormatter;
 
 class UserEntityResponseFormatterUnitTest
 {
     UserResponseFormatter userResponseFormatter = new UserResponseFormatter();
-    UserRegisterApplicationDsGateway userDsGateway = mock(UserRegisterApplicationDsGateway.class);
-    UserOutputApplicationPresenter userPresenter = mock(UserOutputApplicationPresenter.class);
-    UserFactoryAggregate userFactoryAggregate = mock(UserFactoryAggregate.class);
+    IUserRegisterApplicationDsGatewayService userDsGateway = mock(IUserRegisterApplicationDsGatewayService.class);
+    IUserOutputApplicationPresenter userPresenter = mock(IUserOutputApplicationPresenter.class);
+    IUserFactoryAggregate userFactoryAggregate = mock(IUserFactoryAggregate.class);
     eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.IUserInputApplicationBoundary IUserInputApplicationBoundary = new UserRegisterApplicationInteractorImpl(userDsGateway, userPresenter, userFactoryAggregate);
     ArgumentCaptor<String> userRequestModelArgumentCaptor = ArgumentCaptor.forClass(String.class);
 

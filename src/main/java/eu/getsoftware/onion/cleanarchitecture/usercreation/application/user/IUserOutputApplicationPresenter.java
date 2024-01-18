@@ -2,7 +2,7 @@ package eu.getsoftware.onion.cleanarchitecture.usercreation.application.user;
 
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserResponseApplicationModelDTO;
 
-public interface UserOutputApplicationPresenter
+public interface IUserOutputApplicationPresenter
 {
     UserResponseApplicationModelDTO prepareSuccessView(UserResponseApplicationModelDTO user);
     

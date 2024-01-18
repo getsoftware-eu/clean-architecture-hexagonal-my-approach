@@ -1,17 +1,12 @@
 package eu.getsoftware.onion.cleanarchitecture.usercreation.infrastructure.model;
 
-import java.time.LocalDateTime;
-
-import javax.persistence.*;
-
+import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.IAddressEntityData;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.IUserEntityData;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.model.UserAddresValueObject;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
+import javax.persistence.*;
+import java.time.LocalDateTime;
 
 /**
  * DB-Mapping of DOMAIN Entity
@@ -19,27 +14,30 @@ import lombok.Setter;
  */
 
 @Entity
-@Table(name = "user")
+@Table(name = "address")
 @Getter @Setter
 @NoArgsConstructor
 @RequiredArgsConstructor
-public class UserDataMapperEntity implements IUserEntityData //(no, manuell fill from DTO!!!)
+public class AddressDataMapperEntity implements IAddressEntityData //(no, manuell fill from DTO!!!)
 {
     @Id
     @Setter(AccessLevel.PROTECTED)
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Long userId;
+    private Long addressId;
     
     @NonNull
-    private String name;
+    private String street;
     
     @NonNull
-    private String password;
+    private String city;
 
-    @OneToOne
-    @JoinColumn(name = "address_id", nullable = false)
-    private AddressDataMapperEntity address;
-    
-    @NonNull
-    private LocalDateTime creationTime;
+    @Override
+    public String street() {
+        return street;
+    }
+
+    @Override
+    public String city() {
+        return city;
+    }
 }

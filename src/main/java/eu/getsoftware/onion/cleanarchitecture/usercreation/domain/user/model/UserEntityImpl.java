@@ -1,6 +1,7 @@
 package eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.model;
 
-import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.UserEntity;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.IUserEntityData;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.IUserEntityDataRules;
 
 /**
  * Eugen:
@@ -9,18 +10,19 @@ import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.UserEntit
  * Package PRIVACY: should be not public OUTSIDE PACKAGE
  * 
  */
-class CommonUserEntity implements UserEntity
+class UserEntityImpl implements IUserEntityData, IUserEntityDataRules
 {
     String name;
     String password;
+    UserAddresValueObject address;
     UserAddresValueObject userAddresValueObject;
 
-    CommonUserEntity(String name, String password) {
+    UserEntityImpl(String name, String password) {
         this.name = name;
         this.password = password;
     }
 
-    CommonUserEntity() {}
+    UserEntityImpl() {}
     
     /**
      * Eugen:
@@ -42,5 +44,10 @@ class CommonUserEntity implements UserEntity
     @Override
     public String getPassword() {
         return password;
+    }    
+    
+    @Override
+    public UserAddresValueObject getAddress() {
+        return address;
     }
 }
