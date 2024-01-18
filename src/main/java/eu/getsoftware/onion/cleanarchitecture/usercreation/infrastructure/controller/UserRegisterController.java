@@ -1,27 +1,33 @@
 package eu.getsoftware.onion.cleanarchitecture.usercreation.infrastructure.controller;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.infrastructure.service.UserRegService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.IUserInputApplicationBoundary;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.IUserInputUsecaseBoundary;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserRequestApplicationModelDTO;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserResponseApplicationModelDTO;
-import eu.getsoftware.onion.cleanarchitecture.usercreation.infrastructure.error.UserNotFoundException;
 import io.swagger.annotations.ApiOperation;
 
 @RestController("/api/v1/register/user")
 public class UserRegisterController {
 
-    final IUserInputApplicationBoundary userInput;
+    final IUserInputUsecaseBoundary userInput;
+
+    private final UserRegService userRegService;
+
     private UserRegisterController jpaUserRepository;
     
-    UserRegisterController(IUserInputApplicationBoundary accountGateway) {
-        this.userInput = accountGateway;
+    UserRegisterController(
+//            IUserInputApplicationBoundary accountGateway,
+            UserRegisterUsecaseInteractorImpl userUsecases,
+            UserRegService userRegService
+            ) {
+        this.userRegService = userRegService;
+        this.userInput = userUsecases;
     }
 
     @ApiOperation(value = "creates a new user from client DTO", produces = "application/json")

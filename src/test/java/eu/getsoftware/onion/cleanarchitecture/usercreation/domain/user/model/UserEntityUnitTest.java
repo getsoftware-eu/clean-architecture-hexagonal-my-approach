@@ -5,8 +5,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.infrastructure.model.UserDataMapperEntity;
 import org.junit.jupiter.api.Test;
 
-import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.IUserEntity;
-
 class UserEntityUnitTest
 {
 
@@ -15,6 +13,6 @@ class UserEntityUnitTest
         UserDataMapperEntity userEntity = new UserDataMapperEntity();
         userEntity.setName("Eugen");
         userEntity.setPassword("123"); 
-        assertThat(userEntity.passwordIsValid()).isFalse();
+        assertThat(userEntity.isPasswordValid()).isFalse();
     }
 }

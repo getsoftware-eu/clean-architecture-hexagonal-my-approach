@@ -2,11 +2,11 @@ package eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.use
 
 import java.time.LocalDateTime;
 
-import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserDtoMapper;
-import org.springframework.stereotype.Service;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserDsRequestMapper;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.IUserDTO;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.model.domainservice.IRegisterService;
 
-import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.IUserInputApplicationBoundary;
-import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.IUserRegisterApplicationDsGatewayService;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.IUserInputUsecaseBoundary;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.IUserOutputApplicationPresenter;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserDsRequestApplicationModelDTO;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserRequestApplicationModelDTO;
@@ -23,20 +23,25 @@ import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.IUserFact
  * "use cases" are the rules related to the automatization of our system
  * In Clean Architecture, we call them Interactors.
  */
-@Service
-class UserRegisterApplicationInteractorImpl implements IUserInputApplicationBoundary
+//@Service
+public abstract class UserRegisterUsecaseInteractorAbstr implements IUserInputUsecaseBoundary
 {
-    private final IUserRegisterApplicationDsGatewayService userDsGatewayService;
+//    private final IUserRegisterApplicationDsGatewayService userDsGatewayService;
     private final IUserFactoryAggregate userFactoryAggregate;
     private final IUserOutputApplicationPresenter userOutputApplicationPresenter;
-    private final UserDtoMapper userDtoMapper;
+    private final UserDsRequestMapper userDtoMapper;
+    private final IRegisterService<? extends IUserEntity, ? extends IUserDTO> userRegisterDsGatewayService;
 
-    public UserRegisterApplicationInteractorImpl(IUserRegisterApplicationDsGatewayService userRegisterDfGateway, IUserOutputApplicationPresenter userOutputApplicationPresenter,
-                                                 IUserFactoryAggregate userFactoryAggregate, UserDtoMapper userDtoMapper) {
-        this.userDsGatewayService = userRegisterDfGateway;
+    public UserRegisterUsecaseInteractorAbstr(
+//            IUserRegisterApplicationDsGatewayService userRegisterDfGateway, 
+            IUserOutputApplicationPresenter userOutputApplicationPresenter,
+            IUserFactoryAggregate userFactoryAggregate, UserDsRequestMapper userDsRequestMapper,
+            IRegisterService<? extends IUserEntity, ? extends IUserDTO> userRegisterDsGatewayService) {
+//        this.userDsGatewayService = userRegisterDfGateway;
         this.userOutputApplicationPresenter = userOutputApplicationPresenter;
         this.userFactoryAggregate = userFactoryAggregate;
-        this.userDtoMapper = userDtoMapper;
+        this.userDtoMapper = userDsRequestMapper;
+        this.userRegisterDsGatewayService = userRegisterDsGatewayService;
     }
     
     /**
@@ -54,17 +59,18 @@ class UserRegisterApplicationInteractorImpl implements IUserInputApplicationBoun
     @Override
     public UserResponseApplicationModelDTO create(UserRequestApplicationModelDTO requestModel) {
         //A1 - ONLY DTOs
-        if (userDsGatewayService.existsByName(requestModel.name())) {
+        if (userRegisterDsGatewayService.existsByName(requestModel.name())) {
             return userOutputApplicationPresenter.prepareFailView("User already exists.");
         }
         //Domain creation
         IUserEntity userEntity = userFactoryAggregate.create(requestModel.name(), requestModel.password());
-        if (!userEntity.passwordIsValid()) {
+        if (!userEntity.isPasswordValid()) {
             return userOutputApplicationPresenter.prepareFailView("User password must have more than 5 characters.");
         }
         //A3
+//        IUserDTO userDsModelDTO = userDtoMapper.toDsRequestDTO(userEntity);
         UserDsRequestApplicationModelDTO userDsModelDTO = userDtoMapper.toDsRequestDTO(userEntity);
-        userDsGatewayService.save(userDsModelDTO);
+        userRegisterDsGatewayService.save(userDsModelDTO);
 
         // ResponseModel != userDTO (UserDsRequestApplicationModelDTO)
         UserResponseApplicationModelDTO accountResponseModel = userDtoMapper.toResponseDTOFromRequest(userDsModelDTO);
@@ -75,14 +81,17 @@ class UserRegisterApplicationInteractorImpl implements IUserInputApplicationBoun
     @Override 
     public UserResponseApplicationModelDTO findById(UserRequestApplicationModelDTO requestModel, long userId)
     {
-        if (! userDsGatewayService.existsByName(requestModel.name())) {
+        if (! userRegisterDsGatewayService.existsByName(requestModel.name())) {
             return userOutputApplicationPresenter.prepareFailView("User not exists.");
         }
-        
-        UserDsRequestApplicationModelDTO userEntityDTO = userDsGatewayService.getById(userId);
+
+        IUserEntity userEntity = userRegisterDsGatewayService.getById(userId);
+        UserDsRequestApplicationModelDTO userEntityDTO = userDtoMapper.toDTO(userEntity);
+//        IUserDTO userEntityDTO = userRegisterDsGatewayService.getById(userId);
+//        UserDsRequestApplicationModelDTO userEntityDTO2 = userEntityDTO;
         
         // ResponseModel
-        UserResponseApplicationModelDTO accountResponseModel = new UserResponseApplicationModelDTO(userEntityDTO.name(), LocalDateTime.now().toString());
+        UserResponseApplicationModelDTO accountResponseModel = new UserResponseApplicationModelDTO(userEntityDTO.getName(), LocalDateTime.now().toString());
         return userOutputApplicationPresenter.prepareSuccessView(accountResponseModel);
     }
 }

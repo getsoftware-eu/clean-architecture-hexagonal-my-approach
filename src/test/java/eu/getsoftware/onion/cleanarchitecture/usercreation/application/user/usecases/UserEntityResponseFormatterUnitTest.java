@@ -6,7 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserDtoMapper;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.IUserInputUsecaseBoundary;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserDsRequestMapper;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.infrastructure.controller.UserRegisterUsecaseInteractorImpl;
 import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -21,12 +23,13 @@ import eu.getsoftware.onion.cleanarchitecture.usercreation.infrastructure.UserRe
 
 class UserEntityResponseFormatterUnitTest
 {
-    UserDtoMapper userDtoMapper;
+    UserDsRequestMapper userDsRequestMapper;
     UserResponseFormatter userResponseFormatter = new UserResponseFormatter();
     IUserRegisterApplicationDsGatewayService userDsGateway = mock(IUserRegisterApplicationDsGatewayService.class);
     IUserOutputApplicationPresenter userPresenter = mock(IUserOutputApplicationPresenter.class);
     IUserFactoryAggregate userFactoryAggregate = mock(IUserFactoryAggregate.class);
-    eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.IUserInputApplicationBoundary IUserInputApplicationBoundary = new UserRegisterApplicationInteractorImpl(userDsGateway, userPresenter, userFactoryAggregate, userDtoMapper);
+    
+    IUserInputUsecaseBoundary IUserInputApplicationBoundary = new UserRegisterUsecaseInteractorImpl(userDsGateway, userPresenter, userFactoryAggregate, userDsRequestMapper);
     ArgumentCaptor<String> userRequestModelArgumentCaptor = ArgumentCaptor.forClass(String.class);
 
     @Test

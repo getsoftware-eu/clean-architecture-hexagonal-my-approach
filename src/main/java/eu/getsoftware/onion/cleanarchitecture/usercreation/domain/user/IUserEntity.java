@@ -1,21 +1,25 @@
 package eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user;
 
+/**
+ * Domain Entity with business logik!
+ * Only here is whole abstract business rules (isPasswordValid), not in implementing entity!!
+ */
 public interface IUserEntity
 {
-    String getName();
-
-    String getPassword();
-    IAddressEntity getAddress();
-    
-    String getCreationTime();
-
     /**
-     * not anemic, but rich model here (Entity methods with business logik)
-     * therefore Business logik here, not in JPAEntity, that implement this interface!!!
-     * @return
+     * we use not ANEMIC, but RICH model here (Entity methods with business logik)
+     * therefore Business logik is here, not in JPAEntity, that implement this interface and it's business rules!!!
+     * @return high consistency rule about password
      */
-    default  boolean passwordIsValid() {
+    default boolean isPasswordValid() {
         var password = getPassword();
         return password != null && password.length() > 5;
     }
+    
+    // --- Fields for Entity!! ---
+    
+    String getName();
+    String getPassword();
+    IAddressEntity getAddress();
+    String getCreationTime();
 }

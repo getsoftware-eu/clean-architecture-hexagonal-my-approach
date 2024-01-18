@@ -8,11 +8,12 @@ import org.mapstruct.Mapping
 import org.mapstruct.MappingTarget
 import org.mapstruct.Named
 
-interface IEntityMapper<T: IUserEntity, Z: IUserDTO>{
+interface IEntityMapper<T: IUserEntity, Z : IUserDTO/* : IUserDTO*/>{
 
     fun toEntityById(id: Long?): T
 
     fun toDTO(entity: T?): Z?
+    fun toDTO(entity: IUserEntity?): Z?
 //    @Mapping(target = "login", source = "name")
 //    @Mapping(target = "creationTime", defaultValue = "LocalDateTime.now()")
 //    fun toResponseDTOFromRequest(input: UserDsRequestApplicationModelDTO?): UserResponseApplicationModelDTO?

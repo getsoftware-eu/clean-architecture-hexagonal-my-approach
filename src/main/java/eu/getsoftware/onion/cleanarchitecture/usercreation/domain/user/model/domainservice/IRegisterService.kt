@@ -8,7 +8,7 @@ import eu.getsoftware.onion.cleanarchitecture.usercreation.infrastructure.model.
 import org.springframework.data.repository.CrudRepository
 import java.util.*
 
-abstract class IRegisterService<T: IUserEntity, Z: IUserDTO>(
+abstract class IRegisterService<T: IUserEntity, Z : IUserDTO/* : IUserDTO*/>(
     val entityMapper: IEntityMapper<T, Z>,
     val entityRepository: CrudRepository<T, Long>,
 ) {
@@ -24,16 +24,18 @@ abstract class IRegisterService<T: IUserEntity, Z: IUserDTO>(
         return entity
     }
 
-    fun getById(id: Long): Z? {
+    fun getById(id: Long): T? {
         val optionalUser: Optional<T> = entityRepository.findById(id)
 
         if (optionalUser.isPresent) {
             val user = optionalUser.get()
-            val dto: Z? = entityMapper.toDsRequestDTO(user)
+//            val dto: Z? = entityMapper.toDsRequestDTO(user)
             //            return new UserDsRequestApplicationModelDTO(user.getName(), user.getPassword(), user.getCreationTime());
-            return dto
+            return user
         } else throw UserNotFoundException(id)
     }
+    
+    abstract fun existsByName(name: String): Boolean
     
     @Throws(InstantiationException::class, IllegalAccessException::class)
     inline fun createInstance(assetClass: Class<T>): T {
