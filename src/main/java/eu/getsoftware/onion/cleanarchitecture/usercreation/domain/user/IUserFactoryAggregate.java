@@ -9,5 +9,5 @@ package eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user;
  */
 public interface IUserFactoryAggregate
 {
-    IUserEntityDataRules create(String name, String password);
+    IUserEntity create(String name, String password);
 }

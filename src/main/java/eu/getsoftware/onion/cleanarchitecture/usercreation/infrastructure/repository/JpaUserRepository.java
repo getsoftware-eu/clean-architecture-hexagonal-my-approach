@@ -5,8 +5,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.infrastructure.model.UserDataMapperEntity;
 
-@Repository 
-public interface JpaUserRepository extends IUserRepository, JpaRepository<UserDataMapperEntity, String> {
+import java.util.Optional;
 
-    UserDataMapperEntity findByName(String name);
+@Repository 
+public interface JpaUserRepository extends IUserRepository<UserDataMapperEntity, Long>, JpaRepository<UserDataMapperEntity, Long> {
+
+    Optional<UserDataMapperEntity> findByName(String name);
 }

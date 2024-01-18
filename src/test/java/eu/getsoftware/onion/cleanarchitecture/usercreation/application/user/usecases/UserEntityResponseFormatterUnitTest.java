@@ -6,9 +6,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
+import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserMapper;
 import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.server.ResponseStatusException;
 
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.IUserRegisterApplicationDsGatewayService;
@@ -20,16 +22,17 @@ import eu.getsoftware.onion.cleanarchitecture.usercreation.infrastructure.UserRe
 
 class UserEntityResponseFormatterUnitTest
 {
+    UserMapper userMapper;
     UserResponseFormatter userResponseFormatter = new UserResponseFormatter();
     IUserRegisterApplicationDsGatewayService userDsGateway = mock(IUserRegisterApplicationDsGatewayService.class);
     IUserOutputApplicationPresenter userPresenter = mock(IUserOutputApplicationPresenter.class);
     IUserFactoryAggregate userFactoryAggregate = mock(IUserFactoryAggregate.class);
-    eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.IUserInputApplicationBoundary IUserInputApplicationBoundary = new UserRegisterApplicationInteractorImpl(userDsGateway, userPresenter, userFactoryAggregate);
+    eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.IUserInputApplicationBoundary IUserInputApplicationBoundary = new UserRegisterApplicationInteractorImpl(userDsGateway, userPresenter, userFactoryAggregate, userMapper);
     ArgumentCaptor<String> userRequestModelArgumentCaptor = ArgumentCaptor.forClass(String.class);
 
     @Test
     void givenDateAnd3HourTime_whenPrepareSuccessView_thenReturnOnly3HourTime() {
-        UserResponseApplicationModelDTO modelResponse = new UserResponseApplicationModelDTO("baeldung", "2020-12-20T03:00:00.000");
+        UserResponseApplicationModelDTO modelResponse = new UserResponseApplicationModelDTO("eugen", "2020-12-20T03:00:00.000");
         UserResponseApplicationModelDTO formattedResponse = userResponseFormatter.prepareSuccessView(modelResponse);
 
         assertThat(formattedResponse.creationTime()).isEqualTo("03:00:00");
@@ -44,13 +47,13 @@ class UserEntityResponseFormatterUnitTest
     @Test
     void whenCreateUser_thenSuccess() {
 
-        UserRequestApplicationModelDTO userRequestApplicationModelDTO = new UserRequestApplicationModelDTO("baeldung", "123456");
-        //when(userFactoryAggregator.create(anyString(), anyString())).thenReturn(new CommonUserEntity("baeldung", "123456"));
+        UserRequestApplicationModelDTO userRequestApplicationModelDTO = new UserRequestApplicationModelDTO("eugen", "123456");
+        //when(userFactoryAggregator.create(anyString(), anyString())).thenReturn(new CommonUserEntity("eugen", "123456"));
 
         IUserInputApplicationBoundary.create(userRequestApplicationModelDTO);
 
         verify(userDsGateway).existsByName(userRequestModelArgumentCaptor.capture());
         String name = userRequestApplicationModelDTO.name();
-        assertEquals("baeldung", name);
+        assertEquals("eugen", name);
     }
 }

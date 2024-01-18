@@ -2,6 +2,7 @@ package eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.use
 
 import java.time.LocalDateTime;
 
+import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserMapper;
 import org.springframework.stereotype.Service;
 
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.IUserInputApplicationBoundary;
@@ -10,7 +11,7 @@ import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.IUse
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserDsRequestApplicationModelDTO;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserRequestApplicationModelDTO;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserResponseApplicationModelDTO;
-import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.IUserEntityDataRules;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.IUserEntity;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.IUserFactoryAggregate;
 
 /**
@@ -28,12 +29,14 @@ class UserRegisterApplicationInteractorImpl implements IUserInputApplicationBoun
     private final IUserRegisterApplicationDsGatewayService userDsGatewayService;
     private final IUserFactoryAggregate userFactoryAggregate;
     private final IUserOutputApplicationPresenter userOutputApplicationPresenter;
-    
+    private final UserMapper userMapper;
+
     public UserRegisterApplicationInteractorImpl(IUserRegisterApplicationDsGatewayService userRegisterDfGateway, IUserOutputApplicationPresenter userOutputApplicationPresenter,
-                                                 IUserFactoryAggregate userFactoryAggregate) {
+                                                 IUserFactoryAggregate userFactoryAggregate, UserMapper userMapper) {
         this.userDsGatewayService = userRegisterDfGateway;
         this.userOutputApplicationPresenter = userOutputApplicationPresenter;
         this.userFactoryAggregate = userFactoryAggregate;
+        this.userMapper = userMapper;
     }
     
     /**
@@ -55,18 +58,17 @@ class UserRegisterApplicationInteractorImpl implements IUserInputApplicationBoun
             return userOutputApplicationPresenter.prepareFailView("User already exists.");
         }
         //Domain creation
-        IUserEntityDataRules userEntity = userFactoryAggregate.create(requestModel.name(), requestModel.password());
+        IUserEntity userEntity = userFactoryAggregate.create(requestModel.name(), requestModel.password());
         if (!userEntity.passwordIsValid()) {
             return userOutputApplicationPresenter.prepareFailView("User password must have more than 5 characters.");
         }
         //A3
-        LocalDateTime now = LocalDateTime.now();
-        UserDsRequestApplicationModelDTO userDsModelDTO = new UserDsRequestApplicationModelDTO(userEntity.getName(), userEntity.getPassword(), now);
-
+        UserDsRequestApplicationModelDTO userDsModelDTO = userMapper.toDsRequestDTO(userEntity);
         userDsGatewayService.save(userDsModelDTO);
 
         // ResponseModel != userDTO (UserDsRequestApplicationModelDTO)
-        UserResponseApplicationModelDTO accountResponseModel = new UserResponseApplicationModelDTO(userDsModelDTO.name(), LocalDateTime.now().toString());
+        UserResponseApplicationModelDTO accountResponseModel = userMapper.toResponseDTOFromRequest(userDsModelDTO);
+//        UserResponseApplicationModelDTO accountResponseModel = new UserResponseApplicationModelDTO(userDsModelDTO.name(), LocalDateTime.now().toString());
         return userOutputApplicationPresenter.prepareSuccessView(accountResponseModel);
     }
     

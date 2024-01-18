@@ -1,12 +1,9 @@
 package eu.getsoftware.onion.cleanarchitecture.usercreation.infrastructure.model;
 
-import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.IAddressEntityData;
-import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.IUserEntityData;
-import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.model.UserAddresValueObject;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.IAddressEntity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 /**
  * DB-Mapping of DOMAIN Entity
@@ -18,7 +15,7 @@ import java.time.LocalDateTime;
 @Getter @Setter
 @NoArgsConstructor
 @RequiredArgsConstructor
-public class AddressDataMapperEntity implements IAddressEntityData //(no, manuell fill from DTO!!!)
+public class AddressDataMapperEntity implements IAddressEntity //(no, manuell fill from DTO!!!)
 {
     @Id
     @Setter(AccessLevel.PROTECTED)

@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.IUserOutputApplicationPresenter;
@@ -12,6 +13,7 @@ import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.mode
 /**
  * Eugen: //TODO: We assign HttpStatus to every error.
  */
+@Component
 public class UserResponseFormatter implements IUserOutputApplicationPresenter
 {
     @Override

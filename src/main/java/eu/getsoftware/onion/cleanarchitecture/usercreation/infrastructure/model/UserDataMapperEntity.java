@@ -4,8 +4,7 @@ import java.time.LocalDateTime;
 
 import javax.persistence.*;
 
-import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.IUserEntityData;
-import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.model.UserAddresValueObject;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.IUserEntity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,7 +22,7 @@ import lombok.Setter;
 @Getter @Setter
 @NoArgsConstructor
 @RequiredArgsConstructor
-public class UserDataMapperEntity implements IUserEntityData //(no, manuell fill from DTO!!!)
+public class UserDataMapperEntity implements IUserEntity //(no, manuell fill from DTO!!!)
 {
     @Id
     @Setter(AccessLevel.PROTECTED)
