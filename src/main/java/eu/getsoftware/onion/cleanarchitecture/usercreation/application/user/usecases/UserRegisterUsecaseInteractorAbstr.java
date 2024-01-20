@@ -2,15 +2,12 @@ package eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.use
 
 import java.time.LocalDateTime;
 
-import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserDsRequestMapper;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.*;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.IUserDTO;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.model.domainservice.IRegisterService;
 
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.IUserInputUsecaseBoundary;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.IUserOutputApplicationPresenter;
-import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserDsRequestApplicationModelDTO;
-import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserRequestApplicationModelDTO;
-import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserResponseApplicationModelDTO;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.IUserEntity;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.IUserFactoryAggregate;
 
@@ -24,19 +21,19 @@ import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.IUserFact
  * In Clean Architecture, we call them Interactors.
  */
 //@Service
-public abstract class UserRegisterUsecaseInteractorAbstr implements IUserInputUsecaseBoundary
+public abstract class UserRegisterUsecaseInteractorAbstr<T extends IUserEntity, Z extends IUserDTO> implements IUserInputUsecaseBoundary
 {
 //    private final IUserRegisterApplicationDsGatewayService userDsGatewayService;
     private final IUserFactoryAggregate userFactoryAggregate;
     private final IUserOutputApplicationPresenter userOutputApplicationPresenter;
     private final UserDsRequestMapper userDtoMapper;
-    private final IRegisterService<? extends IUserEntity, ? extends IUserDTO> userRegisterDsGatewayService;
+    private final IRegisterService<T, Z> userRegisterDsGatewayService;
 
     public UserRegisterUsecaseInteractorAbstr(
 //            IUserRegisterApplicationDsGatewayService userRegisterDfGateway, 
             IUserOutputApplicationPresenter userOutputApplicationPresenter,
             IUserFactoryAggregate userFactoryAggregate, UserDsRequestMapper userDsRequestMapper,
-            IRegisterService<? extends IUserEntity, ? extends IUserDTO> userRegisterDsGatewayService) {
+            IRegisterService<T, Z> userRegisterDsGatewayService) {
 //        this.userDsGatewayService = userRegisterDfGateway;
         this.userOutputApplicationPresenter = userOutputApplicationPresenter;
         this.userFactoryAggregate = userFactoryAggregate;
@@ -70,7 +67,9 @@ public abstract class UserRegisterUsecaseInteractorAbstr implements IUserInputUs
         //A3
 //        IUserDTO userDsModelDTO = userDtoMapper.toDsRequestDTO(userEntity);
         UserDsRequestApplicationModelDTO userDsModelDTO = userDtoMapper.toDsRequestDTO(userEntity);
-        userRegisterDsGatewayService.save(userDsModelDTO);
+//        var userDTO = (IUserDTO) userDsModelDTO;
+//        IRegisterService<T = UserDataMapperEntity, Z = UserDsRequestApplicationModelDTO>
+        userRegisterDsGatewayService.save((Z) userDsModelDTO);
 
         // ResponseModel != userDTO (UserDsRequestApplicationModelDTO)
         UserResponseApplicationModelDTO accountResponseModel = userDtoMapper.toResponseDTOFromRequest(userDsModelDTO);
