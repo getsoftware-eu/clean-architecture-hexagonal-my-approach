@@ -1,5 +1,7 @@
 package eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model;
 
+import java.time.LocalDateTime;
+
 /**
  * RESPONSE Representation:
  * every response has generated login of requester (session)??? and creationTime
@@ -8,10 +10,10 @@ package eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.mod
  */
 public record UserResponseApplicationModelDTO(
       String login,
-      String creationTime
+      String creationTimeStr
 ){
-    public UserResponseApplicationModelDTO withCreationTime(String newCreationTime)
+    public UserResponseApplicationModelDTO withCreationTime(String newCreationTimeStr)
     {
-        return new UserResponseApplicationModelDTO(login, newCreationTime);
+        return new UserResponseApplicationModelDTO(login, newCreationTimeStr);
     }
 }

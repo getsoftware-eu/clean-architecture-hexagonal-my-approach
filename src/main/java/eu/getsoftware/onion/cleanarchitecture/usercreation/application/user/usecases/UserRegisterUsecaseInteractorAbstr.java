@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.*;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.IUserDTO;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.model.domainservice.IEntityMapper;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.model.domainservice.IRegisterService;
 
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.IUserInputUsecaseBoundary;
@@ -25,15 +26,16 @@ import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.IUserFact
 public abstract class UserRegisterUsecaseInteractorAbstr<T extends IUserEntity, Z extends IUserDTO> implements IUserInputUsecaseBoundary
 {
 //    private final IUserRegisterApplicationDsGatewayService userDsGatewayService;
-    private final IUserFactoryAggregate userFactoryAggregate;
+    private final IUserFactoryAggregate<T, Z> userFactoryAggregate;
     private final IUserOutputApplicationPresenter userOutputApplicationPresenter;
-    private final UserDsRequestMapper userDtoMapper;
+    private final IEntityMapper<T, Z> userDtoMapper;
     private final IRegisterService<T, Z> userRegisterDsGatewayService;
 
     public UserRegisterUsecaseInteractorAbstr(
 //            IUserRegisterApplicationDsGatewayService userRegisterDfGateway, 
             IUserOutputApplicationPresenter userOutputApplicationPresenter,
-            IUserFactoryAggregate userFactoryAggregate, UserDsRequestMapper userDsRequestMapper,
+            IUserFactoryAggregate<T, Z> userFactoryAggregate,
+            IEntityMapper<T, Z> userDsRequestMapper,
             IRegisterService<T, Z> userRegisterDsGatewayService) {
 //        this.userDsGatewayService = userRegisterDfGateway;
         this.userOutputApplicationPresenter = userOutputApplicationPresenter;
@@ -61,18 +63,18 @@ public abstract class UserRegisterUsecaseInteractorAbstr<T extends IUserEntity, 
             return userOutputApplicationPresenter.prepareFailView("User already exists.");
         }
         //Domain creation
-        IUserEntity userEntity = userFactoryAggregate.create(requestModel.name(), requestModel.password());
+        T userEntity = userFactoryAggregate.create(requestModel.name(), requestModel.password());
         if (!userEntity.isPasswordValid()) {
             return userOutputApplicationPresenter.prepareFailView("User password must have more than 5 characters.");
         }
         //A3
 //        IUserDTO userDsModelDTO = userDtoMapper.toDsRequestDTO(userEntity);
-        IUserDTO userDsModelDTO = userDtoMapper.toDsRequestDTO(userEntity);
+        Z userDsModelDTO = userDtoMapper.toDsRequestDTO(userEntity);
 //        var userDTO = (IUserDTO) userDsModelDTO;
 //        IRegisterService<T = UserDataMapperEntity, Z = UserDsRequestApplicationModelDTO>
-        Z saveDTo = (Z) userDsModelDTO;
-        assert saveDTo != null;
-        userRegisterDsGatewayService.save(saveDTo);
+//        Z saveDTo = (Z) userDsModelDTO;
+        assert userDsModelDTO != null;
+        userRegisterDsGatewayService.save(userDsModelDTO);
 
         // ResponseModel != userDTO (UserDsRequestApplicationModelDTO)
         UserResponseApplicationModelDTO accountResponseModel = userDtoMapper.toResponseDTOFromRequest(userDsModelDTO);
@@ -87,8 +89,8 @@ public abstract class UserRegisterUsecaseInteractorAbstr<T extends IUserEntity, 
             return userOutputApplicationPresenter.prepareFailView("User not exists.");
         }
 
-        IUserEntity userEntity = userRegisterDsGatewayService.getById(userId);
-        UserDsRequestApplicationModelDTO userEntityDTO = userDtoMapper.toDTO(userEntity);
+        T userEntity = userRegisterDsGatewayService.getById(userId);
+        Z userEntityDTO = userDtoMapper.toDTO(userEntity);
 //        IUserDTO userEntityDTO = userRegisterDsGatewayService.getById(userId);
 //        UserDsRequestApplicationModelDTO userEntityDTO2 = userEntityDTO;
         

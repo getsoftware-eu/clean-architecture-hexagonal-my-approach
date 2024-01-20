@@ -1,9 +1,11 @@
 package eu.getsoftware.onion.cleanarchitecture.usercreation.infrastructure.controller;
 
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.IUserOutputApplicationPresenter;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserDsRequestApplicationModelDTO;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserDsRequestMapper;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.usecases.UserRegisterUsecaseInteractorAbstr;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.IUserFactoryAggregate;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.infrastructure.model.UserDataMapperEntity;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.infrastructure.service.UserRegService;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +17,7 @@ public class UserRegisterUsecaseInteractorImpl extends UserRegisterUsecaseIntera
     public UserRegisterUsecaseInteractorImpl(
 //            IUserRegisterApplicationDsGatewayService userRegisterDfGateway, 
             IUserOutputApplicationPresenter userOutputApplicationPresenter,
-            IUserFactoryAggregate userFactoryAggregate,
+            IUserFactoryAggregate<UserDataMapperEntity, UserDsRequestApplicationModelDTO> userFactoryAggregate,
             UserDsRequestMapper userDsRequestMapper,
             UserRegService userRegService) {
         super(/*userRegisterDfGateway,*/ userOutputApplicationPresenter, userFactoryAggregate, userDsRequestMapper, userRegService);

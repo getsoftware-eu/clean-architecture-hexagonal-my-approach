@@ -23,7 +23,7 @@ class UserRegisterApplicationDsGatewayService /*extends IRegisterService<UserDat
     
     @Override
     public UserDsRequestApplicationModelDTO getById(long id) {
-        return userRegService.getById(id);
+        return userRegService.getDTOById(id);
     }
     
     @Override

@@ -13,7 +13,7 @@ interface IEntityMapper<T: IUserEntity, Z : IUserDTO/* : IUserDTO*/>{
     fun toEntityById(id: Long?): T
 
     fun toDTO(entity: T?): Z?
-    fun toDTO(entity: IUserEntity?): Z?
+//    fun toDTO(entity: IUserEntity?): Z?
 //    @Mapping(target = "login", source = "name")
 //    @Mapping(target = "creationTime", defaultValue = "LocalDateTime.now()")
 //    fun toResponseDTOFromRequest(input: UserDsRequestApplicationModelDTO?): UserResponseApplicationModelDTO?
@@ -21,6 +21,7 @@ interface IEntityMapper<T: IUserEntity, Z : IUserDTO/* : IUserDTO*/>{
     @Mapping(target = "creationTime", defaultValue = "LocalDateTime.now()")
     fun toDsRequestDTO(entity: T?): Z?
 
+    fun toResponseDTOFromRequest(dto: Z) : UserResponseApplicationModelDTO
     
     fun toListDTO(assigmentFiles: List<T>): List<Z>
     

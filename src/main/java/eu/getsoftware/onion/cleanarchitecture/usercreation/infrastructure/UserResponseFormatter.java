@@ -18,7 +18,7 @@ public class UserResponseFormatter implements IUserOutputApplicationPresenter
 {
     @Override
     public UserResponseApplicationModelDTO prepareSuccessView(UserResponseApplicationModelDTO response) {
-        LocalDateTime responseTime = LocalDateTime.parse(response.creationTime());
+        LocalDateTime responseTime = LocalDateTime.parse(response.creationTimeStr());
         String formattedResponseTime = responseTime.format(DateTimeFormatter.ofPattern("hh:mm:ss"));
         
         return response.withCreationTime(formattedResponseTime);

@@ -15,9 +15,9 @@ interface UserDsRequestMapper : IEntityMapper<UserDataMapperEntity, UserDsReques
     @Mapping(target = "creationTime", defaultValue = "LocalDateTime.now()")
     fun toResponseDTO(entity: IUserEntity?): UserResponseApplicationModelDTO?    
     
-    @Mapping(target = "login", source = "name")
-    @Mapping(target = "creationTime", defaultValue = "LocalDateTime.now()")
-    fun toResponseDTOFromRequest(input: IUserDTO?): UserResponseApplicationModelDTO?
+//    @Mapping(target = "login", source = "name")
+//    @Mapping(target = "creationTime", defaultValue = "LocalDateTime.now()")
+//    fun toResponseDTOFromRequest(input: IUserDTO?): UserResponseApplicationModelDTO?
     
     @Mapping(target = "creationTime", defaultValue = "LocalDateTime.now()")
     fun toDsRequestDTO(entity: IUserEntity?): UserDsRequestApplicationModelDTO?

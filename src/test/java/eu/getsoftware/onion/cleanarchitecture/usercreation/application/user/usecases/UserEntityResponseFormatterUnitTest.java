@@ -7,8 +7,11 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.IUserInputUsecaseBoundary;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserDsRequestApplicationModelDTO;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserDsRequestMapper;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.infrastructure.controller.UserRegisterUsecaseInteractorImpl;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.infrastructure.model.UserDataMapperEntity;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.infrastructure.service.UserRegService;
 import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -27,9 +30,9 @@ class UserEntityResponseFormatterUnitTest
     UserResponseFormatter userResponseFormatter = new UserResponseFormatter();
     IUserRegisterApplicationDsGatewayService userDsGateway = mock(IUserRegisterApplicationDsGatewayService.class);
     IUserOutputApplicationPresenter userPresenter = mock(IUserOutputApplicationPresenter.class);
-    IUserFactoryAggregate userFactoryAggregate = mock(IUserFactoryAggregate.class);
-    
-    IUserInputUsecaseBoundary IUserInputApplicationBoundary = new UserRegisterUsecaseInteractorImpl(userDsGateway, userPresenter, userFactoryAggregate, userDsRequestMapper);
+    IUserFactoryAggregate<UserDataMapperEntity, UserDsRequestApplicationModelDTO> userFactoryAggregate = mock(IUserFactoryAggregate.class);
+    UserRegService userRegService = mock(UserRegService.class);
+    IUserInputUsecaseBoundary IUserInputApplicationBoundary = new UserRegisterUsecaseInteractorImpl(/*userDsGateway,*/ userPresenter, userFactoryAggregate, userDsRequestMapper, userRegService);
     ArgumentCaptor<String> userRequestModelArgumentCaptor = ArgumentCaptor.forClass(String.class);
 
     @Test
@@ -37,7 +40,7 @@ class UserEntityResponseFormatterUnitTest
         UserResponseApplicationModelDTO modelResponse = new UserResponseApplicationModelDTO("eugen", "2020-12-20T03:00:00.000");
         UserResponseApplicationModelDTO formattedResponse = userResponseFormatter.prepareSuccessView(modelResponse);
 
-        assertThat(formattedResponse.creationTime()).isEqualTo("03:00:00");
+        assertThat(formattedResponse.creationTimeStr()).isEqualTo("03:00:00");
     }
 
     @Test

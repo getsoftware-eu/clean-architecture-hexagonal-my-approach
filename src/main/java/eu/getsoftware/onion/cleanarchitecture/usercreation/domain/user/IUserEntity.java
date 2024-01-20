@@ -1,5 +1,7 @@
 package eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user;
 
+import java.time.LocalDateTime;
+
 /**
  * Domain Entity with business logik!
  * Only here is whole abstract business rules (isPasswordValid), not in implementing entity!!
@@ -21,5 +23,5 @@ public interface IUserEntity
     String getName();
     String getPassword();
     IAddressEntity getAddress();
-    String getCreationTime();
+    LocalDateTime getCreationTime();
 }

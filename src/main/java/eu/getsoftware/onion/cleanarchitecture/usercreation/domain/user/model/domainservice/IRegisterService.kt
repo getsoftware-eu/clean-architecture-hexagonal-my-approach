@@ -33,6 +33,11 @@ abstract class IRegisterService<T: IUserEntity, Z : IUserDTO/* : IUserDTO*/>(
             //            return new UserDsRequestApplicationModelDTO(user.getName(), user.getPassword(), user.getCreationTime());
             return user
         } else throw UserNotFoundException(id)
+    }  
+    
+    fun getDTOById(id: Long): Z? {
+        val user = getById(id)
+        return entityMapper.toDsRequestDTO(user)
     }
     
     abstract fun existsByName(name: String): Boolean
