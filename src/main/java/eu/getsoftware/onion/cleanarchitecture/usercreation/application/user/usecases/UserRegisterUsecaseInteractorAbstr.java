@@ -31,6 +31,13 @@ public abstract class UserRegisterUsecaseInteractorAbstr<T extends IUserEntity, 
     private final IEntityMapper<T, Z> userDtoMapper;
     private final IRegisterService<T, Z> userRegisterDsGatewayService;
 
+    /**
+     * Мы еще не знаем, с какими типами мы вызовем этот абстрактный  usecase класс, поэтому все типы через T, Z 
+     * @param userOutputApplicationPresenter
+     * @param userFactoryAggregate
+     * @param userDsRequestMapper
+     * @param userRegisterDsGatewayService
+     */
     public UserRegisterUsecaseInteractorAbstr(
 //            IUserRegisterApplicationDsGatewayService userRegisterDfGateway, 
             IUserOutputApplicationPresenter userOutputApplicationPresenter,
