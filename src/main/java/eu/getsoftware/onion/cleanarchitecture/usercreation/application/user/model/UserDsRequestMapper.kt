@@ -1,5 +1,6 @@
 package eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model
 
+import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.IUserDTO
 import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.IUserEntity
 import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.model.domainservice.IEntityMapper
 import eu.getsoftware.onion.cleanarchitecture.usercreation.infrastructure.model.UserDataMapperEntity
@@ -16,7 +17,7 @@ interface UserDsRequestMapper : IEntityMapper<UserDataMapperEntity, UserDsReques
     
     @Mapping(target = "login", source = "name")
     @Mapping(target = "creationTime", defaultValue = "LocalDateTime.now()")
-    fun toResponseDTOFromRequest(input: UserDsRequestApplicationModelDTO?): UserResponseApplicationModelDTO?
+    fun toResponseDTOFromRequest(input: IUserDTO?): UserResponseApplicationModelDTO?
     
     @Mapping(target = "creationTime", defaultValue = "LocalDateTime.now()")
     fun toDsRequestDTO(entity: IUserEntity?): UserDsRequestApplicationModelDTO?

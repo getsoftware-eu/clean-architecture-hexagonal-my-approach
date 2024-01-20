@@ -1,6 +1,7 @@
 package eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.usecases;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.*;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.IUserDTO;
@@ -66,10 +67,12 @@ public abstract class UserRegisterUsecaseInteractorAbstr<T extends IUserEntity, 
         }
         //A3
 //        IUserDTO userDsModelDTO = userDtoMapper.toDsRequestDTO(userEntity);
-        UserDsRequestApplicationModelDTO userDsModelDTO = userDtoMapper.toDsRequestDTO(userEntity);
+        IUserDTO userDsModelDTO = userDtoMapper.toDsRequestDTO(userEntity);
 //        var userDTO = (IUserDTO) userDsModelDTO;
 //        IRegisterService<T = UserDataMapperEntity, Z = UserDsRequestApplicationModelDTO>
-        userRegisterDsGatewayService.save((Z) userDsModelDTO);
+        Z saveDTo = (Z) userDsModelDTO;
+        assert saveDTo != null;
+        userRegisterDsGatewayService.save(saveDTo);
 
         // ResponseModel != userDTO (UserDsRequestApplicationModelDTO)
         UserResponseApplicationModelDTO accountResponseModel = userDtoMapper.toResponseDTOFromRequest(userDsModelDTO);
