@@ -1,7 +1,8 @@
-package eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.model;
+package eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.model.tempDomainObjects;
 
 import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.IUserEntity;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
  * 
  */
 @Getter
+@Setter
 class TempUserObject implements IUserEntity
 {
     String name;

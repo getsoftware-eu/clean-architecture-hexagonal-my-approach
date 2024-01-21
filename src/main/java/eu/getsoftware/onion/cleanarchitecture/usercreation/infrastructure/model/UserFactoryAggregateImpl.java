@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 @Component
 @AllArgsConstructor
 public class UserFactoryAggregateImpl/*<T extends UserDataMapperEntity, Z implements UserDsRequestApplicationModelDTO>*/ 
-        implements IUserFactoryAggregate<UserDataMapperEntity, UserDsRequestApplicationModelDTO>
+        implements IUserFactoryAggregate<UserDataMapperEntity/*, UserDsRequestApplicationModelDTO*/>
 {
     private final UserRegService userRegService;
 

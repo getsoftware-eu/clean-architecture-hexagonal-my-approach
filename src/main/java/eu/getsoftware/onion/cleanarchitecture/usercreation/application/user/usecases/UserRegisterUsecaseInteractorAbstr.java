@@ -25,7 +25,7 @@ import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.IUserFact
 public abstract class UserRegisterUsecaseInteractorAbstr<T extends IUserEntity, Z extends IUserDTO> implements IUserInputUsecaseBoundary
 {
 //    private final IUserRegisterApplicationDsGatewayService userDsGatewayService;
-    private final IUserFactoryAggregate<T, Z> userFactory;
+    private final IUserFactoryAggregate<T/*, Z*/> userFactory;
     private final IUserOutputApplicationPresenter userOutputApplicationPresenter;
     private final IEntityMapper<T, Z> userDtoMapper;
     private final IRegisterService<T, Z> userRegisterDsGatewayService;
@@ -40,7 +40,7 @@ public abstract class UserRegisterUsecaseInteractorAbstr<T extends IUserEntity, 
     public UserRegisterUsecaseInteractorAbstr(
 //            IUserRegisterApplicationDsGatewayService userRegisterDfGateway, 
             IUserOutputApplicationPresenter userOutputApplicationPresenter,
-            IUserFactoryAggregate<T, Z> userFactory,
+            IUserFactoryAggregate<T/*, Z*/> userFactory,
             IEntityMapper<T, Z> userDsRequestMapper,
             IRegisterService<T, Z> userRegisterDsGatewayService) {
 //        this.userDsGatewayService = userRegisterDfGateway;
@@ -59,7 +59,7 @@ public abstract class UserRegisterUsecaseInteractorAbstr<T extends IUserEntity, 
      * A3: and saves the new user ENTITY along with the creation time
      * (Use Cases be in different formats: as use cases or stories. We'll use a storytelling phrase:)
      * 
-     * Ds - to lower layers(?)
+     * Ds - (Data Source=DTO) to lower layers(?)
      * 
      *  Frage: just use here local tempUserObject!! and if ok - then persist it to lower layer???
      *  Answer: NO, REASON - all domain consistency logik bereits in interface methods (isPasswordValid()). 
@@ -74,7 +74,12 @@ public abstract class UserRegisterUsecaseInteractorAbstr<T extends IUserEntity, 
         if (userRegisterDsGatewayService.existsByName(userRequestDTO.name())) {
             return userOutputApplicationPresenter.prepareFailView("User already exists.");
         }
-        //A2 Domain creation (if domain was local temporally entity class)
+        //A2.1 temp Domain creation (if domain was local temporally entity class)
+        IUserEntity tempDomainEntity =  userFactory.create(userRequestDTO.name(), userRequestDTO.password());
+        if (!tempDomainEntity.isPasswordValid()) { //check if domain inner-consistency exception
+            return userOutputApplicationPresenter.prepareFailView("User password must have more than 5 characters.");
+        }
+        //A2.2 direct domain generics creation
         // Frage: just use here local tempUserObject!! and if ok - then persist it to lower layer???
         // Answer: NO, REASON - all domain consistency logik bereits in interface methods (isPasswordValid()). Domain check is done, so we can use Generics low-types directly!!
         T domainUserEntity = userFactory.create(userRequestDTO.name(), userRequestDTO.password());

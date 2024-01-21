@@ -5,7 +5,7 @@ import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.IUserDTO;
 import java.time.LocalDateTime;
 
 /**
- * DOMAIN representation: of found user as DTO (Data Source)
+ * DOMAIN representation: of found user as DTO (ds: Data Source)
  * @param name
  * @param password
  */
