@@ -11,6 +11,7 @@ import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.IUse
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.IUserOutputApplicationPresenter;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.IUserEntity;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.IUserFactoryAggregate;
+import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.model.tempDomainObjects.TempUserFactory;
 
 /**
  * eugen:
@@ -26,6 +27,7 @@ public abstract class UserRegisterUsecaseInteractorAbstr<T extends IUserEntity, 
 {
 //    private final IUserRegisterApplicationDsGatewayService userDsGatewayService;
     private final IUserFactoryAggregate<T/*, Z*/> userFactory;
+    private final TempUserFactory tempModelUserFactory = new TempUserFactory();
     private final IUserOutputApplicationPresenter userOutputApplicationPresenter;
     private final IEntityMapper<T, Z> userDtoMapper;
     private final IRegisterService<T, Z> userRegisterDsGatewayService;
@@ -74,8 +76,9 @@ public abstract class UserRegisterUsecaseInteractorAbstr<T extends IUserEntity, 
         if (userRegisterDsGatewayService.existsByName(userRequestDTO.name())) {
             return userOutputApplicationPresenter.prepareFailView("User already exists.");
         }
+        //-------------------------
         //A2.1 temp Domain creation (if domain was local temporally entity class)
-        IUserEntity tempDomainEntity =  userFactory.create(userRequestDTO.name(), userRequestDTO.password());
+        IUserEntity tempDomainEntity =  tempModelUserFactory.create(userRequestDTO.name(), userRequestDTO.password());
         if (!tempDomainEntity.isPasswordValid()) { //check if domain inner-consistency exception
             return userOutputApplicationPresenter.prepareFailView("User password must have more than 5 characters.");
         }
@@ -86,9 +89,12 @@ public abstract class UserRegisterUsecaseInteractorAbstr<T extends IUserEntity, 
         if (!domainUserEntity.isPasswordValid()) { //check if domain inner-consistency exception
             return userOutputApplicationPresenter.prepareFailView("User password must have more than 5 characters.");
         }
+        //-------------------------
         //A3 domain is correct, we can send it to lower layer for persist
         Z userDsModelDTO = userDtoMapper.toDsRequestDTO(domainUserEntity);
+        //A4 USER MANIPULATES DTO
         assert userDsModelDTO != null;
+//        var userDsModelDTO2 = userDsModelDTO.withPassword("pas2");
         //saving domain in lowing layer (with JPA)
         userRegisterDsGatewayService.persistFromDTO(userDsModelDTO);
 

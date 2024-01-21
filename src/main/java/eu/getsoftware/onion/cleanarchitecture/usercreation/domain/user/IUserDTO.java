@@ -10,4 +10,6 @@ public interface IUserDTO
     String getName();
     String getPassword();
     LocalDateTime getCreationTime();
+
+//    IUserDTO withPassword(String Password);
 }

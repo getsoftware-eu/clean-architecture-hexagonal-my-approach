@@ -24,7 +24,7 @@ public class UserRegisterUsecaseInteractorImpl extends UserRegisterUsecaseIntera
     public UserRegisterUsecaseInteractorImpl(
 //            IUserRegisterApplicationDsGatewayService userRegisterDfGateway, 
             IUserOutputApplicationPresenter userOutputApplicationPresenter,
-            IUserFactoryAggregate<UserDataMapperEntity, UserDsRequestApplicationModelDTO> userFactoryAggregate,
+            IUserFactoryAggregate<UserDataMapperEntity/*, UserDsRequestApplicationModelDTO*/> userFactoryAggregate,
             UserDsRequestMapper userDsRequestMapper,
             UserRegService userRegService) {
         super(/*userRegisterDfGateway,*/ userOutputApplicationPresenter, userFactoryAggregate, userDsRequestMapper, userRegService);

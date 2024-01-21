@@ -30,7 +30,7 @@ class UserEntityResponseFormatterUnitTest
     UserResponseFormatter userResponseFormatter = new UserResponseFormatter();
     IUserRegisterApplicationDsGatewayService userDsGateway = mock(IUserRegisterApplicationDsGatewayService.class);
     IUserOutputApplicationPresenter userPresenter = mock(IUserOutputApplicationPresenter.class);
-    IUserFactoryAggregate<UserDataMapperEntity, UserDsRequestApplicationModelDTO> userFactoryAggregate = mock(IUserFactoryAggregate.class);
+    IUserFactoryAggregate<UserDataMapperEntity/*, UserDsRequestApplicationModelDTO*/> userFactoryAggregate = mock(IUserFactoryAggregate.class);
     UserRegService userRegService = mock(UserRegService.class);
     IUserInputUsecaseBoundary IUserInputApplicationBoundary = new UserRegisterUsecaseInteractorImpl(/*userDsGateway,*/ userPresenter, userFactoryAggregate, userDsRequestMapper, userRegService);
     ArgumentCaptor<String> userRequestModelArgumentCaptor = ArgumentCaptor.forClass(String.class);
