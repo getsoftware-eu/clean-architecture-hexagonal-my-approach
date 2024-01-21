@@ -14,6 +14,13 @@ public class UserRegisterUsecaseInteractorImpl extends UserRegisterUsecaseIntera
 
     private final UserRegService userRegService;
 
+    /**
+     * From here I set the CONCRETE Generics T, Z types to abstract layer
+     * @param userOutputApplicationPresenter
+     * @param userFactoryAggregate
+     * @param userDsRequestMapper
+     * @param userRegService
+     */
     public UserRegisterUsecaseInteractorImpl(
 //            IUserRegisterApplicationDsGatewayService userRegisterDfGateway, 
             IUserOutputApplicationPresenter userOutputApplicationPresenter,

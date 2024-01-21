@@ -16,10 +16,10 @@ This is because it becomes practically impossible to separate the two logics onc
   - All inner-<b>business logic</b> is here (only fields and accessors and Aggregate Methods and Operations)
     - e.g. Consistency Rules: isPasswordIsValid(): >5 digits... (enforcing the aggregate’s business rules.)
   - Private Entities, Events, Inner-Operations and public Aggregat-Roots (entry point)
-  - <u>My view: Interface (I-Domains) of Entities with (consistency) methods on this entity-projections (only conditions between entities).</u>
+  - <u>My view: Interface (I-Domains) of Entities with (consistency) methods on this entity-projections (+ generics<T, Z> service: only conditions between local i-entities).</u>
 - <b>Application</b> (abstract) Use-Case Layer
   - <b>Separation of usecase-logik-methods from technical (low-level) service-help-methods</b>
-  - <u>My view: Abstract <b>Use Cases</b> (<b>Interactors</b> with I-Domains: create Entity, findByName, 'as a role X, I except special behavior'...)</u>
+  - <u>My view: Abstract<T, Z> <b>Use Cases</b> (<b>Interactors</b> with I-Domains: create Entity, findByName, 'as a role X, I except special behavior'...)</u>
     - 1.define (or use same level-) DTOs (with other layers)
     - 2.define own (or use same level-) IGateway (technical interface-service-methods) 
     - e.g. 'UserRegisterInteractor': injects und uses (low) implementation of own defined IGateway
@@ -29,6 +29,7 @@ This is because it becomes practically impossible to separate the two logics onc
   - Implementation of IGateway (technical help-services, defined in upper layer)
     - e.g. 'JpaUserRegisterApplicationService'
   - <u>My view: <b>Calling Use-Case</b>+konstruktor-injection of own ServiceImpl in abstract Usecase</u>
+    - setting (higher) generics with concrete (low) <T: EntityImpl, Z: DTOImpl>
   - The technical capabilities that <b>support</b> the layers above, ie. persistence or messaging.
   - MVC, interface adapters
 - Extra "Main" (<b>Config</b>) Package
