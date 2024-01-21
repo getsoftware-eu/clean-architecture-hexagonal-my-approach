@@ -61,6 +61,10 @@ public abstract class UserRegisterUsecaseInteractorAbstr<T extends IUserEntity, 
      * 
      * Ds - to lower layers(?)
      * 
+     *  Frage: just use here local tempUserObject!! and if ok - then persist it to lower layer???
+     *  Answer: NO, REASON - all domain consistency logik bereits in interface methods (isPasswordValid()). 
+     *  So Domain check is done, so we can use Generics low-types directly!!
+     * 
      * @param userRequestDTO (session requester)
      * @return
      */
@@ -71,7 +75,8 @@ public abstract class UserRegisterUsecaseInteractorAbstr<T extends IUserEntity, 
             return userOutputApplicationPresenter.prepareFailView("User already exists.");
         }
         //A2 Domain creation (if domain was local temporally entity class)
-        // Frage: just use local domainDTO and then persist it to lower layer???
+        // Frage: just use here local tempUserObject!! and if ok - then persist it to lower layer???
+        // Answer: NO, REASON - all domain consistency logik bereits in interface methods (isPasswordValid()). Domain check is done, so we can use Generics low-types directly!!
         T domainUserEntity = userFactory.create(userRequestDTO.name(), userRequestDTO.password());
         if (!domainUserEntity.isPasswordValid()) { //check if domain inner-consistency exception
             return userOutputApplicationPresenter.prepareFailView("User password must have more than 5 characters.");
