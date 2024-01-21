@@ -1,10 +1,8 @@
 package eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.model.domainservice
 
-import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserDsRequestApplicationModelDTO
 import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.IUserDTO
 import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.IUserEntity
 import eu.getsoftware.onion.cleanarchitecture.usercreation.infrastructure.error.UserNotFoundException
-import eu.getsoftware.onion.cleanarchitecture.usercreation.infrastructure.model.UserDataMapperEntity
 import org.springframework.data.repository.CrudRepository
 import java.util.*
 
@@ -15,14 +13,40 @@ abstract class IRegisterService<T: IUserEntity, Z : IUserDTO/* : IUserDTO*/>(
 
     abstract val assetClass: Class<T>
     
-    fun save(userDTO: Z): T {
-        val entity : T =  createInstance(assetClass)
+    fun createEntity(name: String): T {
+        val entity: T  
+        try {
+            entity = createInstance(assetClass);
+            entity.setInitValues(name)
+        } catch (e: Exception) {
+            throw RuntimeException(e);
+        }
+        
+        return entity
+    }      
+    
+    fun persistFromDTO(userDTO: Z): T {
+        val entity : T = createInstance(assetClass)
         entityMapper.updateAllFromDto(userDTO, entity)
 //        asset.saStatus = StatusEnum.NEU
         //asset.owner = userRepository.getReferenceById(ownerId)
         entityRepository.save(entity)
         return entity
-    }
+    }      
+    
+    fun persist(entity: T): T {
+        entityRepository.save(entity)
+        return entity
+    }  
+    
+//    fun save(entity: T): T {
+//        val entity : T = createInstance(assetClass)
+//        entityMapper.updateAllFromDto(userDTO, entity)
+////        asset.saStatus = StatusEnum.NEU
+//        //asset.owner = userRepository.getReferenceById(ownerId)
+//        entityRepository.save(entity)
+//        return entity
+//    }
 
     fun getById(id: Long): T? {
         val optionalUser: Optional<T> = entityRepository.findById(id)

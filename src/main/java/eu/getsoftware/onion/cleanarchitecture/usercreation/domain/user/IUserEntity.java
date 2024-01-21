@@ -17,7 +17,8 @@ public interface IUserEntity
         var password = getPassword();
         return password != null && password.length() > 5;
     }
-    
+
+    void setInitValues(String name);
     // --- Fields for Entity!! ---
     
     String getName();

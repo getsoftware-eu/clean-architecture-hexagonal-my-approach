@@ -8,9 +8,9 @@ import java.util.Optional;
  * We created a user factory method because of two reasons:
  *
  * To stock to the stable abstractions principle 
- * and to isolate the user creation.
+ * and to ISOLATE the user creation.
  */
 public interface IUserFactoryAggregate<T extends IUserEntity, Z extends IUserDTO>
 {
-    Optional<T> create(String name, String password);
+    T create(String name, String password);
 }

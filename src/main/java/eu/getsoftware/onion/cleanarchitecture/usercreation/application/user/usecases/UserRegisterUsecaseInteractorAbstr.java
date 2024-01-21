@@ -1,7 +1,6 @@
 package eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.usecases;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.*;
 import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.IUserDTO;
@@ -26,7 +25,7 @@ import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.IUserFact
 public abstract class UserRegisterUsecaseInteractorAbstr<T extends IUserEntity, Z extends IUserDTO> implements IUserInputUsecaseBoundary
 {
 //    private final IUserRegisterApplicationDsGatewayService userDsGatewayService;
-    private final IUserFactoryAggregate<T, Z> userFactoryAggregate;
+    private final IUserFactoryAggregate<T, Z> userFactory;
     private final IUserOutputApplicationPresenter userOutputApplicationPresenter;
     private final IEntityMapper<T, Z> userDtoMapper;
     private final IRegisterService<T, Z> userRegisterDsGatewayService;
@@ -34,19 +33,19 @@ public abstract class UserRegisterUsecaseInteractorAbstr<T extends IUserEntity, 
     /**
      * Мы еще не знаем, с какими типами мы вызовем этот абстрактный  usecase класс, поэтому все типы через T, Z 
      * @param userOutputApplicationPresenter
-     * @param userFactoryAggregate
+     * @param userFactory
      * @param userDsRequestMapper
      * @param userRegisterDsGatewayService
      */
     public UserRegisterUsecaseInteractorAbstr(
 //            IUserRegisterApplicationDsGatewayService userRegisterDfGateway, 
             IUserOutputApplicationPresenter userOutputApplicationPresenter,
-            IUserFactoryAggregate<T, Z> userFactoryAggregate,
+            IUserFactoryAggregate<T, Z> userFactory,
             IEntityMapper<T, Z> userDsRequestMapper,
             IRegisterService<T, Z> userRegisterDsGatewayService) {
 //        this.userDsGatewayService = userRegisterDfGateway;
         this.userOutputApplicationPresenter = userOutputApplicationPresenter;
-        this.userFactoryAggregate = userFactoryAggregate;
+        this.userFactory = userFactory;
         this.userDtoMapper = userDsRequestMapper;
         this.userRegisterDsGatewayService = userRegisterDsGatewayService;
     }
@@ -60,39 +59,33 @@ public abstract class UserRegisterUsecaseInteractorAbstr<T extends IUserEntity, 
      * A3: and saves the new user ENTITY along with the creation time
      * (Use Cases be in different formats: as use cases or stories. We'll use a storytelling phrase:)
      * 
-     * @param requestModel (session requester)
+     * Ds - to lower layers(?)
+     * 
+     * @param userRequestDTO (session requester)
      * @return
      */
     @Override
-    public UserResponseApplicationModelDTO create(UserRequestApplicationModelDTO requestModel) {
+    public UserResponseApplicationModelDTO create(UserRequestApplicationModelDTO userRequestDTO) {
         //A1 - ONLY DTOs
-        if (userRegisterDsGatewayService.existsByName(requestModel.name())) {
+        if (userRegisterDsGatewayService.existsByName(userRequestDTO.name())) {
             return userOutputApplicationPresenter.prepareFailView("User already exists.");
         }
-        //Domain creation
-        Optional<T> userEntityOpt = userFactoryAggregate.create(requestModel.name(), requestModel.password());
-        if(userEntityOpt.isPresent()) {
-           
-           var userEntity = userEntityOpt.get();
-           
-           if (!userEntity.isPasswordValid()) {
-               return userOutputApplicationPresenter.prepareFailView("User password must have more than 5 characters.");
-           }
-           //A3
-//        IUserDTO userDsModelDTO = userDtoMapper.toDsRequestDTO(userEntity);
-           Z userDsModelDTO = userDtoMapper.toDsRequestDTO(userEntity);
-//        var userDTO = (IUserDTO) userDsModelDTO;
-//        IRegisterService<T = UserDataMapperEntity, Z = UserDsRequestApplicationModelDTO>
-//        Z saveDTo = (Z) userDsModelDTO;
-           assert userDsModelDTO != null;
-           userRegisterDsGatewayService.save(userDsModelDTO);
+        //A2 Domain creation (if domain was local temporally entity class)
+        // Frage: just use local domainDTO and then persist it to lower layer???
+        T domainUserEntity = userFactory.create(userRequestDTO.name(), userRequestDTO.password());
+        if (!domainUserEntity.isPasswordValid()) { //check if domain inner-consistency exception
+            return userOutputApplicationPresenter.prepareFailView("User password must have more than 5 characters.");
+        }
+        //A3 domain is correct, we can send it to lower layer for persist
+        Z userDsModelDTO = userDtoMapper.toDsRequestDTO(domainUserEntity);
+        assert userDsModelDTO != null;
+        //saving domain in lowing layer (with JPA)
+        userRegisterDsGatewayService.persistFromDTO(userDsModelDTO);
 
-           // ResponseModel != userDTO (UserDsRequestApplicationModelDTO)
-           UserResponseApplicationModelDTO accountResponseModel = userDtoMapper.toResponseDTOFromRequest(userDsModelDTO);
+        // ResponseModel != userDTO (UserDsRequestApplicationModelDTO)
+        UserResponseApplicationModelDTO accountResponseModel = userDtoMapper.toResponseDTOFromRequest(userDsModelDTO);
 //        UserResponseApplicationModelDTO accountResponseModel = new UserResponseApplicationModelDTO(userDsModelDTO.name(), LocalDateTime.now().toString());
-           return userOutputApplicationPresenter.prepareSuccessView(accountResponseModel);
-       }
-        else return new UserResponseApplicationModelDTO("error", "error");
+        return userOutputApplicationPresenter.prepareSuccessView(accountResponseModel);
     }
     
     @Override 

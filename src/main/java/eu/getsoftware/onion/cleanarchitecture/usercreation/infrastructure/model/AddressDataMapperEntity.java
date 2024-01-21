@@ -28,13 +28,4 @@ public class AddressDataMapperEntity implements IAddressEntity //(no, manuell fi
     @NonNull
     private String city;
 
-    @Override
-    public String street() {
-        return street;
-    }
-
-    @Override
-    public String city() {
-        return city;
-    }
 }

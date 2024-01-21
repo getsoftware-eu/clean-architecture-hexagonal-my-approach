@@ -1,6 +1,5 @@
 package eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.model.domainservice
 
-import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserDsRequestApplicationModelDTO
 import eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.model.UserResponseApplicationModelDTO
 import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.IUserDTO
 import eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user.IUserEntity
@@ -8,7 +7,10 @@ import org.mapstruct.Mapping
 import org.mapstruct.MappingTarget
 import org.mapstruct.Named
 
-interface IEntityMapper<T: IUserEntity, Z : IUserDTO/* : IUserDTO*/>{
+/**
+ * central generic Interface for mapping Entity to Dto in lower layers 
+ */
+interface IEntityMapper<T: IUserEntity, Z : IUserDTO>{
 
     fun toEntityById(id: Long?): T
 

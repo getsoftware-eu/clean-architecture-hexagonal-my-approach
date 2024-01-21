@@ -41,4 +41,10 @@ public class UserDataMapperEntity implements IUserEntity //(no, manuell fill fro
     
     @NonNull
     private LocalDateTime creationTime;
+
+    @Override
+    public void setInitValues(String name) {
+        this.setName(name);
+        this.setCreationTime(LocalDateTime.now());
+    }
 }

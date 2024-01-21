@@ -28,7 +28,7 @@ class UserRegisterApplicationDsGatewayService /*extends IRegisterService<UserDat
     
     @Override
     public void save(UserDsRequestApplicationModelDTO requestModel) {
-        userRegService.save(requestModel);
+        userRegService.persistFromDTO(requestModel);
     }
 
 //    @Override

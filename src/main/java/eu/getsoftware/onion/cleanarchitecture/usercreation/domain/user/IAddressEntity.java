@@ -5,7 +5,7 @@ package eu.getsoftware.onion.cleanarchitecture.usercreation.domain.user;
  */
 public interface IAddressEntity
 {
-    String street();
+    String getStreet();
 
-    String city();
+    String getCity();
 }

@@ -8,13 +8,14 @@ import java.time.LocalDateTime;
  * DOMAIN representation: of found user as DTO (Data Source)
  * @param name
  * @param password
- * @param creationTime
  */
 public record UserDsRequestApplicationModelDTO (
         String name,
-        String password,
-        LocalDateTime creationTime
+        String password
 ) implements IUserDTO {
+
+    static LocalDateTime creationTime = LocalDateTime.now();
+    
     @Override
     public String getName() {
         return name;
