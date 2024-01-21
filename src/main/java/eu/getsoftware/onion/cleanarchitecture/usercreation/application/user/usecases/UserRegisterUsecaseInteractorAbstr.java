@@ -31,7 +31,7 @@ public abstract class UserRegisterUsecaseInteractorAbstr<T extends IUserEntity, 
     private final IUserOutputApplicationPresenter userOutputApplicationPresenter;
     private final IEntityMapper<T, Z> userDtoMapper;
     private final IRegisterService<T, Z> userRegisterDsGatewayService;
-
+    
     /**
      * Мы еще не знаем, с какими типами мы вызовем этот абстрактный  usecase класс, поэтому все типы через T, Z 
      * @param userOutputApplicationPresenter
@@ -77,10 +77,12 @@ public abstract class UserRegisterUsecaseInteractorAbstr<T extends IUserEntity, 
             return userOutputApplicationPresenter.prepareFailView("User already exists.");
         }
         //-------------------------
-        //A2.1 temp Domain creation (if domain was local temporally entity class)
-        IUserEntity tempDomainEntity =  tempModelUserFactory.create(userRequestDTO.name(), userRequestDTO.password());
-        if (!tempDomainEntity.isPasswordValid()) { //check if domain inner-consistency exception
-            return userOutputApplicationPresenter.prepareFailView("User password must have more than 5 characters.");
+        if(useLocaldomainObjectInspiteOfGenericEntity()) {
+            //A2.1 temp Domain creation (if domain was local temporally entity class)
+            IUserEntity tempDomainEntity = tempModelUserFactory.create(userRequestDTO.name(), userRequestDTO.password());
+            if (!tempDomainEntity.isPasswordValid()) { //check if domain inner-consistency exception
+                return userOutputApplicationPresenter.prepareFailView("User password must have more than 5 characters.");
+            }
         }
         //A2.2 direct domain generics creation
         // Frage: just use here local tempUserObject!! and if ok - then persist it to lower layer???
@@ -103,6 +105,8 @@ public abstract class UserRegisterUsecaseInteractorAbstr<T extends IUserEntity, 
 //        UserResponseApplicationModelDTO accountResponseModel = new UserResponseApplicationModelDTO(userDsModelDTO.name(), LocalDateTime.now().toString());
         return userOutputApplicationPresenter.prepareSuccessView(accountResponseModel);
     }
+
+    public abstract Boolean useLocaldomainObjectInspiteOfGenericEntity();
     
     @Override 
     public UserResponseApplicationModelDTO findById(UserRequestApplicationModelDTO requestModel, long userId)

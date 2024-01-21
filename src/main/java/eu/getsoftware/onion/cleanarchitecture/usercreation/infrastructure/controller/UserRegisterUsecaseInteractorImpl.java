@@ -31,4 +31,9 @@ public class UserRegisterUsecaseInteractorImpl extends UserRegisterUsecaseIntera
         
         this.userRegService = userRegService;
     }
+
+    @Override
+    public Boolean useLocaldomainObjectInspiteOfGenericEntity() {
+        return false;
+    }
 }
