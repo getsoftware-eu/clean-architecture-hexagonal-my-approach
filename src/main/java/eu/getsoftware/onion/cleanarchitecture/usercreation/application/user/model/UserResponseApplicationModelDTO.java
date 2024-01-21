@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
  * RESPONSE Representation:
  * every response has generated login of requester (session)??? and creationTime
  * @param login
- * @param creationTime
+ * @param creationTimeStr
  */
 public record UserResponseApplicationModelDTO(
       String login,

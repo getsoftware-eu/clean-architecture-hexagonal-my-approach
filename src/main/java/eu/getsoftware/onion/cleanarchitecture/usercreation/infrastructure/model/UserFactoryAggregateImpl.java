@@ -8,6 +8,7 @@ import kotlin.jvm.Throws;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Optional;
 
 /**
  * In the best-case scenario, a factory should receive plain DTO (or just primitive types) and contains as little as possible logic.
@@ -20,12 +21,19 @@ import java.lang.reflect.InvocationTargetException;
 @Component
 public class UserFactoryAggregateImpl<T extends UserDataMapperEntity, Z extends UserDsRequestApplicationModelDTO> implements IUserFactoryAggregate<T, Z>
 {
+    Class<T> assetClass;
+
     @Override
-    public T create(String name, String password) {
-        var entity = createInstance(UserDataMapperEntity.class);
-        entity.setName(name);
-        entity.setPassword(password);
-        return entity;
+    public Optional<T> create(String name, String password) {
+        T entity = null;
+        try {
+            entity = createInstance(assetClass);
+            entity.setName(name);
+            entity.setPassword(password);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return Optional.of(entity);
     }
 
 //    @Throws(exceptionClasses = InstantiationException.class, IllegalAccessException.class)

@@ -70,23 +70,29 @@ public abstract class UserRegisterUsecaseInteractorAbstr<T extends IUserEntity, 
             return userOutputApplicationPresenter.prepareFailView("User already exists.");
         }
         //Domain creation
-        T userEntity = userFactoryAggregate.create(requestModel.name(), requestModel.password());
-        if (!userEntity.isPasswordValid()) {
-            return userOutputApplicationPresenter.prepareFailView("User password must have more than 5 characters.");
-        }
-        //A3
+        Optional<T> userEntityOpt = userFactoryAggregate.create(requestModel.name(), requestModel.password());
+        if(userEntityOpt.isPresent()) {
+           
+           var userEntity = userEntityOpt.get();
+           
+           if (!userEntity.isPasswordValid()) {
+               return userOutputApplicationPresenter.prepareFailView("User password must have more than 5 characters.");
+           }
+           //A3
 //        IUserDTO userDsModelDTO = userDtoMapper.toDsRequestDTO(userEntity);
-        Z userDsModelDTO = userDtoMapper.toDsRequestDTO(userEntity);
+           Z userDsModelDTO = userDtoMapper.toDsRequestDTO(userEntity);
 //        var userDTO = (IUserDTO) userDsModelDTO;
 //        IRegisterService<T = UserDataMapperEntity, Z = UserDsRequestApplicationModelDTO>
 //        Z saveDTo = (Z) userDsModelDTO;
-        assert userDsModelDTO != null;
-        userRegisterDsGatewayService.save(userDsModelDTO);
+           assert userDsModelDTO != null;
+           userRegisterDsGatewayService.save(userDsModelDTO);
 
-        // ResponseModel != userDTO (UserDsRequestApplicationModelDTO)
-        UserResponseApplicationModelDTO accountResponseModel = userDtoMapper.toResponseDTOFromRequest(userDsModelDTO);
+           // ResponseModel != userDTO (UserDsRequestApplicationModelDTO)
+           UserResponseApplicationModelDTO accountResponseModel = userDtoMapper.toResponseDTOFromRequest(userDsModelDTO);
 //        UserResponseApplicationModelDTO accountResponseModel = new UserResponseApplicationModelDTO(userDsModelDTO.name(), LocalDateTime.now().toString());
-        return userOutputApplicationPresenter.prepareSuccessView(accountResponseModel);
+           return userOutputApplicationPresenter.prepareSuccessView(accountResponseModel);
+       }
+        else return new UserResponseApplicationModelDTO("error", "error");
     }
     
     @Override 
