@@ -25,7 +25,7 @@ This is because it becomes practically impossible to separate the two logics onc
     - e.g. 'UserRegisterInteractor': injects und uses (low) implementation of own defined IGateway
   - It does not contain inner-business-logic (=inner rules in Domains). But should contain interactor-logik (extern actions with Entities-Aggregates).
   - and we didn’t use any spring annotation in our business.
-- <b>Infrastructure</b> Layer
+- <b>Infrastructure</b> (backend) Layer
   - Implementation of IGateway (technical help-services, defined in upper layer)
     - e.g. 'JpaUserRegisterApplicationService'
   - <u>My view: <b>Calling Use-Case</b>+konstruktor-injection of own ServiceImpl in abstract Usecase</u>
