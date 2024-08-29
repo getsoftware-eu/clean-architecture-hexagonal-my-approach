@@ -7,7 +7,7 @@ import eu.getsoftware.cleanarchitecture.users.feautures.usercreation.app.dto.Req
 import eu.getsoftware.cleanarchitecture.users.feautures.usercreation.port.dto.ResponseUserPortDTO
 import org.mapstruct.*
 
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE /*, uses = [IUserRepository::class]*/)
+@Mapper(componentModel = "spring" /* eu: MapStruct now creates a Spring-bean*/, unmappedTargetPolicy = ReportingPolicy.IGNORE /*, uses = [IUserRepository::class]*/)
 interface RequestUserAppDTOMapper : IDomainMapper<UserMappedEntity, RequestUserAppDTO> {
     
 //    override fun toEntityById(id: Long?): IUserEntity

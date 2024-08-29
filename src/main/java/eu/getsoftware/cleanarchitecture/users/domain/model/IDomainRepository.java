@@ -13,6 +13,5 @@ import java.util.Optional;
 public interface IDomainRepository<T, ID> extends PagingAndSortingRepository<T, ID> {
     Optional<T> findById(Long id);
     Optional<T> findByName(String name);
-//    <S extends T> S save(S entity);
-
+    <S extends T> S save(S entity);
 }

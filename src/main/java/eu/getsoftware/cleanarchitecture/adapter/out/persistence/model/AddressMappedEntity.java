@@ -3,7 +3,7 @@ package eu.getsoftware.cleanarchitecture.adapter.out.persistence.model;
 import lombok.*;
 import eu.getsoftware.cleanarchitecture.users.domain.model.IAddressDomain;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 /**
  * DB-Mapping of DOMAIN Entity

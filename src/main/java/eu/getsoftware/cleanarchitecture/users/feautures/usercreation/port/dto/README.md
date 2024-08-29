@@ -1,0 +1,1 @@
+RequestDTO with value @Validations (validation on client side, not on the server as common)

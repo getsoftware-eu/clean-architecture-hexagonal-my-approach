@@ -3,7 +3,7 @@ package eu.getsoftware.cleanarchitecture.adapter.out.persistence.model;
 import eu.getsoftware.cleanarchitecture.users.domain.model.IUserDomain;
 import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 /**

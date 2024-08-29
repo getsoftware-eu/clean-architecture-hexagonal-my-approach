@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
+import eu.getsoftware.cleanarchitecture.adapter.out.persistence.mapper.RequestUserAppDTOMapper;
+import eu.getsoftware.cleanarchitecture.adapter.out.persistence.model.UserEntityFactory;
 import eu.getsoftware.cleanarchitecture.users.domain.model.IUserFactory;
 import eu.getsoftware.cleanarchitecture.users.feautures.usercreation.port.usecases.IUserInputPortUseCase;
 import eu.getsoftware.cleanarchitecture.users.feautures.usercreation.port.usecases.impl.UserInputPortUseCaseImpl;
@@ -13,6 +15,7 @@ import eu.getsoftware.cleanarchitecture.adapter.out.persistence.model.UserMapped
 import eu.getsoftware.cleanarchitecture.users.feautures.usercreation.port.service.UserRegisterPortServiceImpl;
 import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
+import org.mapstruct.factory.Mappers;
 import org.mockito.ArgumentCaptor;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -24,13 +27,18 @@ import eu.getsoftware.cleanarchitecture.users.feautures.usercreation.port.servic
 
 class UserEntityResponseFormatterUnitTest
 {
-    UserDsRequestMapper userDsRequestMapper;
+//    UserDsRequestMapper userDsRequestMapper;
     UserResponseDTOPortFormatter userResponseFormatter = new UserResponseDTOPortFormatter();
     IUserRegisterAppUseCase userDsGateway = mock(IUserRegisterAppUseCase.class);
     IUserResponseDTOPortPresenter userPresenter = mock(IUserResponseDTOPortPresenter.class);
     IUserFactory<UserMappedEntity/*, UserDsRequestApplicationModelDTO*/> userFactoryAggregate = mock(IUserFactory.class);
     UserRegisterPortServiceImpl userRegisterPortServiceImpl = mock(UserRegisterPortServiceImpl.class);
-    IUserInputPortUseCase IUserInputApplicationBoundary = new UserInputPortUseCaseImpl(/*userDsGateway,*/ userPresenter, userFactoryAggregate, userDsRequestMapper, userRegisterPortServiceImpl);
+    private IUserFactory<UserMappedEntity> userFactory = mock(UserEntityFactory.class);
+    private RequestUserAppDTOMapper requestUserDTOMapper = Mappers.getMapper(RequestUserAppDTOMapper.class);
+    private IUserResponseDTOPortPresenter userResponseDTOPresenter = new UserResponseDTOPortFormatter();
+    private UserRegisterPortServiceImpl userRegisterService = mock(UserRegisterPortServiceImpl.class);
+    //    IUserInputPortUseCase IUserInputApplicationBoundary = new UserInputPortUseCaseImpl(userPresenter, userFactoryAggregate, , userRegisterPortServiceImpl);
+    IUserInputPortUseCase IUserInputApplicationBoundary = new UserInputPortUseCaseImpl(userFactory, requestUserDTOMapper , userRegisterService, userResponseDTOPresenter);
     ArgumentCaptor<String> userRequestModelArgumentCaptor = ArgumentCaptor.forClass(String.class);
 
     @Test

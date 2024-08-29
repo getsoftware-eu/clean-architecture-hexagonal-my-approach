@@ -14,8 +14,9 @@ import org.springframework.core.type.filter.TypeFilter;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Configuration
-@EnableJpaRepositories(basePackages = { "eu.getsoftware.onion.cleanarchitecture.usercreation.infrastructure.repository" })
-@EntityScan(basePackages = {"eu.getsoftware.onion.cleanarchitecture.usercreation.infrastructure.model"})
+//eu: scan custom persistence Beans in external "adapter" package!
+@EnableJpaRepositories(basePackages = { "eu.getsoftware.cleanarchitecture.adapter.out.persistence.repository" })
+@EntityScan(basePackages = {"eu.getsoftware.cleanarchitecture.adapter.out.persistence.model"})
 public class InfrastructureConfiguration
 {
 	@Bean
@@ -36,4 +37,12 @@ public class InfrastructureConfiguration
 				.getClassName()
 				.endsWith("Model");
 	}
+
+//	@Bean //bean for our own created MapperInterface
+//	public IDomainMapper<UserMappedEntity, RequestUserAppDTO> domainMapper() {
+//
+//		IDomainMapper modelMapper = new RequestUserAppDTOMapper();
+////		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+//		return modelMapper;
+//	}
 }
