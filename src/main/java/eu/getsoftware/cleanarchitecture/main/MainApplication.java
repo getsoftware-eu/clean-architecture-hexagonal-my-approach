@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication(scanBasePackages = {"eu.getsoftware.onion.cleanarchitecture.usercreation"})
-public class OnionMainApplication
+public class MainApplication
 {
     public static void main(String[] args) {
-        SpringApplication.run(OnionMainApplication.class);
+        SpringApplication.run(MainApplication.class);
     }
     
 }

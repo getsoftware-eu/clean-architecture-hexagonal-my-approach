@@ -44,7 +44,7 @@ This is because, it becomes practically impossible to separate these two types o
 
 - ![cca with spring boot](/docs/img/boot-cca.jpg)
 
-- ![structure](/docs/img/onion0.jpg)
+- ![structure](/docs/img/onion1Tree.jpg)
 
 ### Special architecture decisions
 - In the configuration, I specified that Spring scans persistence beans in the external "Adapter" package.
