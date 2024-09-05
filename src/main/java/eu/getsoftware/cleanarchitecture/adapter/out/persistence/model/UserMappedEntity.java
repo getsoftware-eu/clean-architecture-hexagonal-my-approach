@@ -1,6 +1,6 @@
 package eu.getsoftware.cleanarchitecture.adapter.out.persistence.model;
 
-import eu.getsoftware.cleanarchitecture.users.domain.model.IUserDomain;
+import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomain;
 import lombok.*;
 
 import jakarta.persistence.*;

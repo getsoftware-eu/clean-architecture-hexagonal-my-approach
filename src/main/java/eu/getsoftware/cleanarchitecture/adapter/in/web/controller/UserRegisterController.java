@@ -1,19 +1,19 @@
 package eu.getsoftware.cleanarchitecture.adapter.in.web.controller;
 
-import eu.getsoftware.cleanarchitecture.users.feautures.usercreation.port.usecases.IUserInputPortUseCase;
-import eu.getsoftware.cleanarchitecture.users.feautures.usercreation.port.dto.RequestUserPortDTO;
-import eu.getsoftware.cleanarchitecture.users.feautures.usercreation.port.dto.ResponseUserPortDTO;
-import eu.getsoftware.cleanarchitecture.users.feautures.usercreation.port.usecases.impl.UserInputPortUseCaseImpl;
+import eu.getsoftware.cleanarchitecture.application.port.user.in.iservice.IUserInputPortService;
+import eu.getsoftware.cleanarchitecture.application.port.user.in.dto.RequestUserPortDTO;
+import eu.getsoftware.cleanarchitecture.application.port.user.out.ResponseUserPortDTO;
+import eu.getsoftware.cleanarchitecture.application.domain.service.user.impl.UserInputPortServiceImpl;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 @RestController("/api/v1/register/user")
 public class UserRegisterController {
 
-    final IUserInputPortUseCase userInputUseCase;
+    final IUserInputPortService userInputUseCase;
 
     UserRegisterController(
-        UserInputPortUseCaseImpl userUsecases
+        UserInputPortServiceImpl userUsecases
     ) {
         this.userInputUseCase = userUsecases;
     }

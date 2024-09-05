@@ -25,7 +25,7 @@ This is because, it becomes practically impossible to separate these two types o
     - Example: 'UserRegisterInteractor': injects und uses a (low-level) implementation of its own defined IGateway
   - Does not contain inner-business-logic (=inner rules within Domains). But should contain interactor-logik (extern actions with Entity-Aggregates).
   - No spring annotation are used in our business logic.
-- <b>Infrastructure</b> (backend) Layer
+- <b>Infrastructure</b> (backend impl) Layer
   - Implementation of IGateway (technical helper-services, defined in the upper layer)
     - Example: 'JpaUserRegisterApplicationService'
   - <u>My approach: <b>Calling Use-Case</b>+ constructor-injection of own ServiceImpl in the abstract Usecase</u>
@@ -47,7 +47,10 @@ This is because, it becomes practically impossible to separate these two types o
 - ![structure](/docs/img/onion1Tree.jpg)
 
 ### Special architecture decisions
-- In the configuration, I specified that Spring scans persistence beans in the external "Adapter" package.
+- Domain layer are organized by domain packages. Example: "users.domain"
+- Usage of "feature" package stimulates to split into small services
+- Application layers are separated within each feature package. Example: "usercreation.app" (private usecases) + "usercreation.port" (public boundaries).
+- In the configuration, I specified that Spring scans persistence beans in the external "adapter" package.
 - The requestDTO contains values with its own @Validation (so parameter-validation is not performed on the server, which is hidden from the user).
 
 ### My differences to the base article:

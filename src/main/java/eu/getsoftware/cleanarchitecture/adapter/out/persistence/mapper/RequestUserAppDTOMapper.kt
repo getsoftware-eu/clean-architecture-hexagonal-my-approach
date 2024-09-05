@@ -1,14 +1,14 @@
 package eu.getsoftware.cleanarchitecture.adapter.out.persistence.mapper
 
-import eu.getsoftware.cleanarchitecture.users.domain.model.IUserDomain
-import eu.getsoftware.cleanarchitecture.users.domain.model.mapper.IDomainMapper
+import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomain
+import eu.getsoftware.cleanarchitecture.application.domain.model.mapper.IDomainMapper
 import eu.getsoftware.cleanarchitecture.adapter.out.persistence.model.UserMappedEntity
-import eu.getsoftware.cleanarchitecture.users.feautures.usercreation.app.dto.RequestUserAppDTO
-import eu.getsoftware.cleanarchitecture.users.feautures.usercreation.port.dto.ResponseUserPortDTO
+import eu.getsoftware.cleanarchitecture.application.domain.usecase.user.dto.RequestUserUseCaseDTO
+import eu.getsoftware.cleanarchitecture.application.port.user.out.ResponseUserPortDTO
 import org.mapstruct.*
 
 @Mapper(componentModel = "spring" /* eu: MapStruct now creates a Spring-bean*/, unmappedTargetPolicy = ReportingPolicy.IGNORE /*, uses = [IUserRepository::class]*/)
-interface RequestUserAppDTOMapper : IDomainMapper<UserMappedEntity, RequestUserAppDTO> {
+interface RequestUserAppDTOMapper : IDomainMapper<UserMappedEntity, RequestUserUseCaseDTO> {
     
 //    override fun toEntityById(id: Long?): IUserEntity
 
@@ -21,11 +21,11 @@ interface RequestUserAppDTOMapper : IDomainMapper<UserMappedEntity, RequestUserA
 //    fun toResponseDTOFromRequest(input: IUserDTO?): UserResponseApplicationModelDTO?
     
     @Mapping(target = "creationTime", defaultValue = "LocalDateTime.now()")
-    fun toDsRequestDTO(entity: IUserDomain?): RequestUserAppDTO?
+    fun toDsRequestDTO(entity: IUserDomain?): RequestUserUseCaseDTO?
 
     @Named("mapWithoutData")
     @Mapping(target = "saStatus", ignore = true)
     fun updateFromDtoIgnoringSomeFields(entityDTO: ResponseUserPortDTO?, @MappingTarget entity: IUserDomain?)
 
-    fun updateAllFromDto(entityDTO: RequestUserAppDTO?, @MappingTarget entity: IUserDomain?)
+    fun updateAllFromDto(entityDTO: RequestUserUseCaseDTO?, @MappingTarget entity: IUserDomain?)
 }
