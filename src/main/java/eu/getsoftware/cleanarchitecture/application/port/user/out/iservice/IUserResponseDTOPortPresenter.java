@@ -1,4 +1,6 @@
-package eu.getsoftware.cleanarchitecture.application.port.user.out;
+package eu.getsoftware.cleanarchitecture.application.port.user.out.iservice;
+
+import eu.getsoftware.cleanarchitecture.application.port.user.out.dto.ResponseUserPortDTO;
 
 /**
  * Its an interface for external adapter usage, therefore it is located in "application.port.out"

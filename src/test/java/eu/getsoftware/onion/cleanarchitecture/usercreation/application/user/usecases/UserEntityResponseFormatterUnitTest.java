@@ -20,10 +20,10 @@ import org.mockito.ArgumentCaptor;
 import org.springframework.web.server.ResponseStatusException;
 
 import eu.getsoftware.cleanarchitecture.application.domain.usecase.user.iusecase.IUserRegisterUseCase;
-import eu.getsoftware.cleanarchitecture.application.port.user.out.IUserResponseDTOPortPresenter;
+import eu.getsoftware.cleanarchitecture.application.port.user.out.iservice.IUserResponseDTOPortPresenter;
 import eu.getsoftware.cleanarchitecture.application.port.user.in.dto.RequestUserPortDTO;
-import eu.getsoftware.cleanarchitecture.application.port.user.out.ResponseUserPortDTO;
-import eu.getsoftware.cleanarchitecture.adapter.in.web.UserResponseDTOPortFormatter;
+import eu.getsoftware.cleanarchitecture.application.port.user.out.dto.ResponseUserPortDTO;
+import eu.getsoftware.cleanarchitecture.adapter.out.UserResponseDTOPortFormatter;
 
 class UserEntityResponseFormatterUnitTest
 {

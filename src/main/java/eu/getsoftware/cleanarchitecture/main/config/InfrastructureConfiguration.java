@@ -29,7 +29,7 @@ public class InfrastructureConfiguration
 	void genericApplicationContext(BeanDefinitionRegistry beanRegistry) {
 		ClassPathBeanDefinitionScanner beanDefinitionScanner = new ClassPathBeanDefinitionScanner(beanRegistry);
 		beanDefinitionScanner.addIncludeFilter(removeModelAndEntitiesFilter());
-		beanDefinitionScanner.scan("eu.getsoftware.onion.cleanarchitecture.usercreation");
+		beanDefinitionScanner.scan("eu.getsoftware.cleanarchitecture");
 	}
 	
 	static TypeFilter removeModelAndEntitiesFilter() {

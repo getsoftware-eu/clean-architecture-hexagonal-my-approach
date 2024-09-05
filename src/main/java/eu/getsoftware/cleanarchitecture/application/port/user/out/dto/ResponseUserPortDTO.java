@@ -1,4 +1,4 @@
-package eu.getsoftware.cleanarchitecture.application.port.user.out;
+package eu.getsoftware.cleanarchitecture.application.port.user.out.dto;
 
 /**
  * RESPONSE Representation:

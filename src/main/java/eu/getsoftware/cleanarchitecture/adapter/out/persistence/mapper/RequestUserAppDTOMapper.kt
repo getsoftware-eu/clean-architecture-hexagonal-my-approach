@@ -4,7 +4,7 @@ import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomai
 import eu.getsoftware.cleanarchitecture.application.domain.model.mapper.IDomainMapper
 import eu.getsoftware.cleanarchitecture.adapter.out.persistence.model.UserMappedEntity
 import eu.getsoftware.cleanarchitecture.application.domain.usecase.user.dto.RequestUserUseCaseDTO
-import eu.getsoftware.cleanarchitecture.application.port.user.out.ResponseUserPortDTO
+import eu.getsoftware.cleanarchitecture.application.port.user.out.dto.ResponseUserPortDTO
 import org.mapstruct.*
 
 @Mapper(componentModel = "spring" /* eu: MapStruct now creates a Spring-bean*/, unmappedTargetPolicy = ReportingPolicy.IGNORE /*, uses = [IUserRepository::class]*/)

@@ -2,7 +2,7 @@ package eu.getsoftware.cleanarchitecture.application.domain.model.mapper
 
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDTO
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomain
-import eu.getsoftware.cleanarchitecture.application.port.user.out.ResponseUserPortDTO
+import eu.getsoftware.cleanarchitecture.application.port.user.out.dto.ResponseUserPortDTO
 import org.mapstruct.Mapping
 import org.mapstruct.MappingTarget
 import org.mapstruct.Named
