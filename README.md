@@ -7,9 +7,8 @@ One of the main principle of this architecture is:
 This is because, it becomes practically impossible to separate these two types of logic, once they are implemented (mixed) together.
 
 ## My Approach to implementing Onion "Clean-Architecture" with Java (Domain-driven Design, 'Hexagon' Architecture) 
- 
-![cross the architectonic boundaries](/docs/img/onion1.JPG)
 
+![structure](/docs/img/onion1Tree.jpg)
 
 ### Layer Structure:
 1. <b>Application</b> - the boundary between the core application logic and the external world.
@@ -46,9 +45,11 @@ This is because, it becomes practically impossible to separate these two types o
    - SpringConfig classes are divided separately for the 'domain', 'useCases' and 'infrastructure' layers.
      - f.e. scans for persistence beans in the external "adapter.out" package
 
-- ![cca with spring boot](/docs/img/boot-cca.jpg)
+![cross the architectonic boundaries](/docs/img/onion1.JPG)
 
-- ![structure](/docs/img/onion1Tree.jpg)
+
+![cca with spring boot](/docs/img/boot-cca.jpg)
+
 
 ### Special architecture decisions
 - Domain layer: organized by domain packages. Example: "users.domain"
