@@ -68,7 +68,7 @@ This is because, it becomes practically impossible to separate these two types o
     - Inject (port)Service as a Boundary-Interface
 
 
-- ![onion layers](/docs/img/onion3.JPG)
+- ![onion layers](/docs/img/clean.jpg)
 - ![onion layers interactions](/docs/img/onion2.JPG)
 - 
 ## Alternative layers structure and encapsulation
