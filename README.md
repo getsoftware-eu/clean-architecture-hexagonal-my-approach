@@ -24,10 +24,10 @@ This is because, it becomes practically impossible to separate these two types o
        - 1.define (or use same level-) DTOs (with other layers)
        - 2.define own (or use same level-) IGateway (technical interface-service-methods) 
        - Example: 'UserRegisterInteractor': injects und uses a (low-level) implementation of its own defined IGateway
-     - Does not contain inner-business-logic (=inner rules within Domains). But should contain interactor-logik (extern actions with Entity-Aggregates).
-     - No spring annotation are used in our business logic.
-   - <b>Infrastructure</b> (backend impl) layer
-     - Implementation of IGateway (technical helper-services, defined in the upper layer)
+     - Does not contain inner-business-logic (=inner rules within domain.module). But should contain interactor-logik (extern actions with entity-aggregates).
+     - No spring annotation are used in our business logic (wearing with spring config).
+   - <b>Infrastructure</b> (backend impl.) layer
+     - Implementation of IGateway (technical helper-services, defined in the upper (useCase) layer)
        - Example: 'JpaUserRegisterApplicationService'
      - <u>My approach: <b>Calling Use-Case</b>+ constructor-injection of own ServiceImpl in the abstract Usecase</u>
        - setting (higher) generics with concrete (low-level) <T: EntityImpl, Z: DTOImpl>
@@ -37,14 +37,14 @@ This is because, it becomes practically impossible to separate these two types o
      - interfaces of portServices for the outside world (adapters)
      - DTOs for outside world requests and responses
 2. <b>Adapter</b> Layer
-  - <b>in</b> adapters:
-    - specific user request (Controller Adapters)
-  - <b>out</b> adapters:
-    - persistence details + mapping (Infrastructure Adapters)
-    - Presenter (ViewModel Adapters)
+   - <b>in</b> adapters:
+     - specific user request (Controller Adapters)
+   - <b>out</b> adapters:
+     - persistence details + mapping (Infrastructure Adapters)
+     - Presenter (ViewModel Adapters)
 3. Extra "Main" (<b>Config</b>) Package
-  - SpringConfig classes are divided separately for the 'domain', 'useCases' and 'infrastructure' layers.
-    - f.e. scans for persistence beans in the external "adapter.out" package
+   - SpringConfig classes are divided separately for the 'domain', 'useCases' and 'infrastructure' layers.
+     - f.e. scans for persistence beans in the external "adapter.out" package
 
 - ![cca with spring boot](/docs/img/boot-cca.jpg)
 
@@ -59,7 +59,7 @@ This is because, it becomes practically impossible to separate these two types o
 
 ### My differences to the base article:
 - My modifications and corrections
-    - 5 basic Layers ("application.domain", "application.usecase", "application.infrastructure", "application.port", "adapter", "Main") for the project package hierarchy. 
+    - 5 basic Layers ("domain.model", "domain.usecase", "domain.infrastructure", "application.port", "adapter", "Main") for the project package hierarchy. 
     - I believe Aggregates (DDD) should serve as an EntryPoint to Domain-Module (not just as a Factory)
     - Use records (Java 17) as Value-Objects
     - <b>ArchUnit</b> for enforce DDD Onion Architecture rules.
