@@ -12,12 +12,12 @@ This is because, it becomes practically impossible to separate these two types o
 
 ### Layer Structure:
 1. <b>Application</b> - the boundary between the core application logic and the external world.
-   - <b>Domain</b> Layer
+   - <b>Domain.model</b> layer
      - All inner-<b>business logic</b> is contained here (only fields, accessors and aggregate methods and operations)
        - Example: Consistency rules like 'isPasswordIsValid(): >5' digits... (enforcing the aggregate’s business rules)
      - Private entities, events, inner operations and public Aggregat-Roots (as entry points)
      - <u>My approach: The interface (I-Domains) of entities with (consistency) methods on these entity-projections (+ generic<T, Z> in the service: only conditions between local i-entities).</u>
-   - <b>UseCase</b> (abstract) Layer
+   - <b>UseCase</b> (abstract) layer
      - <b>Separation of usecase-logik-methods from technical (low-level) service-help-methods</b>
      - <u>My approach: Abstract<T, Z> <b>Use Cases</b> (<b>Interactors</b> with I-Domains: create Entity, findByName, 'as a role X, I except special behavior'...)</u>
        - 1.define (or use same level-) DTOs (with other layers)
@@ -35,14 +35,14 @@ This is because, it becomes practically impossible to separate these two types o
    - <b>Port</b> interfaces for adapters (public boundaries)
      - interfaces of portServices for the outside world (adapters)
      - DTOs for outside world requests and responses
-2. <b>Adapter</b> Layer
+2. <b>Adapter</b> layer
    - <b>in</b> adapters:
      - specific user request (Controller Adapters)
    - <b>out</b> adapters:
      - persistence details + mapping (Infrastructure Adapters)
      - Presenter (ViewModel Adapters)
-3. Extra "Main" (<b>Config</b>) Package
-   - SpringConfig classes are divided separately for the 'domain', 'useCases' and 'infrastructure' layers.
+3. Extra "Main" (<b>Config</b>) package
+   - SpringConfig classes are divided separately for the 'application', 'useCases' and 'infrastructure' layers.
      - f.e. scans for persistence beans in the external "adapter.out" package
 
 ![cross the architectonic boundaries](/docs/img/onion1.JPG)
@@ -52,11 +52,11 @@ This is because, it becomes practically impossible to separate these two types o
 
 
 ### Special architecture decisions
-- Domain layer: organized by domain packages. Example: "users.domain"
-- Port Layer: The (command) requestDTO contains values with its own @Validation (so parameter-validation is not performed on the server, which is hidden from the user).
-- Infrastructure Layer: separately naming PortServices, example:"UserPortService.java" (from the name we can recognize, we implement port interface). Other internal "services" will be used here too.
-- UseCase Layer: example "onlineUseCase.java" (from the name we can recognize, we define a useCase and it belongs to "useCase" Layer)
-- Main (Config) Layer: I specified that Spring scans persistence beans in the external "adapter.out.persistence" package.
+- <b>Domain layer:</b> organized by domain packages. Example: "users.domain"
+- <b>Port Layer:</b> The (command) requestDTO contains values with its own @Validation (so parameter-validation is not performed on the server, which is hidden from the user).
+- <b>Infrastructure Layer:</b> separately naming PortServices, example:"UserPortService.java" (from the name we can recognize, we implement port interface). Other internal "services" will be used here too.
+- <b>UseCase Layer:</b> example "onlineUseCase.java" (from the name we can recognize, we define a useCase and it belongs to "useCase" Layer)
+- <b>Main (Config) Layer:</b> I specified that Spring scans persistence beans in the external "adapter.out.persistence" package.
 
 ### My differences to the base article:
 - My modifications and corrections
@@ -80,3 +80,4 @@ This is because, it becomes practically impossible to separate these two types o
 
 - [Clean Architecture with Spring Boot](https://www.baeldung.com/spring-boot-clean-architecture)
 - [Architecture rules & ArchUnit check](https://www.jvt.me/posts/2022/01/28/spring-boot-onion-architecture/)
+- [Get Your Hands Dirty on Clean Architecture](https://github.com/thombergs/buckpal/tree/master)
