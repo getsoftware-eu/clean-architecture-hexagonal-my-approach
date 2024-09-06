@@ -3,7 +3,7 @@
 "Clean" (Layered) Architecture is another way to achieve <b>separation of concerns</b>, <b>encapsulation</b> and <b>decoupling</b> by grouping code units based on their domain and functional role within the application. 
 
 One of the main principle of this architecture is:
-<b>We should never mix business-logik and application-logik within a service class</b>.
+<b>We should never mix business-logik("useCase") and application-logik("infrastructure") within a one service class</b>.
 This is because, it becomes practically impossible to separate these two types of logic, once they are implemented (mixed) together.
 
 ## My Approach to implementing Onion "Clean-Architecture" with Java (Domain-driven Design, 'Hexagon' Architecture) 
