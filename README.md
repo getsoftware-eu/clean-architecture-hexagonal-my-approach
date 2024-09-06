@@ -48,7 +48,7 @@ This is because, it becomes practically impossible to separate these two types o
 ![cross the architectonic boundaries](/docs/img/onion1.JPG)
 
 
-![cca with spring boot](/docs/img/boot-cca.jpg)
+![cca with spring boot](/docs/img/boot-cca.webp)
 
 
 ### Special architecture decisions
