@@ -1,7 +1,7 @@
-package eu.getsoftware.cleanarchitecture.application.domain.service.user.impl;
+package eu.getsoftware.cleanarchitecture.application.domain.infrastructure.portService.impl;
 
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserFactory;
-import eu.getsoftware.cleanarchitecture.application.domain.service.user.UserInputPortServiceAbstr;
+import eu.getsoftware.cleanarchitecture.application.domain.infrastructure.portService.UserInputPortServiceAbstr;
 import eu.getsoftware.cleanarchitecture.application.domain.usecase.user.dto.RequestUserUseCaseDTO;
 import eu.getsoftware.cleanarchitecture.adapter.out.persistence.model.UserMappedEntity;
 import eu.getsoftware.cleanarchitecture.application.port.user.out.iservice.IUserResponseDTOPortPresenter;

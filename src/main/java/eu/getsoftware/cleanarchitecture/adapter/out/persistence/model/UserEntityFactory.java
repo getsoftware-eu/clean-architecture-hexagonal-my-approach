@@ -1,7 +1,7 @@
 package eu.getsoftware.cleanarchitecture.adapter.out.persistence.model;
 
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserFactory;
-import eu.getsoftware.cleanarchitecture.application.domain.service.user.impl.RegisterUserPortServiceImpl;
+import eu.getsoftware.cleanarchitecture.application.domain.infrastructure.portService.impl.RegisterUserPortServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 

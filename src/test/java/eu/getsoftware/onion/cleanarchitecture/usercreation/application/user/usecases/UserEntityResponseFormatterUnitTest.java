@@ -10,9 +10,9 @@ import eu.getsoftware.cleanarchitecture.adapter.out.persistence.mapper.RequestUs
 import eu.getsoftware.cleanarchitecture.adapter.out.persistence.model.UserEntityFactory;
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserFactory;
 import eu.getsoftware.cleanarchitecture.application.port.user.in.iservice.IUserInputPortService;
-import eu.getsoftware.cleanarchitecture.application.domain.service.user.impl.UserInputPortServiceImpl;
+import eu.getsoftware.cleanarchitecture.application.domain.infrastructure.portService.impl.UserInputPortServiceImpl;
 import eu.getsoftware.cleanarchitecture.adapter.out.persistence.model.UserMappedEntity;
-import eu.getsoftware.cleanarchitecture.application.domain.service.user.impl.RegisterUserPortServiceImpl;
+import eu.getsoftware.cleanarchitecture.application.domain.infrastructure.portService.impl.RegisterUserPortServiceImpl;
 import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;

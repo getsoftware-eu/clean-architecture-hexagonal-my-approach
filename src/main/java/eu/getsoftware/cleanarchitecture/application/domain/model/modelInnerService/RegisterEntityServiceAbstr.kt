@@ -1,4 +1,4 @@
-package eu.getsoftware.cleanarchitecture.application.domain.model.entityService
+package eu.getsoftware.cleanarchitecture.application.domain.model.modelInnerService
 
 import eu.getsoftware.cleanarchitecture.common.error.UserNotFoundException
 import eu.getsoftware.cleanarchitecture.application.domain.model.mapper.IDomainMapper

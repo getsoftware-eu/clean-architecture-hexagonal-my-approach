@@ -1,6 +1,6 @@
-package eu.getsoftware.cleanarchitecture.application.domain.service.user.impl
+package eu.getsoftware.cleanarchitecture.application.domain.infrastructure.portService.impl
 
-import eu.getsoftware.cleanarchitecture.application.domain.model.entityService.RegisterEntityServiceAbstr
+import eu.getsoftware.cleanarchitecture.application.domain.model.modelInnerService.RegisterEntityServiceAbstr
 import eu.getsoftware.cleanarchitecture.adapter.out.persistence.model.UserMappedEntity
 import eu.getsoftware.cleanarchitecture.application.domain.model.IDomainRepository
 import eu.getsoftware.cleanarchitecture.application.domain.usecase.user.dto.RequestUserUseCaseDTO

@@ -1,10 +1,10 @@
-package eu.getsoftware.cleanarchitecture.application.domain.service.user;
+package eu.getsoftware.cleanarchitecture.application.domain.infrastructure.portService;
 
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDTO;
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomain;
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserFactory;
 import eu.getsoftware.cleanarchitecture.application.domain.model.mapper.IDomainMapper;
-import eu.getsoftware.cleanarchitecture.application.domain.model.entityService.RegisterEntityServiceAbstr;
+import eu.getsoftware.cleanarchitecture.application.domain.model.modelInnerService.RegisterEntityServiceAbstr;
 import eu.getsoftware.cleanarchitecture.application.domain.model.tempDomainObjects.user.TempUserFactory;
 import eu.getsoftware.cleanarchitecture.application.port.user.in.iservice.IUserInputPortService;
 import eu.getsoftware.cleanarchitecture.application.port.user.out.iservice.IUserResponseDTOPortPresenter;

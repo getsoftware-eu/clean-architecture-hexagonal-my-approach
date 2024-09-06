@@ -1,7 +1,7 @@
 package eu.getsoftware.cleanarchitecture.application.domain.usecase.user.impl;
 
 import eu.getsoftware.cleanarchitecture.application.domain.usecase.user.iusecase.IUserRegisterUseCase;
-import eu.getsoftware.cleanarchitecture.application.domain.service.user.impl.RegisterUserPortServiceImpl;
+import eu.getsoftware.cleanarchitecture.application.domain.infrastructure.portService.impl.RegisterUserPortServiceImpl;
 import eu.getsoftware.cleanarchitecture.application.domain.usecase.user.dto.RequestUserUseCaseDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
