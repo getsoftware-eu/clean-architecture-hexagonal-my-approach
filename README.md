@@ -1,6 +1,12 @@
 # My vision of Clean Architecture (Hexagonal + Onion) implementation
 
-"Clean" (Layered) Architecture is another way to achieve <b>separation of concerns</b>, <b>encapsulation</b> and <b>decoupling</b> by grouping code units based on their domain and functional role within the application. 
+<b>Hexagonal</b> Architecture is focused on managing the boundaries between an application and the outside world. 
+
+Inside the 'hexagon,' we can apply Domain-Driven Design (DDD) or a layered (Onion) architecture.
+
+In this project, I use a mix of simplified Domain-Driven Design (DDD) with <b>Clean</b>-Architecture (The 'infrastructure' and 'use case' logic is grouped into separate layers).
+
+<b>"Clean" (Layered)</b> Architecture is another way to achieve <b>separation of concerns</b>, <b>encapsulation</b> and <b>decoupling</b> by grouping code units based on their domain and functional role within the application. 
 
 One of the main principle of this architecture is:
 <b>We should never mix business-logik("useCase") and application-logik("infrastructure") within a one service class</b>.
