@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
  */
 
 @Entity
-@Table(name = "user", schema = "userschema")
+@Table(name = "user", schema = "userschema") //eu: Every bounded context stores its entities in its own DB schema
 @Getter @Setter
 @NoArgsConstructor
 @RequiredArgsConstructor

@@ -6,10 +6,10 @@ import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserFacto
 import eu.getsoftware.cleanarchitecture.application.domain.model.mapper.IDomainMapper;
 import eu.getsoftware.cleanarchitecture.application.domain.model.modelInnerService.RegisterEntityServiceAbstr;
 import eu.getsoftware.cleanarchitecture.application.domain.model.tempDomainObjects.user.TempUserFactory;
-import eu.getsoftware.cleanarchitecture.application.port.user.in.iservice.IUserInputPortService;
-import eu.getsoftware.cleanarchitecture.application.port.user.out.iservice.IUserResponseDTOPortPresenter;
-import eu.getsoftware.cleanarchitecture.application.port.user.in.dto.RequestUserPortDTO;
-import eu.getsoftware.cleanarchitecture.application.port.user.out.dto.ResponseUserPortDTO;
+import eu.getsoftware.cleanarchitecture.application.port.in.user.iPortService.IUserInputPortService;
+import eu.getsoftware.cleanarchitecture.application.port.out.user.IUserResponseDTOPortPresenter;
+import eu.getsoftware.cleanarchitecture.application.port.in.user.iPortService.dto.RequestUserPortDTO;
+import eu.getsoftware.cleanarchitecture.application.port.in.user.iPortService.dto.ResponseUserPortDTO;
 
 import java.time.LocalDateTime;
 

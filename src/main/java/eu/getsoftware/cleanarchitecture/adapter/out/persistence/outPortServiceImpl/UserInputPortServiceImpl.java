@@ -1,10 +1,10 @@
-package eu.getsoftware.cleanarchitecture.application.domain.infrastructure.portService.impl;
+package eu.getsoftware.cleanarchitecture.adapter.out.persistence.outPortServiceImpl;
 
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserFactory;
 import eu.getsoftware.cleanarchitecture.application.domain.infrastructure.portService.UserInputPortServiceAbstr;
-import eu.getsoftware.cleanarchitecture.application.domain.usecase.user.dto.RequestUserUseCaseDTO;
+import eu.getsoftware.cleanarchitecture.application.port.in.user.iUseCase.dto.RequestUserUseCaseDTO;
 import eu.getsoftware.cleanarchitecture.adapter.out.persistence.model.UserMappedEntity;
-import eu.getsoftware.cleanarchitecture.application.port.user.out.iservice.IUserResponseDTOPortPresenter;
+import eu.getsoftware.cleanarchitecture.application.port.out.user.IUserResponseDTOPortPresenter;
 import eu.getsoftware.cleanarchitecture.adapter.out.persistence.mapper.RequestUserAppDTOMapper;
 import org.springframework.stereotype.Service;
 

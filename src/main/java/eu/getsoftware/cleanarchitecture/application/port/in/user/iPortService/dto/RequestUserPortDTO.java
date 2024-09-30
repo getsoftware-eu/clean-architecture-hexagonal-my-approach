@@ -1,4 +1,4 @@
-package eu.getsoftware.cleanarchitecture.application.port.user.in.dto;
+package eu.getsoftware.cleanarchitecture.application.port.in.user.iPortService.dto;
 
 import jakarta.validation.constraints.Size;
 import jakarta.validation.constraints.NotNull;

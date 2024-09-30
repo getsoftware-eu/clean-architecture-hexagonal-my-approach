@@ -1,10 +1,11 @@
-package eu.getsoftware.cleanarchitecture.application.domain.infrastructure.portService.impl
+package eu.getsoftware.cleanarchitecture.adapter.out.persistence.outPortServiceImpl
 
 import eu.getsoftware.cleanarchitecture.application.domain.model.modelInnerService.RegisterEntityServiceAbstr
 import eu.getsoftware.cleanarchitecture.adapter.out.persistence.model.UserMappedEntity
 import eu.getsoftware.cleanarchitecture.application.domain.model.IDomainRepository
-import eu.getsoftware.cleanarchitecture.application.domain.usecase.user.dto.RequestUserUseCaseDTO
+import eu.getsoftware.cleanarchitecture.application.port.`in`.user.iUseCase.dto.RequestUserUseCaseDTO
 import eu.getsoftware.cleanarchitecture.adapter.out.persistence.mapper.RequestUserAppDTOMapper
+import eu.getsoftware.cleanarchitecture.application.port.out.user.iPortService.IRegisterUserPortService
 import org.springframework.stereotype.Service
 
 //TODO eu: is it application-layer usecase or just implementing infrastruktur-layer with missing technical details???
@@ -21,11 +22,11 @@ import org.springframework.stereotype.Service
  * because serviceMethods() are for (Sa, Sb) UNIQUE and these methods() external called from (abstract)controller as part of 'StrukturaServices' contract //no need for multi-layer usage
  */
 @Service
-class RegisterUserPortServiceImpl(
+class RegisterUserPortServiceImpl (
     val userRepository: IDomainRepository<UserMappedEntity, Long>,
     mapper: RequestUserAppDTOMapper,
     override val assetClass: Class<UserMappedEntity> = UserMappedEntity::class.java
-): RegisterEntityServiceAbstr<UserMappedEntity, RequestUserUseCaseDTO>(mapper, userRepository) {
+): IRegisterUserPortService, RegisterEntityServiceAbstr<UserMappedEntity, RequestUserUseCaseDTO>(mapper, userRepository) {
 
     //eu: smells like technical implementation
     

@@ -1,4 +1,4 @@
-package eu.getsoftware.cleanarchitecture.application.port.user.out.dto;
+package eu.getsoftware.cleanarchitecture.application.port.in.user.iPortService.dto;
 
 /**
  * RESPONSE Representation:

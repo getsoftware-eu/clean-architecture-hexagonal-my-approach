@@ -7,8 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 
-import eu.getsoftware.cleanarchitecture.application.port.user.out.iservice.IUserResponseDTOPortPresenter;
-import eu.getsoftware.cleanarchitecture.application.port.user.out.dto.ResponseUserPortDTO;
+import eu.getsoftware.cleanarchitecture.application.port.out.user.IUserResponseDTOPortPresenter;
+import eu.getsoftware.cleanarchitecture.application.port.in.user.iPortService.dto.ResponseUserPortDTO;
 
 /**
  * Eugen: //TODO: We assign HttpStatus to every error.

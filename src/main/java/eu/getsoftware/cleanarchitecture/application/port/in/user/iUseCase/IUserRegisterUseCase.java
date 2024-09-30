@@ -1,6 +1,6 @@
-package eu.getsoftware.cleanarchitecture.application.domain.usecase.user.iusecase;
+package eu.getsoftware.cleanarchitecture.application.port.in.user.iUseCase;
 
-import eu.getsoftware.cleanarchitecture.application.domain.usecase.user.dto.RequestUserUseCaseDTO;
+import eu.getsoftware.cleanarchitecture.application.port.in.user.iUseCase.dto.RequestUserUseCaseDTO;
 
 //TODO IT IS NOT A application-layer service, its dummy interface for infustructure layer.
 //eu: Where is business logik here? Where is separation and lucken fullung???

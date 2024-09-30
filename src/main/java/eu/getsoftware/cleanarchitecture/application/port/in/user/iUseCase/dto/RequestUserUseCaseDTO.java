@@ -1,4 +1,4 @@
-package eu.getsoftware.cleanarchitecture.application.domain.usecase.user.dto;
+package eu.getsoftware.cleanarchitecture.application.port.in.user.iUseCase.dto;
 
 
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDTO;
