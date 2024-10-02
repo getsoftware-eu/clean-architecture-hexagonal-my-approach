@@ -16,7 +16,7 @@ This is because, it becomes practically impossible to separate these two types o
 
 ## My Approach to implementing Onion "Clean-Architecture" with Java (Domain-driven Design, 'Hexagon' Architecture) 
 
-![structure](/docs/img/onion1Tree.jpg)
+![structure](/docs/img/onion2Tree.jpg)
 
 ### Layer Structure:
 1. <b>Application</b> - the boundary between the core application logic and the external world.
