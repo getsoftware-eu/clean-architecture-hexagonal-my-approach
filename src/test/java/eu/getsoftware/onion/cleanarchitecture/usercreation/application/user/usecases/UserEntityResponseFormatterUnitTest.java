@@ -12,7 +12,7 @@ import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserFacto
 import eu.getsoftware.cleanarchitecture.application.port.in.user.iPortService.IUserInputPortService;
 import eu.getsoftware.cleanarchitecture.adapter.out.persistence.outPortServiceImpl.UserInputPortServiceImpl;
 import eu.getsoftware.cleanarchitecture.adapter.out.persistence.model.UserMappedEntity;
-import eu.getsoftware.cleanarchitecture.adapter.out.persistence.outPortServiceImpl.RegisterUserPortServiceImpl;
+import eu.getsoftware.cleanarchitecture.adapter.out.persistence.outPortServiceImpl.gateways.RegisterUserPortGatewayServiceImpl;
 import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
@@ -33,11 +33,11 @@ class UserEntityResponseFormatterUnitTest
     IUserRegisterUseCase internalUserDsGateway = mock(IUserRegisterUseCase.class);
     IUserResponseDTOPortPresenter userPresenter = mock(IUserResponseDTOPortPresenter.class);
     IUserFactory<UserMappedEntity/*, UserDsRequestApplicationModelDTO*/> userFactoryAggregate = mock(IUserFactory.class);
-    RegisterUserPortServiceImpl registerUserPortServiceImpl = mock(RegisterUserPortServiceImpl.class);
+    RegisterUserPortGatewayServiceImpl registerUserPortGatewayServiceImpl = mock(RegisterUserPortGatewayServiceImpl.class);
     private IUserFactory<UserMappedEntity> userFactory = mock(UserEntityFactory.class);
     private RequestUserAppDTOMapper requestUserDTOMapper = Mappers.getMapper(RequestUserAppDTOMapper.class);
     private IUserResponseDTOPortPresenter userResponseDTOPresenter = new UserResponseDTOPortFormatter();
-    private RegisterUserPortServiceImpl userRegisterService = mock(RegisterUserPortServiceImpl.class);
+    private RegisterUserPortGatewayServiceImpl userRegisterService = mock(RegisterUserPortGatewayServiceImpl.class);
     //    IUserInputPortUseCase IUserInputApplicationBoundary = new UserInputPortUseCaseImpl(userPresenter, userFactoryAggregate, , userRegisterPortServiceImpl);
     IUserInputPortService IUserInputApplicationBoundary = new UserInputPortServiceImpl(userFactory, requestUserDTOMapper , userRegisterService, userResponseDTOPresenter);
     ArgumentCaptor<String> userRequestModelArgumentCaptor = ArgumentCaptor.forClass(String.class);

@@ -1,16 +1,17 @@
-package eu.getsoftware.cleanarchitecture.adapter.out.persistence.outPortServiceImpl
+package eu.getsoftware.cleanarchitecture.adapter.out.persistence.outPortServiceImpl.gateways
 
-import eu.getsoftware.cleanarchitecture.application.domain.model.modelInnerService.RegisterEntityServiceAbstr
-import eu.getsoftware.cleanarchitecture.adapter.out.persistence.model.UserMappedEntity
-import eu.getsoftware.cleanarchitecture.application.domain.model.IDomainRepository
-import eu.getsoftware.cleanarchitecture.application.port.`in`.user.iUseCase.dto.RequestUserUseCaseDTO
 import eu.getsoftware.cleanarchitecture.adapter.out.persistence.mapper.RequestUserAppDTOMapper
-import eu.getsoftware.cleanarchitecture.application.port.out.user.iPortService.IRegisterUserPortService
+import eu.getsoftware.cleanarchitecture.adapter.out.persistence.model.UserMappedEntity
+import eu.getsoftware.cleanarchitecture.adapter.out.persistence.repository.JpaUserRepository
+import eu.getsoftware.cleanarchitecture.application.domain.model.modelInnerService.PersistEntityGatewayServiceAbstr
+import eu.getsoftware.cleanarchitecture.application.port.`in`.user.iUseCase.dto.RequestUserUseCaseDTO
 import org.springframework.stereotype.Service
 
 //TODO eu: is it application-layer usecase or just implementing infrastruktur-layer with missing technical details???
 
 /**
+ * Gateway serviceImpl, that call repository methods to get and persist entity
+ * 
  * Difference to Struktura: 
  * 1. we define IService in iDomain
  * 2. use service.methods() in UseCases (usecase level)
@@ -22,11 +23,14 @@ import org.springframework.stereotype.Service
  * because serviceMethods() are for (Sa, Sb) UNIQUE and these methods() external called from (abstract)controller as part of 'StrukturaServices' contract //no need for multi-layer usage
  */
 @Service
-class RegisterUserPortServiceImpl (
-    val userRepository: IDomainRepository<UserMappedEntity, Long>,
+class RegisterUserPortGatewayServiceImpl (
+//    val userRepository: IDomainRepository<UserMappedEntity, Long>,
+    val userRepository: JpaUserRepository,
     mapper: RequestUserAppDTOMapper,
     override val assetClass: Class<UserMappedEntity> = UserMappedEntity::class.java
-): IRegisterUserPortService, RegisterEntityServiceAbstr<UserMappedEntity, RequestUserUseCaseDTO>(mapper, userRepository) {
+): 
+//    IRegisterUserPortGatewayService, 
+    PersistEntityGatewayServiceAbstr<UserMappedEntity, RequestUserUseCaseDTO>(mapper, userRepository) {
 
     //eu: smells like technical implementation
     

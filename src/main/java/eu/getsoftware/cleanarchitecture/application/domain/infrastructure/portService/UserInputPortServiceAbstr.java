@@ -4,7 +4,7 @@ import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDTO;
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomain;
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserFactory;
 import eu.getsoftware.cleanarchitecture.application.domain.model.mapper.IDomainMapper;
-import eu.getsoftware.cleanarchitecture.application.domain.model.modelInnerService.RegisterEntityServiceAbstr;
+import eu.getsoftware.cleanarchitecture.application.domain.model.modelInnerService.PersistEntityGatewayServiceAbstr;
 import eu.getsoftware.cleanarchitecture.application.domain.model.tempDomainObjects.user.TempUserFactory;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.iPortService.IUserInputPortService;
 import eu.getsoftware.cleanarchitecture.application.port.out.user.IUserResponseDTOPortPresenter;
@@ -29,26 +29,26 @@ public abstract class UserInputPortServiceAbstr<T extends IUserDomain, Z extends
     private final TempUserFactory tempModelUserFactory = new TempUserFactory();
     private final IUserResponseDTOPortPresenter userResponseDTOPortPresenter;
     private final IDomainMapper<T, Z> userDtoMapper;
-    private final RegisterEntityServiceAbstr<T, Z> userRegisterService;
+    private final PersistEntityGatewayServiceAbstr<T, Z> userPersistService;
     
     /**
      * Мы еще не знаем, с какими типами мы вызовем этот абстрактный  usecase класс, поэтому все типы через T, Z 
      * @param userResponseDTOPortPresenter
      * @param userFactory
      * @param userRequestAppDTOMapper
-     * @param userRegisterService
+     * @param userPersistService
      */
     public UserInputPortServiceAbstr(
 //            IUserRegisterApplicationDsGatewayService userRegisterDfGateway, 
             IUserFactory<T/*, Z*/> userFactory,
             IDomainMapper<T, Z> userRequestAppDTOMapper,
-            RegisterEntityServiceAbstr<T, Z> userRegisterService,
+            PersistEntityGatewayServiceAbstr<T, Z> userPersistService,
             IUserResponseDTOPortPresenter userResponseDTOPortPresenter
     ) {
 //        this.userDsGatewayService = userRegisterDfGateway;
         this.userFactory = userFactory;
         this.userDtoMapper = userRequestAppDTOMapper;
-        this.userRegisterService = userRegisterService;
+        this.userPersistService = userPersistService;
         this.userResponseDTOPortPresenter = userResponseDTOPortPresenter;
     }
     
@@ -73,7 +73,7 @@ public abstract class UserInputPortServiceAbstr<T extends IUserDomain, Z extends
     @Override
     public ResponseUserPortDTO create(RequestUserPortDTO userRequestDTO) {
         //A1 - ONLY DTOs
-        if (userRegisterService.existsByName(userRequestDTO.name())) {
+        if (userPersistService.existsByName(userRequestDTO.name())) {
             return userResponseDTOPortPresenter.prepareFailView("User already exists.");
         }
         //-------------------------
@@ -98,7 +98,7 @@ public abstract class UserInputPortServiceAbstr<T extends IUserDomain, Z extends
         assert userDsModelDTO != null;
 //        var userDsModelDTO2 = userDsModelDTO.withPassword("pas2");
         //saving domain in lowing layer (with JPA)
-        userRegisterService.persistFromDTO(userDsModelDTO);
+        userPersistService.persistFromDTO(userDsModelDTO);
 
         // ResponseModel != userDTO (UserDsRequestApplicationModelDTO)
         ResponseUserPortDTO accountResponseModel = userDtoMapper.toResponseDTOFromRequest(userDsModelDTO);
@@ -111,11 +111,11 @@ public abstract class UserInputPortServiceAbstr<T extends IUserDomain, Z extends
     @Override 
     public ResponseUserPortDTO findById(RequestUserPortDTO requestModel, long userId)
     {
-        if (! userRegisterService.existsByName(requestModel.name())) {
+        if (! userPersistService.existsByName(requestModel.name())) {
             return userResponseDTOPortPresenter.prepareFailView("User not exists.");
         }
 
-        T userEntity = userRegisterService.getById(userId);
+        T userEntity = userPersistService.getById(userId);
         Z userEntityDTO = userDtoMapper.toDTO(userEntity);
 //        IUserDTO userEntityDTO = userRegisterDsGatewayService.getById(userId);
 //        UserDsRequestApplicationModelDTO userEntityDTO2 = userEntityDTO;

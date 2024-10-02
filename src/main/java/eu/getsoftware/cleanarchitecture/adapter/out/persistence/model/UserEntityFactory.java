@@ -1,7 +1,7 @@
 package eu.getsoftware.cleanarchitecture.adapter.out.persistence.model;
 
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserFactory;
-import eu.getsoftware.cleanarchitecture.adapter.out.persistence.outPortServiceImpl.RegisterUserPortServiceImpl;
+import eu.getsoftware.cleanarchitecture.adapter.out.persistence.outPortServiceImpl.gateways.RegisterUserPortGatewayServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -20,14 +20,14 @@ import org.springframework.stereotype.Component;
 public class UserEntityFactory/*<T extends UserDataMapperEntity, Z implements UserDsRequestApplicationModelDTO>*/ 
         implements IUserFactory<UserMappedEntity/*, UserDsRequestApplicationModelDTO*/>
 {
-    private final RegisterUserPortServiceImpl registerUserPortServiceImpl;
+    private final RegisterUserPortGatewayServiceImpl registerUserPortGatewayServiceImpl;
 
     Class<UserMappedEntity> assetClass;
 
     @Override
     public UserMappedEntity create(String name, String password) {
 
-        UserMappedEntity entity = registerUserPortServiceImpl.createEntity(name);
+        UserMappedEntity entity = registerUserPortGatewayServiceImpl.createEntity(name);
         entity.setPassword(password);
         
         //sun address creation and other consistency logik

@@ -1,25 +1,28 @@
 package eu.getsoftware.cleanarchitecture.application.domain.model.modelInnerService
 
+import eu.getsoftware.cleanarchitecture.application.domain.model.IDomainPersistGatewayService
+import eu.getsoftware.cleanarchitecture.application.domain.model.IDomainRepository
 import eu.getsoftware.cleanarchitecture.common.error.UserNotFoundException
 import eu.getsoftware.cleanarchitecture.application.domain.model.mapper.IDomainMapper
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDTO
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomain
-import eu.getsoftware.cleanarchitecture.application.domain.model.IDomainRepository
 import java.util.*
 
 /**
  * domain - because only entity service.
  * 
+ * gateway - interface to get and persist entity to repository
+ * 
  * its internal business conditions, that have to be internal treaten
  */
-abstract class RegisterEntityServiceAbstr<T: IUserDomain, Z : IUserDTO>(
+abstract class PersistEntityGatewayServiceAbstr<T: IUserDomain, Z : IUserDTO>(
     val domainMapper: IDomainMapper<T, Z>,
     val domainRepository: IDomainRepository<T, Long>,
-) {
+) : IDomainPersistGatewayService<T, Z> {
 
     abstract val assetClass: Class<T>
     
-    fun createEntity(name: String): T {
+    override fun createEntity(name: String): T {
         val entity: T  
         try {
             entity = createInstance(assetClass);
@@ -31,7 +34,7 @@ abstract class RegisterEntityServiceAbstr<T: IUserDomain, Z : IUserDTO>(
         return entity
     }      
     
-    fun persistFromDTO(userDTO: Z): T {
+    override fun persistFromDTO(userDTO: Z): T {
         val entity : T = createInstance(assetClass)
         domainMapper.updateAllFromDto(userDTO, entity)
 //        asset.saStatus = StatusEnum.NEU
@@ -40,7 +43,7 @@ abstract class RegisterEntityServiceAbstr<T: IUserDomain, Z : IUserDTO>(
         return entity
     }      
     
-    fun persist(entity: T): T {
+    override fun persist(entity: T): T {
         domainRepository.save(entity)
         return entity
     }  
@@ -54,7 +57,7 @@ abstract class RegisterEntityServiceAbstr<T: IUserDomain, Z : IUserDTO>(
 //        return entity
 //    }
 
-    fun getById(id: Long): T? {
+    override fun getById(id: Long): T? {
         val optionalUser: Optional<T> = domainRepository.findById(id)
 
         if (optionalUser.isPresent) {
@@ -65,7 +68,7 @@ abstract class RegisterEntityServiceAbstr<T: IUserDomain, Z : IUserDTO>(
         } else throw UserNotFoundException(id)
     }  
     
-    fun getDTOById(id: Long): Z? {
+    override fun getDTOById(id: Long): Z? {
         val user = getById(id)
         return domainMapper.toDsRequestDTO(user)
     }

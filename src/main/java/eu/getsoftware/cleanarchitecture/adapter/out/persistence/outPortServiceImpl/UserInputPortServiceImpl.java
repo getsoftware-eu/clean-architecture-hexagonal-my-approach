@@ -1,5 +1,6 @@
 package eu.getsoftware.cleanarchitecture.adapter.out.persistence.outPortServiceImpl;
 
+import eu.getsoftware.cleanarchitecture.adapter.out.persistence.outPortServiceImpl.gateways.RegisterUserPortGatewayServiceImpl;
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserFactory;
 import eu.getsoftware.cleanarchitecture.application.domain.infrastructure.portService.UserInputPortServiceAbstr;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.iUseCase.dto.RequestUserUseCaseDTO;
@@ -21,7 +22,7 @@ public class UserInputPortServiceImpl extends UserInputPortServiceAbstr<UserMapp
     public UserInputPortServiceImpl(
             IUserFactory<UserMappedEntity/*, UserRequestAppDTO*/> userFactory,
             RequestUserAppDTOMapper requestUserAppDTOMapper,
-            RegisterUserPortServiceImpl userRegisterPortService,
+            RegisterUserPortGatewayServiceImpl userRegisterPortService,
             IUserResponseDTOPortPresenter userResponseDTOPortPresenter) {
         super(userFactory, requestUserAppDTOMapper, userRegisterPortService, userResponseDTOPortPresenter);
     }

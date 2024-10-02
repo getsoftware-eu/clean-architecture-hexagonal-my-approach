@@ -1,8 +1,8 @@
 package eu.getsoftware.cleanarchitecture.application.domain.usecase.user;
 
 import eu.getsoftware.cleanarchitecture.application.port.in.user.iUseCase.IUserRegisterUseCase;
-import eu.getsoftware.cleanarchitecture.adapter.out.persistence.outPortServiceImpl.RegisterUserPortServiceImpl;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.iUseCase.dto.RequestUserUseCaseDTO;
+import eu.getsoftware.cleanarchitecture.application.port.out.user.iPortService.gateways.IRegisterUserPortGatewayService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,10 +24,7 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 /*public restrict??*/ class UserRegisterUseCaseImpl /*extends IRegisterService<UserDataMapperEntity, UserDsRequestApplicationModelDTO>*/ implements IUserRegisterUseCase
 {
-    /**
-     * we insert low-level-Service to useCase ?
-     */
-    private final RegisterUserPortServiceImpl registerUserPortServiceImpl;
+    private final IRegisterUserPortGatewayService registerUserPortGatewayService;
     
     boolean someAbstratMethod(String identifier){
 
@@ -48,17 +45,17 @@ import org.springframework.stereotype.Service;
     
     @Override
     public boolean existsByName(String name) {
-        return registerUserPortServiceImpl.existsByName(name);
+        return registerUserPortGatewayService.existsByName(name);
     }    
     
     @Override
     public RequestUserUseCaseDTO getById(long id) {
-        return registerUserPortServiceImpl.getDTOById(id);
+        return registerUserPortGatewayService.getDTOById(id);
     }
     
     @Override
     public void save(RequestUserUseCaseDTO requestModel) {
-        registerUserPortServiceImpl.persistFromDTO(requestModel);
+        registerUserPortGatewayService.persistFromDTO(requestModel);
     }
 
 //    @Override
