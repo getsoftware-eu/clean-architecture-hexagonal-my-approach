@@ -6,18 +6,16 @@ import eu.getsoftware.cleanarchitecture.application.port.out.user.iPortService.g
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-//TODO: is it application layer??? usecase???
 
 //TODO port это infrastruktur layer (technical impl) or just boundary обслуживание *(aka dto service?)
 
 /**
- * No own methods, just implement interface contract
  * 
  * no creation hier, controller direct to application layer (registerGateway)
  * 
  * eu: now is anemic struktur, no extra interaktor logik here!
  * 
- * Eu ask: how can I protect this UseCaseImpl from other Layers (and force interface access), if it is a public bean ??????
+ * Eu ask: how can I protect this UseCaseImpl from other Layers (and force interface access), it is package private, but in spring context it is a public bean ??????
  * - maybe I have to wear this implementation manual in @Configuration (and not declare @Service for s auto-bean-package-scan ???)
  */
 @Service

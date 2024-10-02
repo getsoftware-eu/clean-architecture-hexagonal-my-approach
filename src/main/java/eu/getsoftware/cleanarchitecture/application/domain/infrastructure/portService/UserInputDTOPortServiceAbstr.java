@@ -23,7 +23,7 @@ import java.time.LocalDateTime;
  * In Clean Architecture, we call them Interactors.
  */
 //@Service
-public abstract class UserInputPortServiceAbstr<T extends IUserDomain, Z extends IUserDTO> implements IUserInputPortService
+public abstract class UserInputDTOPortServiceAbstr<T extends IUserDomain, Z extends IUserDTO> implements IUserInputPortService
 {
     private final IUserFactory<T/*, Z*/> userFactory;
     private final TempUserFactory tempModelUserFactory = new TempUserFactory();
@@ -38,7 +38,7 @@ public abstract class UserInputPortServiceAbstr<T extends IUserDomain, Z extends
      * @param userRequestAppDTOMapper
      * @param userPersistService
      */
-    public UserInputPortServiceAbstr(
+    public UserInputDTOPortServiceAbstr(
 //            IUserRegisterApplicationDsGatewayService userRegisterDfGateway, 
             IUserFactory<T/*, Z*/> userFactory,
             IDomainMapper<T, Z> userRequestAppDTOMapper,

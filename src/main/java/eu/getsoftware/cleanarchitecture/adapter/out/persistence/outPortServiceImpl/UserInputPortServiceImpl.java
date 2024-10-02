@@ -2,7 +2,7 @@ package eu.getsoftware.cleanarchitecture.adapter.out.persistence.outPortServiceI
 
 import eu.getsoftware.cleanarchitecture.adapter.out.persistence.outPortServiceImpl.gateways.RegisterUserPortGatewayServiceImpl;
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserFactory;
-import eu.getsoftware.cleanarchitecture.application.domain.infrastructure.portService.UserInputPortServiceAbstr;
+import eu.getsoftware.cleanarchitecture.application.domain.infrastructure.portService.UserInputDTOPortServiceAbstr;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.iUseCase.dto.RequestUserUseCaseDTO;
 import eu.getsoftware.cleanarchitecture.adapter.out.persistence.model.UserMappedEntity;
 import eu.getsoftware.cleanarchitecture.application.port.out.user.IUserResponseDTOPortPresenter;
@@ -10,7 +10,7 @@ import eu.getsoftware.cleanarchitecture.adapter.out.persistence.mapper.RequestUs
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserInputPortServiceImpl extends UserInputPortServiceAbstr<UserMappedEntity, RequestUserUseCaseDTO> {
+public class UserInputPortServiceImpl extends UserInputDTOPortServiceAbstr<UserMappedEntity, RequestUserUseCaseDTO> {
 
     /**
      * From here I set the CONCRETE Generics T, Z types to abstract layer
