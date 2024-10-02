@@ -77,7 +77,7 @@ This is because, it becomes practically impossible to separate these two types o
 
 - ![onion layers](/docs/img/clean.jpg)
 - ![onion layers](/docs/img/cleanarch.png)
-- ![onion layers interactions](/docs/img/onion2.JPG)
+- ![onion layers interactions](/docs/img/onion3Layers.JPG)
 - ![cross the architectonic boundaries](/docs/img/onion1.JPG)
 
 ## Alternative layers structure and encapsulation
