@@ -53,7 +53,6 @@ This is because, it becomes practically impossible to separate these two types o
    - SpringConfig classes are divided separately for the 'application', 'useCases' and 'infrastructure' layers.
      - f.e. scans for persistence beans in the external "adapter.out" package
 
-![cross the architectonic boundaries](/docs/img/onion1.JPG)
 
 
 ![cca with spring boot](/docs/img/boot-cca2.webp)
@@ -79,7 +78,8 @@ This is because, it becomes practically impossible to separate these two types o
 - ![onion layers](/docs/img/clean.jpg)
 - ![onion layers](/docs/img/cleanarch.png)
 - ![onion layers interactions](/docs/img/onion2.JPG)
-- 
+- ![cross the architectonic boundaries](/docs/img/onion1.JPG)
+
 ## Alternative layers structure and encapsulation
 
 - ![alternative layers encapsulation](/docs/img/other_layers.JPG)
