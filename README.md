@@ -56,7 +56,7 @@ This is because, it becomes practically impossible to separate these two types o
 
 
 
-![cca with spring boot](/docs/img/boot-cca2.webp)
+![cca with spring boot](/docs/img/boot-cca2.jpg)
 
 
 ### Special architecture decisions
