@@ -1,4 +1,4 @@
-# My vision of Clean Architecture (Hexagonal + Onion) implementation
+# My vision of Clean Architecture (Hexagonal + DDD) implementation
 
 <b>Hexagonal</b> Architecture is focused on managing the boundaries between an application and the outside world. 
 
@@ -14,7 +14,8 @@ One of the main principle of this architecture is:
 <b>We should never mix business-logik("useCase") and application-logik("infrastructure") within a one service class</b>.
 This is because, it becomes practically impossible to separate these two types of logic, once they are implemented (mixed) together.
 
-## My Approach to implementing Onion "Clean-Architecture" with Java (Domain-driven Design, 'Hexagon' Architecture) 
+## My Approach to implement domain-centric architecture: 
+###  Clean-Architecture (Onion) with Java (+ Domain-driven Design, + 'Hexagon' Architecture) 
 
 ![structure](/docs/img/onion2Tree.jpg)
 
