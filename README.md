@@ -33,10 +33,10 @@ This is because, it becomes practically impossible to separate these two types o
        - Example: 'UserRegisterInteractor': injects und uses a (low-level) implementation of its own defined IGateway
      - Does not contain inner-business-logic (=inner rules within domain.module). But should contain interactor-logik (extern actions with entity-aggregates).
      - No spring annotation are used in our business logic (wearing with spring config).
-   - <b>Infrastructure</b> (backend impl.) layer : At this point, we finished all our business. Now, let’s start plugging in our details.
-     - Implementation of IGateway (technical helper-services, defined in the upper (useCase) layer)
-       - Example: 'JpaUserRegisterApplicationService'
-     - <u>My approach: <b>Calling Use-Case</b>+ constructor-injection of own ServiceImpl in the abstract Usecase</u>
+   - <b>Infrastructure</b> (backend impl.) layer : At this point, we finished all our business. Now, let’s start plugging in our details:
+     - Implementation of IGateway (technical persist-services, defined in the upper (useCase) layer)
+       - Example: 'JpaUserPersistApplicationService'
+     - <u>My approach: <b>abstract GatewayService</b> that use IRepository for the common CRUD methods</u>
        - setting (higher) generics with concrete (low-level) <T: EntityImpl, Z: DTOImpl>
      - Provides the technical capabilities that <b>support</b> the layers above, such as persistence or messaging.
      - Implementation of portServices 
@@ -47,7 +47,7 @@ This is because, it becomes practically impossible to separate these two types o
    - <b>in</b> adapters:
      - specific user request (Controller Adapters)
    - <b>out</b> adapters:
-     - persistence details + mapping (Infrastructure Adapters)
+     - persistence serviceImpl + entityRepository + mapping (@Entity as Adapter)
      - Presenter (ViewModel Adapters)
 3. Extra "Main" (<b>Config</b>) package
    - SpringConfig classes are divided separately for the 'application', 'useCases' and 'infrastructure' layers.
@@ -77,6 +77,7 @@ This is because, it becomes practically impossible to separate these two types o
 
 
 - ![onion layers](/docs/img/clean.jpg)
+- ![onion layers](/docs/img/cleanarch.png)
 - ![onion layers interactions](/docs/img/onion2.JPG)
 - 
 ## Alternative layers structure and encapsulation
