@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
  * Domain Entity with business logik!
  * Only here is whole abstract business rules (isPasswordValid), not in implementing entity!!
  */
-public interface IUserDomain
+public interface IUserDomainEntity
 {
     /**
      * we use not ANEMIC, but RICH model here (Entity methods with business logik)

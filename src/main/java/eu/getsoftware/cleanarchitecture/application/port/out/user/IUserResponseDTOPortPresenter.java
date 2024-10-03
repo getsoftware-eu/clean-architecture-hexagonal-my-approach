@@ -1,13 +1,13 @@
 package eu.getsoftware.cleanarchitecture.application.port.out.user;
 
-import eu.getsoftware.cleanarchitecture.application.port.in.user.iPortService.dto.ResponseUserPortDTO;
+import eu.getsoftware.cleanarchitecture.application.port.in.user.iPortService.dto.UserResponseClientDTO;
 
 /**
  * Its an interface for external adapter usage, therefore it is located in "application.port.out"
  */
 public interface IUserResponseDTOPortPresenter
 {
-    ResponseUserPortDTO prepareSuccessView(ResponseUserPortDTO user);
+    UserResponseClientDTO prepareSuccessView(UserResponseClientDTO user);
     
     /**
      * Presenter have to assign response HttpCode to every error!
@@ -17,5 +17,5 @@ public interface IUserResponseDTOPortPresenter
      * @param error
      * @return
      */
-    ResponseUserPortDTO prepareFailView(String error);
+    UserResponseClientDTO prepareFailView(String error);
 }

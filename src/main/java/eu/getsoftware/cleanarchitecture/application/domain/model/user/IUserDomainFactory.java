@@ -7,7 +7,7 @@ package eu.getsoftware.cleanarchitecture.application.domain.model.user;
  * To stock to the stable abstractions principle 
  * and to ISOLATE the user creation.
  */
-public interface IUserFactory<T extends IUserDomain/*, Z extends IUserDTO*/>
+public interface IUserDomainFactory<T extends IUserDomainEntity/*, Z extends IUserDTO*/>
 {
     T create(String name, String password);
 }

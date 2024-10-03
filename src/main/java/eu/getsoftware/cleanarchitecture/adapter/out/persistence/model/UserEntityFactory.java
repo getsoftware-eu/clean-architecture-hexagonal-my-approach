@@ -1,6 +1,6 @@
 package eu.getsoftware.cleanarchitecture.adapter.out.persistence.model;
 
-import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserFactory;
+import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomainFactory;
 import eu.getsoftware.cleanarchitecture.adapter.out.persistence.outPortServiceImpl.gateways.RegisterUserPortGatewayServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 @Component
 @AllArgsConstructor
 public class UserEntityFactory/*<T extends UserDataMapperEntity, Z implements UserDsRequestApplicationModelDTO>*/ 
-        implements IUserFactory<UserMappedEntity/*, UserDsRequestApplicationModelDTO*/>
+        implements IUserDomainFactory<UserMappedEntity/*, UserDsRequestApplicationModelDTO*/>
 {
     private final RegisterUserPortGatewayServiceImpl registerUserPortGatewayServiceImpl;
 

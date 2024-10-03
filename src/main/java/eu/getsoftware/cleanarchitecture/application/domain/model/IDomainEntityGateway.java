@@ -12,8 +12,15 @@ import java.util.Optional;
  *
  * Maybe interface for Repository is redundant, because we should not use repository directly and should make all actions via extra (Gateway)EntityService (implemented in infrastructure-layer)!
  */
-public interface IDomainRepository<T, ID> extends PagingAndSortingRepository<T, ID> {
-    Optional<T> findById(Long id);
+public interface IDomainEntityGateway<T, ID> extends PagingAndSortingRepository<T, ID> {
+    Optional<T> findById(ID id);
     Optional<T> findByName(String name);
     <S extends T> S save(S entity);
+    T create(String name);
+
+    <S extends T> Iterable<S> saveAll(Iterable<S> entities);
+    boolean existsById(ID id);
+
+    Iterable<T> findAll();
+    Iterable<T> findAllById(Iterable<ID> ids);
 }

@@ -1,7 +1,7 @@
 package eu.getsoftware.cleanarchitecture.application.domain.model.tempDomainObjects.user;
 
 import eu.getsoftware.cleanarchitecture.application.domain.model.tempDomainObjects.TempAddressValueObject;
-import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomain;
+import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomainEntity;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
  */
 @Getter
 @Setter
-class TempUserObject implements IUserDomain
+class TempUserObject implements IUserDomainEntity
 {
     String name;
     String password;

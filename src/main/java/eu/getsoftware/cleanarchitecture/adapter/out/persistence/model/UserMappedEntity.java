@@ -1,6 +1,6 @@
 package eu.getsoftware.cleanarchitecture.adapter.out.persistence.model;
 
-import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomain;
+import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomainEntity;
 import lombok.*;
 
 import jakarta.persistence.*;
@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Getter @Setter
 @NoArgsConstructor
 @RequiredArgsConstructor
-public class UserMappedEntity implements IUserDomain //(no, manuell fill from DTO!!!)
+public class UserMappedEntity implements IUserDomainEntity //(no, manuell fill from DTO!!!)
 {
     @Id
     @Setter(AccessLevel.PROTECTED)

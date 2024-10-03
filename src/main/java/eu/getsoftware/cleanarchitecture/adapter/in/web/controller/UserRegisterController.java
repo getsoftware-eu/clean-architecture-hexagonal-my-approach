@@ -1,34 +1,29 @@
 package eu.getsoftware.cleanarchitecture.adapter.in.web.controller;
 
-import eu.getsoftware.cleanarchitecture.application.port.in.user.iPortService.IUserInputPortService;
-import eu.getsoftware.cleanarchitecture.application.port.in.user.iPortService.dto.RequestUserPortDTO;
-import eu.getsoftware.cleanarchitecture.application.port.in.user.iPortService.dto.ResponseUserPortDTO;
-import eu.getsoftware.cleanarchitecture.adapter.out.persistence.outPortServiceImpl.UserInputPortServiceImpl;
+import eu.getsoftware.cleanarchitecture.application.port.in.user.iUseCase.IUserExternalClientUseCase;
+import eu.getsoftware.cleanarchitecture.application.port.in.user.iPortService.dto.UserResponseClientDTO;
+import eu.getsoftware.cleanarchitecture.application.port.in.user.iPortService.dto.UserRequestUseCaseDTO;
 import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController("/api/v1/register/user")
+@RequiredArgsConstructor
 public class UserRegisterController {
 
-    final IUserInputPortService userInputUseCase;
-
-    UserRegisterController(
-        UserInputPortServiceImpl userUsecases
-    ) {
-        this.userInputUseCase = userUsecases;
-    }
+    final IUserExternalClientUseCase userInputUseCase;
 
     @ApiOperation(value = "creates a new user from client DTO", produces = "application/json")
     @PostMapping("/put")
-    ResponseUserPortDTO create(@RequestBody RequestUserPortDTO requestModel) {
+    UserResponseClientDTO create(@RequestBody UserRequestUseCaseDTO requestModel) {
         
-        ResponseUserPortDTO responseDTO = userInputUseCase.create(requestModel);
+        UserResponseClientDTO responseDTO = userInputUseCase.registerNewUser(requestModel);
         
         return responseDTO; //ResponseEntity.status(HttpStatus.OK).body(responseDTO);
     }
     
     @GetMapping("/{userId}")
-    public ResponseUserPortDTO findById(@RequestBody RequestUserPortDTO requestModel, @PathVariable long userId) {
-        return userInputUseCase.findById(requestModel, userId); //.orElseThrow(() -> new UserNotFoundException(id));
+    public UserResponseClientDTO findById(@RequestBody UserRequestUseCaseDTO requestModel, @PathVariable long userId) {
+        return userInputUseCase.findExistingUserById(requestModel, userId); //.orElseThrow(() -> new UserNotFoundException(id));
     }
 }

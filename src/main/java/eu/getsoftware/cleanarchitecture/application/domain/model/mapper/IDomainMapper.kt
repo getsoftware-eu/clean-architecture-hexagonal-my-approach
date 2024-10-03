@@ -1,8 +1,8 @@
 package eu.getsoftware.cleanarchitecture.application.domain.model.mapper
 
-import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDTO
-import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomain
-import eu.getsoftware.cleanarchitecture.application.port.`in`.user.iPortService.dto.ResponseUserPortDTO
+import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomainDTO
+import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomainEntity
+import eu.getsoftware.cleanarchitecture.application.port.`in`.user.iPortService.dto.UserResponseClientDTO
 import org.mapstruct.Mapping
 import org.mapstruct.MappingTarget
 import org.mapstruct.Named
@@ -10,7 +10,7 @@ import org.mapstruct.Named
 /**
  * central generic Interface for mapping Entity to Dto in lower layers 
  */
-interface IDomainMapper<T: IUserDomain, Z : IUserDTO>{
+interface IDomainMapper<T: IUserDomainEntity, Z : IUserDomainDTO>{
 
     fun toEntityById(id: Long?): T
 
@@ -23,7 +23,7 @@ interface IDomainMapper<T: IUserDomain, Z : IUserDTO>{
     @Mapping(target = "creationTime", defaultValue = "LocalDateTime.now()")
     fun toDsRequestDTO(entity: T?): Z?
 
-    fun toResponseDTOFromRequest(dto: Z) : ResponseUserPortDTO
+    fun toResponseDTOFromRequest(dto: Z) : UserResponseClientDTO
     
     fun toListDTO(assigmentFiles: List<T>): List<Z>
     
