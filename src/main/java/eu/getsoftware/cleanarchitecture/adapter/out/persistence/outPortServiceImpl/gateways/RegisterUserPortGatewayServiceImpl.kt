@@ -5,6 +5,7 @@ import eu.getsoftware.cleanarchitecture.adapter.out.persistence.model.UserMapped
 import eu.getsoftware.cleanarchitecture.adapter.out.persistence.repository.JpaUserRepository
 import eu.getsoftware.cleanarchitecture.application.domain.model.modelInnerService.UserDomainEntityInnerGatewayServiceAbstr
 import eu.getsoftware.cleanarchitecture.application.port.`in`.user.iPortService.dto.UserRequestUseCaseDTO
+import eu.getsoftware.cleanarchitecture.application.port.`in`.user.iPortService.dto.UserResponseClientDTO
 import org.springframework.stereotype.Service
 
 //TODO eu: is it application-layer usecase or just implementing infrastruktur-layer with missing technical details???
@@ -30,7 +31,7 @@ class RegisterUserPortGatewayServiceImpl (
     override val assetClass: Class<UserMappedEntity> = UserMappedEntity::class.java
 ): 
 //    IRegisterUserPortGatewayService, 
-    UserDomainEntityInnerGatewayServiceAbstr<UserMappedEntity, UserRequestUseCaseDTO>(mapper, userRepository) {
+    UserDomainEntityInnerGatewayServiceAbstr<UserMappedEntity, UserRequestUseCaseDTO, UserResponseClientDTO>(mapper, userRepository) {
 
     //eu: smells like technical implementation
     

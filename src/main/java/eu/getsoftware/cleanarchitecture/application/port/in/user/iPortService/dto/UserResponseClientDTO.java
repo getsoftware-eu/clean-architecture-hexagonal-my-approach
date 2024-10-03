@@ -1,6 +1,6 @@
 package eu.getsoftware.cleanarchitecture.application.port.in.user.iPortService.dto;
 
-import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomainDTO;
+import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomainResponseDTO;
 
 /**
  * eu: here I define DTO directly in application.port package
@@ -14,10 +14,15 @@ public record UserResponseClientDTO(
       String login,
       String name,
       String creationTimeStr
-) implements IUserDomainDTO {
+) implements IUserDomainResponseDTO {
     
     public UserResponseClientDTO withCreationTime(String newCreationTimeStr)
     {
         return new UserResponseClientDTO(login, name, newCreationTimeStr);
+    }
+
+    @Override
+    public boolean isPasswordValid() {
+        return true;
     }
 }

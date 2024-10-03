@@ -5,9 +5,9 @@ package eu.getsoftware.cleanarchitecture.application.domain.model.user;
  * 
  * EU: no getMethods, because RECORD implements it!!!
  */
-public interface IUserDomainDTO
+public interface IUserDomainRequestDTO
 {
     String name();
-    // String password(); //not for DTO result
+    String password(); //not for DTO response
 
 }

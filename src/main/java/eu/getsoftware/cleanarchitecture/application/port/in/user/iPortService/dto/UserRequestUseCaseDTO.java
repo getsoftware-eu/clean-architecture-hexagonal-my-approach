@@ -1,6 +1,7 @@
 package eu.getsoftware.cleanarchitecture.application.port.in.user.iPortService.dto;
 
-import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomainDTO;
+import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomainRequestDTO;
+import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomainResponseDTO;
 import jakarta.validation.constraints.Size;
 import jakarta.validation.constraints.NotNull;
 
@@ -27,7 +28,7 @@ public record UserRequestUseCaseDTO(
 	String password,
 
 	String specialFieldForUseCase
-) implements IUserDomainDTO {
+) implements IUserDomainRequestDTO {
 
 	private final static LocalDateTime creationTime = LocalDateTime.now();
 

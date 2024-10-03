@@ -37,12 +37,12 @@ class UserEntityResponseFormatterUnitTest
     private IUserResponseDTOPortPresenter userResponseDTOPresenter = new UserResponseDTOPortFormatter();
     private RegisterUserPortGatewayServiceImpl userRegisterService = mock(RegisterUserPortGatewayServiceImpl.class);
     //    IUserInputPortUseCase IUserInputApplicationBoundary = new UserInputPortUseCaseImpl(userPresenter, userFactoryAggregate, , userRegisterPortServiceImpl);
-    IUserExternalClientUseCase IUserInputApplicationBoundary = new UserDtoExternalClientServiceImpl(userFactory, requestUserDTOMapper , userRegisterService, userResponseDTOPresenter);
+    IUserExternalClientUseCase IUserInputApplicationBoundary = new UserDtoExternalClientServiceImpl(userFactory, requestUserDTOMapper);
     ArgumentCaptor<String> userRequestModelArgumentCaptor = ArgumentCaptor.forClass(String.class);
 
     @Test
     void givenDateAnd3HourTime_whenPrepareSuccessView_thenReturnOnly3HourTime() {
-        UserResponseClientDTO modelResponse = new UserResponseClientDTO("eugen",  "2020-12-20T03:00:00.000", "username", "password");
+        UserResponseClientDTO modelResponse = new UserResponseClientDTO("eugen",  "username", "2020-12-20T03:00:00.000");
         UserResponseClientDTO formattedResponse = userResponseFormatter.prepareSuccessView(modelResponse);
 
         assertThat(formattedResponse.creationTimeStr()).isEqualTo("03:00:00");

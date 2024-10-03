@@ -1,12 +1,12 @@
-package eu.getsoftware.cleanarchitecture.application.domain.model.modelInnerService;
+package eu.getsoftware.cleanarchitecture.application.domain.usecase.user.service;
 
 import eu.getsoftware.cleanarchitecture.application.domain.model.mapper.IDomainMapper;
 import eu.getsoftware.cleanarchitecture.application.domain.model.tempDomainObjects.user.TempUserFactory;
-import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomainDTO;
+import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomainRequestDTO;
+import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomainResponseDTO;
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomainEntity;
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomainFactory;
-import eu.getsoftware.cleanarchitecture.application.port.in.user.iPortService.IUserDTOExternalClientService;
-import eu.getsoftware.cleanarchitecture.application.port.in.user.iPortService.dto.UserResponseClientDTO;
+import eu.getsoftware.cleanarchitecture.application.port.in.user.iPortService.IUserDTOExternalClientHelperService;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.iPortService.dto.UserRequestUseCaseDTO;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -19,11 +19,11 @@ import org.jetbrains.annotations.Nullable;
  * In Clean Architecture, we call them Interactors.
  */
 //@Service
-public abstract class UserDTOExternalClientServiceAbstr<T extends IUserDomainEntity, Z extends IUserDomainDTO> implements IUserDTOExternalClientService<T, Z>
+public abstract class UserDTOExternalClientServiceAbstr<T extends IUserDomainEntity, I extends IUserDomainRequestDTO, O extends IUserDomainResponseDTO> implements IUserDTOExternalClientHelperService<T, I, O>
 {
     private final IUserDomainFactory<T/*, Z*/> userDomainFactory;
     private final TempUserFactory tempModelUserFactory = new TempUserFactory();
-    private final IDomainMapper<T, Z> userDomainDtoMapper;
+    private final IDomainMapper<T, I, O> userDomainDtoMapper;
     
     /**
      * Мы еще не знаем, с какими типами мы вызовем этот абстрактный  usecase класс, поэтому все типы через T, Z 
@@ -32,7 +32,7 @@ public abstract class UserDTOExternalClientServiceAbstr<T extends IUserDomainEnt
      */
     public UserDTOExternalClientServiceAbstr(
             IUserDomainFactory<T/*, Z*/> userDomainFactory,
-            IDomainMapper<T, Z> userRequestAppDTOMapper
+            IDomainMapper<T, I, O> userRequestAppDTOMapper
     ) {
         this.userDomainFactory = userDomainFactory;
         this.userDomainDtoMapper = userRequestAppDTOMapper;
@@ -40,14 +40,14 @@ public abstract class UserDTOExternalClientServiceAbstr<T extends IUserDomainEnt
 
     @NotNull
     @Override
-    public UserResponseClientDTO convertToClientDTO(Z userModelDTO) {
-        UserResponseClientDTO accountResponseModel = userDomainDtoMapper.toResponseDTOFromRequest(userModelDTO);
+    public O convertToResponseDTO(I userRequestDTO) {
+        O accountResponseModel = userDomainDtoMapper.toResponseDTO(userRequestDTO);
         return accountResponseModel;
     }
     
     @Override
     @Nullable
-    public Z convertToModelDTO(T entity) {
+    public I convertToRequestDTO(T entity) {
         return userDomainDtoMapper.toDsRequestDTO(entity);
     }
 

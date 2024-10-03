@@ -1,7 +1,8 @@
 package eu.getsoftware.cleanarchitecture.application.port.in.user.iPortService;
 
-import eu.getsoftware.cleanarchitecture.application.domain.model.IDomainDTOGateway;
-import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomainDTO;
+import eu.getsoftware.cleanarchitecture.application.domain.model.IDomainRegisterDTOGateway;
+import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomainRequestDTO;
+import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomainResponseDTO;
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomainEntity;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.iPortService.dto.UserRequestUseCaseDTO;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.iPortService.dto.UserResponseClientDTO;
@@ -17,9 +18,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserExternalClientUseCaseImpl implements IUserExternalClientUseCase
 {
-    private final IUserDTOExternalClientService<IUserDomainEntity, IUserDomainDTO> userDTOToExternalClientService;
-    private final IDomainDTOGateway<IUserDomainEntity, IUserDomainDTO> userDomainEntityService;
-    private final IUserResponseDTOPortPresenter userResponseDTOPortPresenter;
+    private final IUserDTOExternalClientHelperService<IUserDomainEntity, UserRequestUseCaseDTO, UserResponseClientDTO> userDTOToExternalClientService;
+    private final IDomainRegisterDTOGateway<IUserDomainEntity, UserRequestUseCaseDTO, UserResponseClientDTO> userDomainPersistService;
+    private final IUserResponseDTOPortPresenter<UserResponseClientDTO> userResponseDTOPortPresenter;
 
     /**
      * Eugen:
@@ -40,7 +41,7 @@ public class UserExternalClientUseCaseImpl implements IUserExternalClientUseCase
      */
     public UserResponseClientDTO registerNewUser(UserRequestUseCaseDTO requestModel){
 
-        if (userDomainEntityService.existsByName(requestModel.name())) {
+        if (userDomainPersistService.existsByName(requestModel.name())) {
             return userResponseDTOPortPresenter.prepareFailView("User already exists.");
         }
 
@@ -49,35 +50,31 @@ public class UserExternalClientUseCaseImpl implements IUserExternalClientUseCase
         if (!newUserEntity.isPasswordValid())
             return userResponseDTOPortPresenter.prepareFailView("User password must have more than 5 characters.");
 
-        IUserDomainDTO newUserDomainDTO = userDTOToExternalClientService.convertToModelDTO(newUserEntity);
+        UserRequestUseCaseDTO newUserRequestDTO = userDTOToExternalClientService.convertToRequestDTO(newUserEntity);
         
-        assert newUserDomainDTO != null;
-
-//        if(newUserDomainDTO != null){
-//            throw new RuntimeException("error creation")
-//        }
-
         //A3 domain is correct, we can send it to lower layer for persist
-        userDomainEntityService.persistFromDTO(newUserDomainDTO);
+        userDomainPersistService.saveFromDTO(newUserRequestDTO); //only save request, no response!!!
 
-        return formatModelDTOForClientView(newUserDomainDTO);
+        UserResponseClientDTO clientResponseDTO = userDTOToExternalClientService.convertToResponseDTO(newUserRequestDTO);
+
+        return formatModelDTOForClientView(clientResponseDTO);
     }
 
     @Override 
     public UserResponseClientDTO findExistingUserById(UserRequestUseCaseDTO requestModel, long userId)
     {
-        if (! userDomainEntityService.existsByName(requestModel.name())) {
+        if (! userDomainPersistService.existsByName(requestModel.name())) {
             return userResponseDTOPortPresenter.prepareFailView("User not exists.");
         }
 
-        IUserDomainDTO userDomainDTO =  userDomainEntityService.getModelDTOById(userId);
+        UserResponseClientDTO userResponseDTO = userDomainPersistService.getModelDTOById(userId);
 
-        return formatModelDTOForClientView(userDomainDTO);
+        return formatModelDTOForClientView(userResponseDTO);
     }
 
-    private UserResponseClientDTO formatModelDTOForClientView(IUserDomainDTO newUserDomainDTO) {
+    private UserResponseClientDTO formatModelDTOForClientView(UserResponseClientDTO responseDTO) {
 
-        UserResponseClientDTO clientResponseDTO = userDTOToExternalClientService.convertToClientDTO(newUserDomainDTO);
-        return userResponseDTOPortPresenter.prepareSuccessView(clientResponseDTO);
+//        IUserDomainResponseDTO clientResponseDTO = userDTOToExternalClientService.convertToResponseDTO(requestDTO);
+        return userResponseDTOPortPresenter.prepareSuccessView(responseDTO);
     }
 }

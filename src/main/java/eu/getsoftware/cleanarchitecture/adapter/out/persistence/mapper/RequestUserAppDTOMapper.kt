@@ -8,7 +8,7 @@ import eu.getsoftware.cleanarchitecture.application.port.`in`.user.iPortService.
 import org.mapstruct.*
 
 @Mapper(componentModel = "spring" /* eu: MapStruct now creates a Spring-bean*/, unmappedTargetPolicy = ReportingPolicy.IGNORE /*, uses = [IUserRepository::class]*/)
-interface RequestUserAppDTOMapper : IDomainMapper<UserMappedEntity, UserRequestUseCaseDTO> {
+interface RequestUserAppDTOMapper : IDomainMapper<UserMappedEntity, UserRequestUseCaseDTO, UserResponseClientDTO> {
     
 //    override fun toEntityById(id: Long?): IUserEntity
 

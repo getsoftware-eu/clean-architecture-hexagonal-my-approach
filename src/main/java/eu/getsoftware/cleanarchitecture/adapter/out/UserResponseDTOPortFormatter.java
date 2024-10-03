@@ -3,18 +3,18 @@ package eu.getsoftware.cleanarchitecture.adapter.out;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import eu.getsoftware.cleanarchitecture.application.port.out.user.IUserResponseDTOPortPresenter;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 
-import eu.getsoftware.cleanarchitecture.application.port.out.user.IUserResponseDTOPortPresenter;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.iPortService.dto.UserResponseClientDTO;
 
 /**
  * Eugen: //TODO: We assign HttpStatus to every error.
  */
 @Component
-public class UserResponseDTOPortFormatter implements IUserResponseDTOPortPresenter
+public class UserResponseDTOPortFormatter implements IUserResponseDTOPortPresenter<UserResponseClientDTO>
 {
     @Override
     public UserResponseClientDTO prepareSuccessView(UserResponseClientDTO response) {
