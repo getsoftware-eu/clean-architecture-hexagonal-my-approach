@@ -38,12 +38,19 @@ public abstract class UserDTOExternalClientServiceAbstr<T extends IUserDomainEnt
         this.userDomainDtoMapper = userRequestAppDTOMapper;
     }
 
-    @NotNull
-    @Override
-    public O convertToResponseDTO(I userRequestDTO) {
-        O accountResponseModel = userDomainDtoMapper.toResponseDTO(userRequestDTO);
-        return accountResponseModel;
+//    @NotNull
+    @Override //eu: never direct convert requestDTO to responseDTO ! 
+    public O convertToResponseDTO(T entity) {
+        return userDomainDtoMapper.toResponseDTO(entity);
     }
+
+    
+//    @NotNull
+//    @Override //eu: never direct convert requestDTO to responseDTO ! 
+//    public O convertToResponseDTO(I userRequestDTO) {
+//        O accountResponseModel = userDomainDtoMapper.toResponseDTO(userRequestDTO);
+//        return accountResponseModel;
+//    }
     
     @Override
     @Nullable

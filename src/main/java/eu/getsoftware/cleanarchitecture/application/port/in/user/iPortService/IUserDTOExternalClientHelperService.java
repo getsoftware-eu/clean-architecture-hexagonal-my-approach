@@ -9,7 +9,7 @@ public interface IUserDTOExternalClientHelperService<T extends IUserDomainEntity
 
     I convertToRequestDTO(T entity);
 
-    O convertToResponseDTO(I userRequestDTO);
-    
     IUserDomainEntity createNewEntity(UserRequestUseCaseDTO userRequestDTO);
+
+    O convertToResponseDTO(T newUserEntity);
 }

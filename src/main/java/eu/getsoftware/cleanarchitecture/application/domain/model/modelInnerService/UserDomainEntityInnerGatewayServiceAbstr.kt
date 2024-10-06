@@ -41,11 +41,10 @@ abstract class UserDomainEntityInnerGatewayServiceAbstr<T: IUserDomainEntity, I 
         val entity : T = createEntity(userRequestDTO.name())
         domainMapper.updateAllFromDto(userRequestDTO, entity)
         return entity
-    }      
-    
-    fun persistEntity(entity: T): T {
+    }
+
+    override fun saveEntity(entity: T) {
         domainRepository.save(entity)
-        return entity
     }    
     
     override fun saveFromDTO(userRequestDTO : I) {

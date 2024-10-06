@@ -39,23 +39,24 @@ public class UserExternalClientUseCaseImpl implements IUserExternalClientUseCase
      *
      * @return
      */
-    public UserResponseClientDTO registerNewUser(UserRequestUseCaseDTO requestModel){
+    public UserResponseClientDTO registerNewUser(UserRequestUseCaseDTO requestUserDto){
 
-        if (userDomainPersistService.existsByName(requestModel.name())) {
+        if (userDomainPersistService.existsByName(requestUserDto.name())) {
             return userResponseDTOPortPresenter.prepareFailView("User already exists.");
         }
 
-        IUserDomainEntity newUserEntity = userDTOToExternalClientService.createNewEntity(requestModel);
+        IUserDomainEntity newUserEntity = userDTOToExternalClientService.createNewEntity(requestUserDto);
         
         if (!newUserEntity.isPasswordValid())
             return userResponseDTOPortPresenter.prepareFailView("User password must have more than 5 characters.");
 
-        UserRequestUseCaseDTO newUserRequestDTO = userDTOToExternalClientService.convertToRequestDTO(newUserEntity);
+//        UserRequestUseCaseDTO newUserRequestDTO = userDTOToExternalClientService.convertToRequestDTO(newUserEntity);
         
         //A3 domain is correct, we can send it to lower layer for persist
-        userDomainPersistService.saveFromDTO(newUserRequestDTO); //only save request, no response!!!
+//        userDomainPersistService.saveFromDTO(newUserRequestDTO); //only save request, no response!!!
+        userDomainPersistService.saveEntity(newUserEntity); //only save request, no response!!!
 
-        UserResponseClientDTO clientResponseDTO = userDTOToExternalClientService.convertToResponseDTO(newUserRequestDTO);
+        UserResponseClientDTO clientResponseDTO = userDTOToExternalClientService.convertToResponseDTO(newUserEntity);
 
         return formatModelDTOForClientView(clientResponseDTO);
     }

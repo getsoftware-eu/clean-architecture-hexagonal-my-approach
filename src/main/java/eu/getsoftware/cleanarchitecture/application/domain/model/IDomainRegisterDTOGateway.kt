@@ -9,7 +9,12 @@ import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomai
  */
 public interface IDomainRegisterDTOGateway<T: IUserDomainEntity, I : IUserDomainRequestDTO, O : IUserDomainResponseDTO> {
     
-    fun createEntityFromDTO(userRequestDTO: I): T 
+    fun createEntityFromDTO(userRequestDTO: I): T
+
+    /**
+     * we allow just "entity" parameter and not "requestGatewayDTO" and "responseGatewayDTO" for persistence (onion border)
+     */
+    fun saveEntity(entity: T)
     
     fun saveFromDTO(userRequestDTO: I) 
 
