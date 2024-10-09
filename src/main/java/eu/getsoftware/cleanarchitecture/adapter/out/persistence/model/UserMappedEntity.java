@@ -24,15 +24,18 @@ public class UserMappedEntity implements IUserDomainEntity //(no, manuell fill f
     private Long userId;
     
     @NonNull
+    @Column
     private String name;
     
     @NonNull
+    @Column
     private String password;
 
     @OneToOne
     @JoinColumn(name = "address_id", nullable = false)
     private AddressMappedEntity address;
     
+    @Column
     @NonNull
     private LocalDateTime creationTime;
 

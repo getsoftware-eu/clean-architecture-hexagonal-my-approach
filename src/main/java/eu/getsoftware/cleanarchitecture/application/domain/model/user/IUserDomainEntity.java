@@ -11,6 +11,9 @@ import java.time.LocalDateTime;
 public interface IUserDomainEntity
 {
     /**
+     * eu: JE HOCHER VALIDATION TO MODEL, DESTO MEHR WERDEN ES automatisch benutzen.
+     * VALIDATAION in einem Service ist nur begrenzt nutzbar!!!
+     * 
      * we use not ANEMIC, but RICH model here (Entity methods with business logik)
      * therefore Business logik is here, not in JPAEntity, that implement this interface and it's business rules!!!
      * @return high consistency rule about password

@@ -1,4 +1,4 @@
-package eu.getsoftware.onion.cleanarchitecture.usercreation.application.user.usecases;
+package eu.getsoftware.cleanarchitecture.application.domain.usecase;
 
 import eu.getsoftware.cleanarchitecture.adapter.out.UserResponseDTOPortFormatter;
 import eu.getsoftware.cleanarchitecture.adapter.out.persistence.mapper.RequestUserAppDTOMapper;
@@ -7,7 +7,6 @@ import eu.getsoftware.cleanarchitecture.adapter.out.persistence.model.UserMapped
 import eu.getsoftware.cleanarchitecture.adapter.out.persistence.outPortServiceImpl.UserDtoExternalClientServiceImpl;
 import eu.getsoftware.cleanarchitecture.adapter.out.persistence.outPortServiceImpl.gateways.RegisterUserPortGatewayServiceImpl;
 import eu.getsoftware.cleanarchitecture.application.domain.model.IDomainRegisterDTOGateway;
-import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomainEntity;
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomainFactory;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.iPortService.IUserDTOExternalClientHelperService;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.iPortService.UserExternalClientUseCaseImpl;
@@ -33,7 +32,7 @@ class UserEntityResponseFormatterUnitTest
     UserResponseDTOPortFormatter userResponseFormatter = new UserResponseDTOPortFormatter();
     //we use internal useCase only for checking the test condition!!!
     RegisterUserPortGatewayServiceImpl internalUserDsGateway = mock(RegisterUserPortGatewayServiceImpl.class);
-    IUserResponseDTOPortPresenter userPresenter = mock(IUserResponseDTOPortPresenter.class);
+    IUserResponseDTOPortPresenter<UserResponseClientDTO> userPresenter = mock(UserResponseDTOPortFormatter.class);
     IUserDomainFactory<UserMappedEntity/*, UserDsRequestApplicationModelDTO*/> userFactoryAggregate = mock(IUserDomainFactory.class);
     RegisterUserPortGatewayServiceImpl registerUserPortGatewayServiceImpl = mock(RegisterUserPortGatewayServiceImpl.class);
     private IUserDomainFactory<UserMappedEntity> userFactory = mock(UserEntityFactory.class);
@@ -43,7 +42,7 @@ class UserEntityResponseFormatterUnitTest
     //    IUserInputPortUseCase IUserInputApplicationBoundary = new UserInputPortUseCaseImpl(userPresenter, userFactoryAggregate, , userRegisterPortServiceImpl);
     private IUserDTOExternalClientHelperService<UserMappedEntity, UserRequestUseCaseDTO, UserResponseClientDTO> userDTOToExternalClientService = mock(UserDtoExternalClientServiceImpl.class);
     private IDomainRegisterDTOGateway<UserMappedEntity, UserRequestUseCaseDTO, UserResponseClientDTO> userDomainPersistService = mock(RegisterUserPortGatewayServiceImpl.class);
-    private IUserResponseDTOPortPresenter<UserResponseClientDTO> userResponseDTOPortPresenter = mock(UserResponseDTOPortFormatter.class);
+    private final IUserResponseDTOPortPresenter<UserResponseClientDTO> userResponseDTOPortPresenter = mock(UserResponseDTOPortFormatter.class);
     IUserExternalClientUseCase IUserInputApplicationBoundary = new UserExternalClientUseCaseImpl(userDTOToExternalClientService, userDomainPersistService, userResponseDTOPortPresenter);
     ArgumentCaptor<String> userRequestModelArgumentCaptor = ArgumentCaptor.forClass(String.class);
 
@@ -67,9 +66,11 @@ class UserEntityResponseFormatterUnitTest
         UserRequestUseCaseDTO userRequestApplicationModelDTO = new UserRequestUseCaseDTO("eugen", "username", "123456", "-");
         //when(userFactoryAggregator.create(anyString(), anyString())).thenReturn(new CommonUserEntity("eugen", "123456"));
 
-        IUserInputApplicationBoundary.registerNewDomainUserWithFactory(userRequestApplicationModelDTO);
+        IUserInputApplicationBoundary.registerNewUser(userRequestApplicationModelDTO);
 
         verify(internalUserDsGateway).existsByName(userRequestModelArgumentCaptor.capture());
+        
+        // then:
         String name = userRequestApplicationModelDTO.name();
         assertEquals("eugen", name);
     }

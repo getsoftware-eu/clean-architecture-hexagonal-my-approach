@@ -2,9 +2,11 @@ package eu.getsoftware.cleanarchitecture.application.domain.model.tempDomainObje
 
 
 import eu.getsoftware.cleanarchitecture.application.domain.model.tempDomainObjects.TempAddressValueObject;
+import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomainEntity;
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomainFactory;
 
 public class TempUserFactory implements IUserDomainFactory<TempUserObject> {
+    
     @Override
     public TempUserObject create(String name, String password) {
 

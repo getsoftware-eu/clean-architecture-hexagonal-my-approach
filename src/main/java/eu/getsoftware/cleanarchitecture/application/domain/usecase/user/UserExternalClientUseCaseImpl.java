@@ -1,5 +1,6 @@
 package eu.getsoftware.cleanarchitecture.application.port.in.user.iPortService;
 
+import eu.getsoftware.cleanarchitecture.adapter.out.persistence.model.UserMappedEntity;
 import eu.getsoftware.cleanarchitecture.application.domain.model.IDomainRegisterDTOGateway;
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomainRequestDTO;
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomainResponseDTO;
@@ -18,8 +19,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserExternalClientUseCaseImpl implements IUserExternalClientUseCase
 {
-    private final IUserDTOExternalClientHelperService<IUserDomainEntity, UserRequestUseCaseDTO, UserResponseClientDTO> userDTOToExternalClientService;
-    private final IDomainRegisterDTOGateway<IUserDomainEntity, UserRequestUseCaseDTO, UserResponseClientDTO> userDomainPersistService;
+    private final IUserDTOExternalClientHelperService<UserMappedEntity, UserRequestUseCaseDTO, UserResponseClientDTO> userDTOToExternalClientService;
+    private final IDomainRegisterDTOGateway<UserMappedEntity, UserRequestUseCaseDTO, UserResponseClientDTO> userDomainPersistService;
     private final IUserResponseDTOPortPresenter<UserResponseClientDTO> userResponseDTOPortPresenter;
 
     /**
@@ -45,7 +46,7 @@ public class UserExternalClientUseCaseImpl implements IUserExternalClientUseCase
             return userResponseDTOPortPresenter.prepareFailView("User already exists.");
         }
 
-        IUserDomainEntity newUserEntity = userDTOToExternalClientService.createNewEntity(requestUserDto);
+        UserMappedEntity newUserEntity = userDTOToExternalClientService.createNewEntity(requestUserDto);
         
         if (!newUserEntity.isPasswordValid())
             return userResponseDTOPortPresenter.prepareFailView("User password must have more than 5 characters.");

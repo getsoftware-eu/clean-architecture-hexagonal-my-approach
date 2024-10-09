@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
  * In the best-case scenario, a factory should receive plain DTO (or just primitive types) and contains as little as possible logic.
  * Factory pattern should always create objects in a valid state.
  * 
+ * why here no (password) validation???
+ * 
  * Set Generics with layer concrete types: <T = UserDataMapperEntity, Z = UserDsRequestApplicationModelDTO>
  * 
  * Eugen: external AccessPoint aks AGGREGATOR or (EntityRoot, хотя у нас здесь нет daten)
@@ -18,7 +20,7 @@ import org.springframework.stereotype.Component;
 @Component
 @AllArgsConstructor
 public class UserEntityFactory/*<T extends UserDataMapperEntity, Z implements UserDsRequestApplicationModelDTO>*/ 
-        implements IUserDomainFactory<UserMappedEntity/*, UserDsRequestApplicationModelDTO*/>
+        implements IUserDomainFactory<UserMappedEntity>
 {
     private final RegisterUserPortGatewayServiceImpl registerUserPortGatewayServiceImpl;
 
@@ -28,7 +30,7 @@ public class UserEntityFactory/*<T extends UserDataMapperEntity, Z implements Us
     public UserMappedEntity create(String name, String password) {
 
         UserMappedEntity entity = registerUserPortGatewayServiceImpl.createEntity(name);
-        entity.setPassword(password);
+        entity.setPassword(password); //TODO where password validation? why validation in useCase and not here in creation?????
         
         //sun address creation and other consistency logik
         AddressMappedEntity address = new AddressMappedEntity();

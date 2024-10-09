@@ -14,7 +14,9 @@ interface IDomainMapper<T: IUserDomainEntity, I : IUserDomainRequestDTO, O : IUs
 
     fun toEntityById(id: Long?): T
 
+    @Mapping(target = "creationTime", defaultValue = "LocalDateTime.now()")
     fun toResponseDTO(entity: T?): O?
+    
 //    fun toDTO(entity: IUserEntity?): Z?
 //    @Mapping(target = "login", source = "name")
 //    @Mapping(target = "creationTime", defaultValue = "LocalDateTime.now()")
@@ -23,7 +25,7 @@ interface IDomainMapper<T: IUserDomainEntity, I : IUserDomainRequestDTO, O : IUs
     @Mapping(target = "creationTime", defaultValue = "LocalDateTime.now()")
     fun toDsRequestDTO(entity: T?): I?
 
-    fun toResponseDTO(dto: I) : O
+//    fun toResponseDTO(dto: I) : O
     
     fun toListDTO(assigmentFiles: List<T>): List<O>
     

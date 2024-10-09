@@ -1,9 +1,8 @@
 package eu.getsoftware.cleanarchitecture.application.port.in.user.iPortService.dto;
 
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomainRequestDTO;
-import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomainResponseDTO;
-import jakarta.validation.constraints.Size;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.time.LocalDateTime;
 

@@ -2,6 +2,7 @@ package eu.getsoftware.cleanarchitecture.application.domain.usecase.user.service
 
 import eu.getsoftware.cleanarchitecture.application.domain.model.mapper.IDomainMapper;
 import eu.getsoftware.cleanarchitecture.application.domain.model.tempDomainObjects.user.TempUserFactory;
+import eu.getsoftware.cleanarchitecture.application.domain.model.tempDomainObjects.user.TempUserObject;
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomainRequestDTO;
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomainResponseDTO;
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomainEntity;
@@ -52,20 +53,21 @@ public abstract class UserDTOExternalClientServiceAbstr<T extends IUserDomainEnt
 //        return accountResponseModel;
 //    }
     
-    @Override
-    @Nullable
-    public I convertToRequestDTO(T entity) {
-        return userDomainDtoMapper.toDsRequestDTO(entity);
-    }
+//    @Override
+//    @Nullable
+//    public I convertToRequestDTO(T entity) {
+//        return userDomainDtoMapper.toDsRequestDTO(entity);
+//    }
 
     @Override
-    public IUserDomainEntity createNewEntity(UserRequestUseCaseDTO userRequestDTO) {
+    public T createNewEntity(UserRequestUseCaseDTO userRequestDTO) {
         
-        if(useLocaldomainObjectInspiteOfGenericEntity()) {
-            //A2.1 temp Domain creation (if domain was local temporally entity class)
-            return tempModelUserFactory.create(userRequestDTO.name(), userRequestDTO.password());
-        }
-        else {
+//        if(useLocaldomainObjectInspiteOfGenericEntity()) {
+//            //A2.1 temp Domain creation (if domain was local temporally entity class)
+//            return tempModelUserFactory.create(userRequestDTO.name(), userRequestDTO.password());
+//        }
+//        else 
+        {
             //A2.2 direct domain generics creation
             // Frage: just use here local tempUserObject!! and if ok - then persist it to lower layer???
             // Answer: NO, REASON - all domain consistency logik bereits in interface methods (isPasswordValid()). Domain check is done, so we can use Generics low-types directly!!

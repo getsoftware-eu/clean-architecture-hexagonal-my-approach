@@ -29,9 +29,7 @@ class RegisterUserPortGatewayServiceImpl (
     val userRepository: JpaUserRepository,
     mapper: RequestUserAppDTOMapper,
     override val assetClass: Class<UserMappedEntity> = UserMappedEntity::class.java
-): 
-//    IRegisterUserPortGatewayService, 
-    UserDomainEntityInnerGatewayServiceAbstr<UserMappedEntity, UserRequestUseCaseDTO, UserResponseClientDTO>(mapper, userRepository) {
+): UserDomainEntityInnerGatewayServiceAbstr<UserMappedEntity, UserRequestUseCaseDTO, UserResponseClientDTO>(mapper, userRepository) {
 
     //eu: smells like technical implementation
     

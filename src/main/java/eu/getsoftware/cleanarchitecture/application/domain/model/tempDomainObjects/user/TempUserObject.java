@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
  */
 @Getter
 @Setter
-class TempUserObject implements IUserDomainEntity
+public class TempUserObject implements IUserDomainEntity
 {
     String name;
     String password;

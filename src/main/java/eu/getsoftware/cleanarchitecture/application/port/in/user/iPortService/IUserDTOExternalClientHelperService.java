@@ -7,9 +7,9 @@ import eu.getsoftware.cleanarchitecture.application.port.in.user.iPortService.dt
 
 public interface IUserDTOExternalClientHelperService<T extends IUserDomainEntity, I extends IUserDomainRequestDTO, O extends IUserDomainResponseDTO> {
 
-    I convertToRequestDTO(T entity);
+//    I convertToRequestDTO(T entity);
 
-    IUserDomainEntity createNewEntity(UserRequestUseCaseDTO userRequestDTO);
+    T createNewEntity(UserRequestUseCaseDTO userRequestDTO);
 
     O convertToResponseDTO(T newUserEntity);
 }

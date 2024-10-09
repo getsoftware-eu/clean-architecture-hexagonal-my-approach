@@ -19,8 +19,8 @@ import java.util.*
  * its internal business conditions, that have to be internal treaten
  */
 abstract class UserDomainEntityInnerGatewayServiceAbstr<T: IUserDomainEntity, I : IUserDomainRequestDTO, O : IUserDomainResponseDTO>(
-    val domainMapper: IDomainMapper<T, I, O>,
-    val domainRepository: IDomainEntityGateway<T, Long>,
+    private val domainMapper: IDomainMapper<T, I, O>,
+    private val domainRepository: IDomainEntityGateway<T, Long>,
 ) : IDomainRegisterDTOGateway<T, I, O> {
 
     abstract val assetClass: Class<T>
