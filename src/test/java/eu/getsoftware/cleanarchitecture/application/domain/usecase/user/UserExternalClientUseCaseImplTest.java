@@ -62,7 +62,6 @@ class UserExternalClientUseCaseImplTest {
         // when:
         
         UserResponseClientDTO responseDTO = registerUseCase.registerNewUser(requestDTO);
-        
         UserResponseClientDTO responseDTO2 = registerUseCase.registerNewUser(requestDTO);
 
         // then:

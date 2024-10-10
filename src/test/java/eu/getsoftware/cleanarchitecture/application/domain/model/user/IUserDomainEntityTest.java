@@ -15,7 +15,11 @@ class IUserDomainEntityTest {
     void given123Password_whenPasswordIsNotValid_thenIsFalse() {
         UserMappedEntity userEntity = new UserMappedEntity();
         userEntity.setName("Eugen");
+        
+        // when:
         userEntity.setPassword("123");
+        
+        // then:
         assertThat(userEntity.isPasswordValid()).isFalse();
     }
 }

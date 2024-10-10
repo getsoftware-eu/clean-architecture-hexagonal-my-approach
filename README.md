@@ -1,4 +1,4 @@
-# My vision of Clean Architecture (Hexagonal + DDD) implementation
+# My vision of Clean Architecture (Hexagonal + Domain-driven design) implementation
 
 <b>Hexagonal</b> Architecture is focused on managing the boundaries between an application and the outside world. 
 
@@ -34,22 +34,21 @@ This is because, it becomes practically impossible to separate these two types o
        - Example: 'UserRegisterInteractor': injects und uses a (low-level) implementation of its own defined IGateway
      - Does not contain inner-business-logic (=inner rules within domain.module). But should contain interactor-logik (extern actions with entity-aggregates).
      - No spring annotation are used in our business logic (wearing with spring config).
-   - <b>Infrastructure</b> (backend impl.) layer : At this point, we finished all our business. Now, let’s start plugging in our details:
-     - Implementation of IGateway (technical persist-services, defined in the upper (useCase) layer)
-       - Example: 'JpaUserPersistApplicationService'
+   - <b>Infrastructure</b> (abstract services logik) layer :
      - <u>My approach: <b>abstract GatewayService</b> that use IRepository for the common CRUD methods</u>
-       - setting (higher) generics with concrete (low-level) <T: EntityImpl, Z: DTOImpl>
+         - setting (higher) generics with concrete (low-level) <T: EntityImpl, Z: DTOImpl>
      - Provides the technical capabilities that <b>support</b> the layers above, such as persistence or messaging.
-     - Implementation of portServices 
    - <b>Port</b> interfaces for adapters (public boundaries)
      - interfaces of portServices for the outside world (adapters)
      - DTOs for outside world requests and responses
-2. <b>Adapter</b> layer
+2. <b>Adapter</b> (backend impl.) layer: Implementation of portServices: At this point, we finished all our business. Now, let’s start plugging in our details
    - <b>in</b> adapters:
      - specific user request (Controller Adapters)
    - <b>out</b> adapters:
      - persistence serviceImpl + entityRepository + mapping (@Entity as Adapter)
-     - Presenter (ViewModel Adapters)
+       - Implementation of IGateway (technical persist-services, defined in the upper (useCase) layer)
+         - Example: 'JpaUserPersistApplicationService'
+   - Presenter (ViewModel Adapters)
 3. Extra "Main" (<b>Config</b>) package
    - SpringConfig classes are divided separately for the 'application', 'useCases' and 'infrastructure' layers.
      - f.e. scans for persistence beans in the external "adapter.out" package
