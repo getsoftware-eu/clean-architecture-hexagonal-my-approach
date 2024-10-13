@@ -7,8 +7,8 @@ import eu.getsoftware.cleanarchitecture.application.port.in.user.iPortService.dt
 import eu.getsoftware.cleanarchitecture.application.port.in.user.iPortService.dto.UserResponseClientDTO;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.iUseCase.IUserExternalClientUseCase;
 import eu.getsoftware.cleanarchitecture.application.port.out.user.IUserResponseDTOPortPresenter;
+import eu.getsoftware.cleanarchitecture.application.port.out.user.iPortService.gateways.IPersistHelperPortService;
 import lombok.RequiredArgsConstructor;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * DTO creation for Grenzen
@@ -21,6 +21,7 @@ public class UserExternalClientUseCaseImpl implements IUserExternalClientUseCase
     private final DomainEntityGatewayServiceAbstr<UserMappedEntity> userDomainPersistService;
     private final DomainEntityDTOServiceAbstr<UserMappedEntity, UserRequestUseCaseDTO, UserResponseClientDTO> userDTOToExternalClientService;
     private final IUserResponseDTOPortPresenter<UserResponseClientDTO> userResponseDTOPortPresenter;
+    private final IPersistHelperPortService<UserMappedEntity> userPersistHelperPortService;
 
     /**
      * Eugen:
@@ -45,7 +46,7 @@ public class UserExternalClientUseCaseImpl implements IUserExternalClientUseCase
             return userResponseDTOPortPresenter.prepareFailView("User already exists.");
         }
 
-        UserMappedEntity newUserEntity = createUserEntity(requestUserDto);
+        UserMappedEntity newUserEntity = userPersistHelperPortService.createCustomEntityWithProps(requestUserDto);
 
         if (!newUserEntity.isPasswordValid())
             return userResponseDTOPortPresenter.prepareFailView("User password must have more than 5 characters.");
@@ -58,13 +59,7 @@ public class UserExternalClientUseCaseImpl implements IUserExternalClientUseCase
         return formatModelDTOForClientView(clientResponseDTO);
     }
 
-    @NotNull
-    private UserMappedEntity createUserEntity(UserRequestUseCaseDTO requestUserDto) {
-        UserMappedEntity newUserEntity = userDomainPersistService.createEntity(requestUserDto.name());
-        newUserEntity.setPassword(requestUserDto.password());
-//        userDomainPersistService.saveEntity(newUserEntity);
-        return newUserEntity;
-    }
+
 
     @Override 
     public UserResponseClientDTO findExistingUserById(UserRequestUseCaseDTO requestModel, long userId)

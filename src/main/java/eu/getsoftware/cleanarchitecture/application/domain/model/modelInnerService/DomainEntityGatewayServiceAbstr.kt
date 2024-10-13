@@ -1,6 +1,5 @@
 package eu.getsoftware.cleanarchitecture.application.domain.model.modelInnerService
 
-import eu.getsoftware.cleanarchitecture.application.domain.model.IDomainEntityGateway
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomainEntity
 import eu.getsoftware.cleanarchitecture.common.error.UserNotFoundException
 import java.util.*
@@ -18,7 +17,6 @@ import java.util.*
 public abstract class DomainEntityGatewayServiceAbstr<T: IUserDomainEntity>(
     private val domainRepository: IDomainEntityGateway<T, Long>,
 ) 
-//    : IDomainPersistGateway<T> 
 {
 
     abstract val assetClass: Class<T>

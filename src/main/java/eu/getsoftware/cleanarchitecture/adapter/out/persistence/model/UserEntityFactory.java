@@ -1,7 +1,7 @@
 package eu.getsoftware.cleanarchitecture.adapter.out.persistence.model;
 
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomainFactory;
-import eu.getsoftware.cleanarchitecture.adapter.out.persistence.outPortServiceImpl.gateways.RegisterUserPortGatewayServiceImpl;
+import eu.getsoftware.cleanarchitecture.adapter.out.persistence.model.domainServiceImpl.UserGatewayServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -22,14 +22,14 @@ import org.springframework.stereotype.Component;
 public class UserEntityFactory/*<T extends UserDataMapperEntity, Z implements UserDsRequestApplicationModelDTO>*/ 
         implements IUserDomainFactory<UserMappedEntity>
 {
-    private final RegisterUserPortGatewayServiceImpl registerUserPortGatewayServiceImpl;
+    private final UserGatewayServiceImpl userGatewayServiceImpl;
 
     Class<UserMappedEntity> assetClass;
 
     @Override
     public UserMappedEntity create(String name, String password) {
 
-        UserMappedEntity entity = registerUserPortGatewayServiceImpl.createEntity(name);
+        UserMappedEntity entity = userGatewayServiceImpl.createEntity(name);
         entity.setPassword(password); //TODO where password validation? why validation in useCase and not here in creation?????
         
         //sun address creation and other consistency logik

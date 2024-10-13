@@ -12,7 +12,6 @@ abstract class DomainEntityDTOServiceAbstr<T: IUserDomainEntity, I : IUserDomain
     private val domainMapper: IDomainMapper<T, I, O>,
     private val domainRegisterDTOGateway: DomainEntityGatewayServiceAbstr<T>,
 ) 
-//    : IDomainRegisterDTOGateway<T, I, O>
 {
 
     //override 

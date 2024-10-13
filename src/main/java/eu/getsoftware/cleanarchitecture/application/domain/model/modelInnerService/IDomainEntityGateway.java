@@ -1,4 +1,4 @@
-package eu.getsoftware.cleanarchitecture.application.domain.model;
+package eu.getsoftware.cleanarchitecture.application.domain.model.modelInnerService;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
 

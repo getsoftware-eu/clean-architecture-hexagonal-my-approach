@@ -2,8 +2,8 @@ package eu.getsoftware.cleanarchitecture.application.domain.usecase.user;
 
 import eu.getsoftware.cleanarchitecture.adapter.out.UserResponseDTOPortFormatter;
 import eu.getsoftware.cleanarchitecture.adapter.out.persistence.model.UserMappedEntity;
-import eu.getsoftware.cleanarchitecture.adapter.out.persistence.outPortServiceImpl.UserDtoExternalClientServiceImpl;
-import eu.getsoftware.cleanarchitecture.adapter.out.persistence.outPortServiceImpl.gateways.RegisterUserPortGatewayServiceImpl;
+import eu.getsoftware.cleanarchitecture.adapter.out.persistence.model.domainServiceImpl.UserDTOServiceImpl;
+import eu.getsoftware.cleanarchitecture.adapter.out.persistence.model.domainServiceImpl.UserGatewayServiceImpl;
 import eu.getsoftware.cleanarchitecture.application.domain.model.modelInnerService.DomainEntityDTOServiceAbstr;
 import eu.getsoftware.cleanarchitecture.application.domain.model.modelInnerService.DomainEntityGatewayServiceAbstr;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.iPortService.dto.UserRequestUseCaseDTO;
@@ -30,8 +30,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class UserExternalClientUseCaseImplTest {
 
-    private final DomainEntityGatewayServiceAbstr<UserMappedEntity> userDomainPersistService = mock(RegisterUserPortGatewayServiceImpl.class);
-    private final DomainEntityDTOServiceAbstr<UserMappedEntity, UserRequestUseCaseDTO, UserResponseClientDTO> userDTOService = mock(UserDtoExternalClientServiceImpl.class);
+    private final DomainEntityGatewayServiceAbstr<UserMappedEntity> userDomainPersistService = mock(UserGatewayServiceImpl.class);
+    private final DomainEntityDTOServiceAbstr<UserMappedEntity, UserRequestUseCaseDTO, UserResponseClientDTO> userDTOService = mock(UserDTOServiceImpl.class);
     private final IUserResponseDTOPortPresenter<UserResponseClientDTO> userResponseDTOPortPresenter = mock(UserResponseDTOPortFormatter.class);
 
     IUserExternalClientUseCase registerUseCase = new UserExternalClientUseCaseImpl(userDomainPersistService, userDTOService, userResponseDTOPortPresenter);

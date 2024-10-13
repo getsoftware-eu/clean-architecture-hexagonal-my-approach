@@ -1,4 +1,4 @@
-package eu.getsoftware.cleanarchitecture.adapter.out.persistence.outPortServiceImpl.gateways
+package eu.getsoftware.cleanarchitecture.adapter.out.persistence.model.domainServiceImpl
 
 import eu.getsoftware.cleanarchitecture.adapter.out.persistence.model.UserMappedEntity
 import eu.getsoftware.cleanarchitecture.adapter.out.persistence.repository.JpaUserRepository
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service
 //TODO eu: is it application-layer usecase or just implementing infrastruktur-layer with missing technical details???
 
 /**
- * Gateway serviceImpl, that call repository methods to get and persist entity
+ * ALL LOGIC is now up in DOMAIN layer!!! Je hocher, desto besser!!!!
  * 
  * Difference to Struktura: 
  * 1. we define IService in iDomain
@@ -21,7 +21,7 @@ import org.springframework.stereotype.Service
  * because serviceMethods() are for (Sa, Sb) UNIQUE and these methods() external called from (abstract)controller as part of 'StrukturaServices' contract //no need for multi-layer usage
  */
 @Service
-class RegisterUserPortGatewayServiceImpl (
+class UserGatewayServiceImpl (
     val userRepository: JpaUserRepository,
     override val assetClass: Class<UserMappedEntity> = UserMappedEntity::class.java
 ): DomainEntityGatewayServiceAbstr<UserMappedEntity>(userRepository) {
