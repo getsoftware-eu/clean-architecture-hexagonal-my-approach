@@ -7,6 +7,7 @@ package eu.getsoftware.cleanarchitecture.application.domain.model.user;
  */
 public interface IUserDomainRequestDTO
 {
+    long requesterId();
     String name();
     String password(); //not for DTO response
 

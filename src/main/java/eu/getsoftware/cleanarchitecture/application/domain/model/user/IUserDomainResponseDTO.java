@@ -7,6 +7,7 @@ package eu.getsoftware.cleanarchitecture.application.domain.model.user;
  */
 public interface IUserDomainResponseDTO
 {
+    long entityId();
     String name();
     boolean isPasswordValid();
     // String password(); //not for DTO result

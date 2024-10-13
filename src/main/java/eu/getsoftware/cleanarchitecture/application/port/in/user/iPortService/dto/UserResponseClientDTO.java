@@ -11,6 +11,7 @@ import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomai
  * @param creationTimeStr
  */
 public record UserResponseClientDTO(
+      long entityId,
       String login,
       String name,
       String creationTimeStr
@@ -18,7 +19,7 @@ public record UserResponseClientDTO(
     
     public UserResponseClientDTO withCreationTime(String newCreationTimeStr)
     {
-        return new UserResponseClientDTO(login, name, newCreationTimeStr);
+        return new UserResponseClientDTO(entityId, login, name, newCreationTimeStr);
     }
 
     @Override

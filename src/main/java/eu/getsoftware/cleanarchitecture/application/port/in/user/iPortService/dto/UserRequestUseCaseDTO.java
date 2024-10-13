@@ -16,7 +16,10 @@ import java.time.LocalDateTime;
  * @param password
  */
 public record UserRequestUseCaseDTO(
-    @NotNull
+    
+	long requesterId,	
+		
+	@NotNull
 	String name,
 
 //	@UniqueUsername(message = "{Unique.user.username}")

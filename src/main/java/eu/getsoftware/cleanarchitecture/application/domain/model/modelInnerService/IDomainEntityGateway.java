@@ -1,6 +1,6 @@
 package eu.getsoftware.cleanarchitecture.application.domain.model.modelInnerService;
 
-import org.springframework.data.repository.PagingAndSortingRepository;
+//import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.Optional;
 
@@ -12,7 +12,8 @@ import java.util.Optional;
  *
  * Maybe interface for Repository is redundant, because we should not use repository directly and should make all actions via extra (Gateway)EntityService (implemented in infrastructure-layer)!
  */
-public interface IDomainEntityGateway<T, ID> extends PagingAndSortingRepository<T, ID> {
+public interface IDomainEntityGateway<T, ID> //extends PagingAndSortingRepository<T, ID> 
+{
     Optional<T> findById(ID id);
     Optional<T> findByName(String name);
     <S extends T> S save(S entity);
