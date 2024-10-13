@@ -1,11 +1,8 @@
 package eu.getsoftware.cleanarchitecture.adapter.out.persistence.outPortServiceImpl.gateways
 
-import eu.getsoftware.cleanarchitecture.adapter.out.persistence.mapper.RequestUserAppDTOMapper
 import eu.getsoftware.cleanarchitecture.adapter.out.persistence.model.UserMappedEntity
 import eu.getsoftware.cleanarchitecture.adapter.out.persistence.repository.JpaUserRepository
-import eu.getsoftware.cleanarchitecture.application.domain.model.modelInnerService.UserDomainEntityInnerGatewayServiceAbstr
-import eu.getsoftware.cleanarchitecture.application.port.`in`.user.iPortService.dto.UserRequestUseCaseDTO
-import eu.getsoftware.cleanarchitecture.application.port.`in`.user.iPortService.dto.UserResponseClientDTO
+import eu.getsoftware.cleanarchitecture.application.domain.model.modelInnerService.DomainEntityGatewayServiceAbstr
 import org.springframework.stereotype.Service
 
 //TODO eu: is it application-layer usecase or just implementing infrastruktur-layer with missing technical details???
@@ -25,16 +22,21 @@ import org.springframework.stereotype.Service
  */
 @Service
 class RegisterUserPortGatewayServiceImpl (
-//    val userRepository: IDomainRepository<UserMappedEntity, Long>,
     val userRepository: JpaUserRepository,
-    mapper: RequestUserAppDTOMapper,
     override val assetClass: Class<UserMappedEntity> = UserMappedEntity::class.java
-): UserDomainEntityInnerGatewayServiceAbstr<UserMappedEntity, UserRequestUseCaseDTO, UserResponseClientDTO>(mapper, userRepository) {
+): DomainEntityGatewayServiceAbstr<UserMappedEntity>(userRepository) {
 
     //eu: smells like technical implementation
     
     override fun existsByName(name: String): Boolean {
         return userRepository.findByName(name).isPresent
+    }
+
+    /**
+     * User TempEntity or just domainInterface
+     */
+    override fun useLocaldomainObjectInspiteOfGenericEntity(): Boolean {
+        return false
     }
 
 }

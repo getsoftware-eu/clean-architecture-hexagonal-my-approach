@@ -27,5 +27,11 @@ public class TempUserObject implements IUserDomainEntity
     public void setInitValues(String name) {
         this.name = name;
         this.creationTime = LocalDateTime.now();
+
+        //TODO eu: I can't send domain rabbitMQ notification in domain-interface, only in this impl Class!
+        //domainEventsProducerService.sendDomainNotification(convertToUserDomainDTO(this), DomainTopicEvent.USER_CREATED);
+        
     }
+    
+    //TODO @Value userId with own validation(?)
 }

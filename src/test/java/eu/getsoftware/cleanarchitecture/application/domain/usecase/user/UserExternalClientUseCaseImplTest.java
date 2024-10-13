@@ -4,9 +4,8 @@ import eu.getsoftware.cleanarchitecture.adapter.out.UserResponseDTOPortFormatter
 import eu.getsoftware.cleanarchitecture.adapter.out.persistence.model.UserMappedEntity;
 import eu.getsoftware.cleanarchitecture.adapter.out.persistence.outPortServiceImpl.UserDtoExternalClientServiceImpl;
 import eu.getsoftware.cleanarchitecture.adapter.out.persistence.outPortServiceImpl.gateways.RegisterUserPortGatewayServiceImpl;
-import eu.getsoftware.cleanarchitecture.application.domain.model.IDomainRegisterDTOGateway;
-import eu.getsoftware.cleanarchitecture.application.port.in.user.iPortService.IUserDTOExternalClientHelperService;
-import eu.getsoftware.cleanarchitecture.application.port.in.user.iPortService.UserExternalClientUseCaseImpl;
+import eu.getsoftware.cleanarchitecture.application.domain.model.modelInnerService.DomainEntityDTOServiceAbstr;
+import eu.getsoftware.cleanarchitecture.application.domain.model.modelInnerService.DomainEntityGatewayServiceAbstr;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.iPortService.dto.UserRequestUseCaseDTO;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.iPortService.dto.UserResponseClientDTO;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.iUseCase.IUserExternalClientUseCase;
@@ -31,18 +30,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class UserExternalClientUseCaseImplTest {
 
-    private final IUserDTOExternalClientHelperService<UserMappedEntity, UserRequestUseCaseDTO, UserResponseClientDTO> userDTOToExternalClientService = mock(UserDtoExternalClientServiceImpl.class);
-    private final IDomainRegisterDTOGateway<UserMappedEntity, UserRequestUseCaseDTO, UserResponseClientDTO> userDomainPersistService = mock(RegisterUserPortGatewayServiceImpl.class);
+    private final DomainEntityGatewayServiceAbstr<UserMappedEntity> userDomainPersistService = mock(RegisterUserPortGatewayServiceImpl.class);
+    private final DomainEntityDTOServiceAbstr<UserMappedEntity, UserRequestUseCaseDTO, UserResponseClientDTO> userDTOService = mock(UserDtoExternalClientServiceImpl.class);
     private final IUserResponseDTOPortPresenter<UserResponseClientDTO> userResponseDTOPortPresenter = mock(UserResponseDTOPortFormatter.class);
 
-    IUserExternalClientUseCase registerUseCase = new UserExternalClientUseCaseImpl(userDTOToExternalClientService, userDomainPersistService, userResponseDTOPortPresenter);
+    IUserExternalClientUseCase registerUseCase = new UserExternalClientUseCaseImpl(userDomainPersistService, userDTOService, userResponseDTOPortPresenter);
 
     @Test
     void shouldThrowResponseStatusException() {
         
         // given:
         UserRequestUseCaseDTO requestDTO = new UserRequestUseCaseDTO("name", "username", "123", "-");
-        when(userDTOToExternalClientService.createNewEntity(requestDTO)).thenReturn(new UserMappedEntity(requestDTO.name(), requestDTO.password(), LocalDateTime.now()));
+        when(userDTOService.createEntityFromDTO(requestDTO)).thenReturn(new UserMappedEntity(requestDTO.name(), requestDTO.password(), LocalDateTime.now()));
 
         // when:
         assertThatThrownBy(() -> registerUseCase.registerNewUser(requestDTO)).isInstanceOf(ResponseStatusException.class);
@@ -57,7 +56,7 @@ class UserExternalClientUseCaseImplTest {
         
         // given:
         UserRequestUseCaseDTO requestDTO = new UserRequestUseCaseDTO("name", "username", "123456", "-");
-        when(userDTOToExternalClientService.createNewEntity(requestDTO)).thenReturn(new UserMappedEntity(requestDTO.name(), requestDTO.password(), LocalDateTime.now()));
+        when(userDTOService.createEntityFromDTO(requestDTO)).thenReturn(new UserMappedEntity(requestDTO.name(), requestDTO.password(), LocalDateTime.now()));
 
         // when:
         
@@ -78,7 +77,7 @@ class UserExternalClientUseCaseImplTest {
 
         // given:
         UserRequestUseCaseDTO requestDTO = new UserRequestUseCaseDTO("name", "username", "123456", "-");
-        when(userDTOToExternalClientService.createNewEntity(requestDTO)).thenReturn(new UserMappedEntity(requestDTO.name(), requestDTO.password(), LocalDateTime.now()));
+        when(userDTOService.createEntityFromDTO(requestDTO)).thenReturn(new UserMappedEntity(requestDTO.name(), requestDTO.password(), LocalDateTime.now()));
         ArgumentCaptor<String> userRequestDtoArgumentCaptor = ArgumentCaptor.forClass(String.class); // eu: only STRING-ARGUMENTS
 
 

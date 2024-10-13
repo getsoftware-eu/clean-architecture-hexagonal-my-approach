@@ -1,16 +1,13 @@
 package eu.getsoftware.cleanarchitecture.application.domain.model.modelInnerService
 
-import eu.getsoftware.cleanarchitecture.application.domain.model.IDomainRegisterDTOGateway
 import eu.getsoftware.cleanarchitecture.application.domain.model.IDomainEntityGateway
-import eu.getsoftware.cleanarchitecture.common.error.UserNotFoundException
-import eu.getsoftware.cleanarchitecture.application.domain.model.mapper.IDomainMapper
-import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomainResponseDTO
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomainEntity
-import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomainRequestDTO
+import eu.getsoftware.cleanarchitecture.common.error.UserNotFoundException
 import java.util.*
 
 /**
- * domain - because only entity service.
+ * domain - because only entity service!
+ * eu: For example, ON new foreign DOMAIN-EVENT => FIND(!!) AND UPDATE OWN LOCAL DOMAIN-Entity 
  * 
  * eu: This abstract helper Service use internal Entity, that is not defined in interface!!!
  * 
@@ -18,10 +15,11 @@ import java.util.*
  * 
  * its internal business conditions, that have to be internal treaten
  */
-abstract class UserDomainEntityInnerGatewayServiceAbstr<T: IUserDomainEntity, I : IUserDomainRequestDTO, O : IUserDomainResponseDTO>(
-    private val domainMapper: IDomainMapper<T, I, O>,
+public abstract class DomainEntityGatewayServiceAbstr<T: IUserDomainEntity>(
     private val domainRepository: IDomainEntityGateway<T, Long>,
-) : IDomainRegisterDTOGateway<T, I, O> {
+) 
+//    : IDomainPersistGateway<T> 
+{
 
     abstract val assetClass: Class<T>
     
@@ -37,20 +35,10 @@ abstract class UserDomainEntityInnerGatewayServiceAbstr<T: IUserDomainEntity, I 
         return entity
     }
     
-    override fun createEntityFromDTO(userRequestDTO: I): T {
-        val entity : T = createEntity(userRequestDTO.name())
-        domainMapper.updateAllFromDto(userRequestDTO, entity)
-        return entity
-    }
-
-    override fun saveEntity(entity: T) {
+    //override 
+    fun saveEntity(entity: T) {
         domainRepository.save(entity)
     }    
-    
-    override fun saveFromDTO(userRequestDTO : I) {
-        val entity : T = createEntityFromDTO(userRequestDTO)
-        domainRepository.save(entity)
-    }  
     
 //    fun save(entity: T): T {
 //        val entity : T = createInstance(assetClass)
@@ -72,15 +60,13 @@ abstract class UserDomainEntityInnerGatewayServiceAbstr<T: IUserDomainEntity, I 
         } else throw UserNotFoundException(id)
     }  
     
-    override fun getModelDTOById(id: Long): O? {
-        val user = findEntityById(id)
-        return domainMapper.toResponseDTO(user)
-    }
-
-    override abstract fun existsByName(name: String): Boolean
+    //override
+    abstract fun existsByName(name: String): Boolean
     
     @Throws(InstantiationException::class, IllegalAccessException::class)
     inline fun createInstance(assetClass: Class<T>): T {
         return assetClass.getDeclaredConstructor().newInstance()
     }
+
+    abstract fun useLocaldomainObjectInspiteOfGenericEntity(): Boolean
 }

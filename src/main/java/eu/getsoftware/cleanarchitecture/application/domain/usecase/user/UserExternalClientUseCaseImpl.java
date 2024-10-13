@@ -1,15 +1,14 @@
-package eu.getsoftware.cleanarchitecture.application.port.in.user.iPortService;
+package eu.getsoftware.cleanarchitecture.application.domain.usecase.user;
 
 import eu.getsoftware.cleanarchitecture.adapter.out.persistence.model.UserMappedEntity;
-import eu.getsoftware.cleanarchitecture.application.domain.model.IDomainRegisterDTOGateway;
-import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomainRequestDTO;
-import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomainResponseDTO;
-import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomainEntity;
+import eu.getsoftware.cleanarchitecture.application.domain.model.modelInnerService.DomainEntityGatewayServiceAbstr;
+import eu.getsoftware.cleanarchitecture.application.domain.model.modelInnerService.DomainEntityDTOServiceAbstr;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.iPortService.dto.UserRequestUseCaseDTO;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.iPortService.dto.UserResponseClientDTO;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.iUseCase.IUserExternalClientUseCase;
 import eu.getsoftware.cleanarchitecture.application.port.out.user.IUserResponseDTOPortPresenter;
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * DTO creation for Grenzen
@@ -19,8 +18,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserExternalClientUseCaseImpl implements IUserExternalClientUseCase
 {
-    private final IUserDTOExternalClientHelperService<UserMappedEntity, UserRequestUseCaseDTO, UserResponseClientDTO> userDTOToExternalClientService;
-    private final IDomainRegisterDTOGateway<UserMappedEntity, UserRequestUseCaseDTO, UserResponseClientDTO> userDomainPersistService;
+    private final DomainEntityGatewayServiceAbstr<UserMappedEntity> userDomainPersistService;
+    private final DomainEntityDTOServiceAbstr<UserMappedEntity, UserRequestUseCaseDTO, UserResponseClientDTO> userDTOToExternalClientService;
     private final IUserResponseDTOPortPresenter<UserResponseClientDTO> userResponseDTOPortPresenter;
 
     /**
@@ -46,20 +45,25 @@ public class UserExternalClientUseCaseImpl implements IUserExternalClientUseCase
             return userResponseDTOPortPresenter.prepareFailView("User already exists.");
         }
 
-        UserMappedEntity newUserEntity = userDTOToExternalClientService.createNewEntity(requestUserDto);
-        
+        UserMappedEntity newUserEntity = createUserEntity(requestUserDto);
+
         if (!newUserEntity.isPasswordValid())
             return userResponseDTOPortPresenter.prepareFailView("User password must have more than 5 characters.");
 
-//        UserRequestUseCaseDTO newUserRequestDTO = userDTOToExternalClientService.convertToRequestDTO(newUserEntity);
-        
         //A3 domain is correct, we can send it to lower layer for persist
-//        userDomainPersistService.saveFromDTO(newUserRequestDTO); //only save request, no response!!!
         userDomainPersistService.saveEntity(newUserEntity); //only save request, no response!!!
 
         UserResponseClientDTO clientResponseDTO = userDTOToExternalClientService.convertToResponseDTO(newUserEntity);
-
+                
         return formatModelDTOForClientView(clientResponseDTO);
+    }
+
+    @NotNull
+    private UserMappedEntity createUserEntity(UserRequestUseCaseDTO requestUserDto) {
+        UserMappedEntity newUserEntity = userDomainPersistService.createEntity(requestUserDto.name());
+        newUserEntity.setPassword(requestUserDto.password());
+//        userDomainPersistService.saveEntity(newUserEntity);
+        return newUserEntity;
     }
 
     @Override 
@@ -69,7 +73,7 @@ public class UserExternalClientUseCaseImpl implements IUserExternalClientUseCase
             return userResponseDTOPortPresenter.prepareFailView("User not exists.");
         }
 
-        UserResponseClientDTO userResponseDTO = userDomainPersistService.getModelDTOById(userId);
+        UserResponseClientDTO userResponseDTO = userDTOToExternalClientService.getModelDTOById(userId);
 
         return formatModelDTOForClientView(userResponseDTO);
     }
