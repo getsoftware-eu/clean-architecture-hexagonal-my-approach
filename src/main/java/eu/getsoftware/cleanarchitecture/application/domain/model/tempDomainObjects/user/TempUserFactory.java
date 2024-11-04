@@ -5,12 +5,14 @@ import eu.getsoftware.cleanarchitecture.application.domain.model.tempDomainObjec
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomainEntity;
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomainFactory;
 
+import java.util.UUID;
+
 public class TempUserFactory implements IUserDomainFactory<TempUserObject> {
     
     @Override
     public TempUserObject create(String name, String password) {
 
-        TempUserObject user = new TempUserObject();
+        TempUserObject user = new TempUserObject(new UserId(UUID.randomUUID()));
         user.setInitValues(name);
         user.setPassword(password);
         
@@ -19,4 +21,9 @@ public class TempUserFactory implements IUserDomainFactory<TempUserObject> {
         
         return user;
     }
+
+    public TempUserObject.TempUserObjectBuilder getEntityBuilder(UserId domainEntityId){
+        return TempUserObject.builder().domainEntityId(domainEntityId);
+    }
+    
 }
