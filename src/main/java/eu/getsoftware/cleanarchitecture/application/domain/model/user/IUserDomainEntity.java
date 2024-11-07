@@ -26,7 +26,7 @@ public interface IUserDomainEntity
     void setInitValues(String name);
     // --- Fields for Entity!! ---
 
-    EntityIdentifier domainEntityId();
+    EntityIdentifier getDomainEntityId();
     String getName();
     String getPassword();
     IAddressDomain getAddress();

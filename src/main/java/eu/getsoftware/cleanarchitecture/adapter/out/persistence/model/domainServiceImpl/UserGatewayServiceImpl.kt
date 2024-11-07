@@ -2,6 +2,7 @@ package eu.getsoftware.cleanarchitecture.adapter.out.persistence.model.domainSer
 
 import eu.getsoftware.cleanarchitecture.adapter.out.persistence.model.UserMappedEntity
 import eu.getsoftware.cleanarchitecture.adapter.out.persistence.repository.JpaUserRepository
+import eu.getsoftware.cleanarchitecture.application.domain.model.modelInnerService.DomainEntityGatewayServiceAbstr
 import org.springframework.stereotype.Service
 
 //TODO eu: is it application-layer usecase or just implementing infrastruktur-layer with missing technical details???

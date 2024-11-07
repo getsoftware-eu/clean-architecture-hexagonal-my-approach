@@ -12,5 +12,5 @@ import java.util.UUID;
  */
 public interface EntityIdentifier   {
     
-    public String value();
+    public String uuidValue();
 }

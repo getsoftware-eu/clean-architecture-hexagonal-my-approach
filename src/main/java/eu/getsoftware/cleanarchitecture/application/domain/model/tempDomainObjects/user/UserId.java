@@ -6,11 +6,11 @@ import java.util.UUID;
 
 /**
  * Value Object for DomainEntityId
- * @param value
+ * @param uuidValue
  */
 
 public record UserId(
-    String value
+    String uuidValue
 ) implements EntityIdentifier {
     
    public UserId(UUID userId)

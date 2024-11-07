@@ -1,5 +1,7 @@
 package eu.getsoftware.cleanarchitecture.adapter.out.persistence.model;
 
+import eu.getsoftware.cleanarchitecture.application.domain.model.tempDomainObjects.user.UserId;
+import eu.getsoftware.cleanarchitecture.application.domain.model.user.EntityIdentifier;
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomainEntity;
 import lombok.*;
 
@@ -22,7 +24,10 @@ public class UserMappedEntity implements IUserDomainEntity //(no, manuell fill f
     @Setter(AccessLevel.PROTECTED)
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long userId;
-    
+
+    @Column
+    private String domainEntityId;
+
     @NonNull
     @Column
     private String name;
@@ -39,9 +44,18 @@ public class UserMappedEntity implements IUserDomainEntity //(no, manuell fill f
     @NonNull
     private LocalDateTime creationTime;
 
+    public void setDomainEntityId(EntityIdentifier domainIdentifier) {
+        this.domainEntityId = domainIdentifier.uuidValue();
+    }
+
+    public EntityIdentifier getDomainEntityId() {
+        return new UserId(domainEntityId);
+    }
+    
     @Override
     public void setInitValues(String name) {
         this.setName(name);
         this.setCreationTime(LocalDateTime.now());
     }
+
 }

@@ -2,10 +2,7 @@ package eu.getsoftware.cleanarchitecture.application.domain.model.tempDomainObje
 
 import eu.getsoftware.cleanarchitecture.application.domain.model.tempDomainObjects.TempAddressValueObject;
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomainEntity;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -20,13 +17,14 @@ import java.time.LocalDateTime;
 @Setter
 @Builder
 @RequiredArgsConstructor
+@AllArgsConstructor
 public class TempUserObject implements IUserDomainEntity
 {
     private final UserId domainEntityId;
-    String name;
-    String password;
-    LocalDateTime creationTime;
-    TempAddressValueObject address;
+    private String name;
+    private String password;
+    private LocalDateTime creationTime;
+    private TempAddressValueObject address;
 
     @Override
     public void setInitValues(String name) {
