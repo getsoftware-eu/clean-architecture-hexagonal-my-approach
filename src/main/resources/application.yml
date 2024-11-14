@@ -1,3 +1,24 @@
 server:
   port: 8080
   error.include-message: always
+  
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/usertest
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop #eugen, not for production: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+  
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.xml
+    enabled: false
