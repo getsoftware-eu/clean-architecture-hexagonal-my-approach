@@ -1,6 +1,6 @@
 package eu.getsoftware.cleanarchitecture.adapter.out.persistence.model.domainServiceImpl
 
-import eu.getsoftware.cleanarchitecture.adapter.out.persistence.model.UserMappedEntity
+import eu.getsoftware.cleanarchitecture.adapter.out.persistence.model.UserMappedDBEntity
 import eu.getsoftware.cleanarchitecture.adapter.out.persistence.repository.JpaUserRepository
 import eu.getsoftware.cleanarchitecture.application.domain.model.modelInnerService.DomainEntityGatewayServiceAbstr
 import org.springframework.stereotype.Service
@@ -23,8 +23,8 @@ import org.springframework.stereotype.Service
 @Service
 class UserGatewayServiceImpl (
     val userRepository: JpaUserRepository,
-    override val assetClass: Class<UserMappedEntity> = UserMappedEntity::class.java
-): DomainEntityGatewayServiceAbstr<UserMappedEntity>(userRepository) {
+    override val assetClass: Class<UserMappedDBEntity> = UserMappedDBEntity::class.java
+): DomainEntityGatewayServiceAbstr<UserMappedDBEntity>(userRepository) {
 
     //eu: smells like technical implementation
     

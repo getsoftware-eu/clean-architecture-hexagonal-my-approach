@@ -1,7 +1,8 @@
 package eu.getsoftware.cleanarchitecture.adapter.out.persistence.repository;
 
-import eu.getsoftware.cleanarchitecture.adapter.out.persistence.model.UserMappedEntity;
+import eu.getsoftware.cleanarchitecture.adapter.out.persistence.model.UserMappedDBEntity;
 import eu.getsoftware.cleanarchitecture.application.domain.model.modelInnerService.IDomainEntityGateway;
+import eu.getsoftware.cleanarchitecture.application.domain.model.user.UserDomainId;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,9 +10,9 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository 
-public interface JpaUserRepository extends IDomainEntityGateway<UserMappedEntity, Long>, JpaRepository<UserMappedEntity, Long> {
+public interface JpaUserRepository extends IDomainEntityGateway<UserMappedDBEntity, Long>, JpaRepository<UserMappedDBEntity, Long> {
 
-    Optional<UserMappedEntity> findByName(String name);
+    Optional<UserMappedDBEntity> findByName(String name);
 
-    Optional<UserMappedEntity> findByDomainEntityId(UUID domainEntityId);
+    Optional<UserMappedDBEntity> findByDomainEntityId(UserDomainId domainEntityId);
 }

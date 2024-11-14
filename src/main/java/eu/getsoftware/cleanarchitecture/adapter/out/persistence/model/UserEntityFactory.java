@@ -20,17 +20,17 @@ import org.springframework.stereotype.Component;
 @Component
 @AllArgsConstructor
 public class UserEntityFactory/*<T extends UserDataMapperEntity, Z implements UserDsRequestApplicationModelDTO>*/ 
-        implements IUserDomainFactory<UserMappedEntity>
+        implements IUserDomainFactory<UserMappedDBEntity>
 {
     private final UserGatewayServiceImpl userGatewayServiceImpl;
 
-    Class<UserMappedEntity> assetClass;
+    Class<UserMappedDBEntity> assetClass;
 
     @Override
-    public UserMappedEntity create(String name, String password) {
+    public UserMappedDBEntity create(String name, String password) {
 
-        UserMappedEntity entity = userGatewayServiceImpl.createEntity(name);
-        entity.setPassword(password); //TODO where password validation? why validation in useCase and not here in creation?????
+        UserMappedDBEntity entity = userGatewayServiceImpl.createEntity(name);
+        entity.setInitValues(name, password); //TODO where password validation? why validation in useCase and not here in creation?????
         
         //sun address creation and other consistency logik
         AddressMappedEntity address = new AddressMappedEntity();

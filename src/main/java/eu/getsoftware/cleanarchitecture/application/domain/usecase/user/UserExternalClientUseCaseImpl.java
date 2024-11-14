@@ -1,6 +1,6 @@
 package eu.getsoftware.cleanarchitecture.application.domain.usecase.user;
 
-import eu.getsoftware.cleanarchitecture.adapter.out.persistence.model.UserMappedEntity;
+import eu.getsoftware.cleanarchitecture.adapter.out.persistence.model.UserMappedDBEntity;
 import eu.getsoftware.cleanarchitecture.application.domain.model.modelInnerService.DomainEntityGatewayServiceAbstr;
 import eu.getsoftware.cleanarchitecture.application.domain.model.modelInnerService.DomainEntityDTOServiceAbstr;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.iPortService.dto.UserRequestUseCaseDTO;
@@ -18,10 +18,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserExternalClientUseCaseImpl implements IUserExternalClientUseCase
 {
-    private final DomainEntityGatewayServiceAbstr<UserMappedEntity> userDomainPersistService;
-    private final DomainEntityDTOServiceAbstr<UserMappedEntity, UserRequestUseCaseDTO, UserResponseClientDTO> userDTOToExternalClientService;
+    private final DomainEntityGatewayServiceAbstr<UserMappedDBEntity> userDomainPersistService;
+    private final DomainEntityDTOServiceAbstr<UserMappedDBEntity, UserRequestUseCaseDTO, UserResponseClientDTO> userDTOToExternalClientService;
     private final IUserResponseDTOPortPresenter<UserResponseClientDTO> userResponseDTOPortPresenter;
-    private final IPersistHelperPortService<UserMappedEntity> userPersistHelperPortService;
+    private final IPersistHelperPortService<UserMappedDBEntity> userPersistHelperPortService;
 
     /**
      * Eugen:
@@ -34,7 +34,7 @@ public class UserExternalClientUseCaseImpl implements IUserExternalClientUseCase
      *
      * Ds - (Data Source=DTO) to lower layers(?)
      *
-     *  Frage: just use here local tempUserObject!! and if ok - then persist it to lower layer???
+     *  Frage: just use here local UserDomainEntity!! and if ok - then persist it to lower layer???
      *  Answer: NO, REASON - all domain consistency logik bereits in interface methods (isPasswordValid()). 
      *  So Domain check is done, so we can use Generics low-types directly!!
      *
@@ -46,7 +46,7 @@ public class UserExternalClientUseCaseImpl implements IUserExternalClientUseCase
             return userResponseDTOPortPresenter.prepareFailView("User already exists.");
         }
 
-        UserMappedEntity newUserEntity = userPersistHelperPortService.createCustomEntityWithProps(requestUserDto);
+        UserMappedDBEntity newUserEntity = userPersistHelperPortService.createCustomEntityWithProps(requestUserDto);
 
         if (!newUserEntity.isPasswordValid())
             return userResponseDTOPortPresenter.prepareFailView("User password must have more than 5 characters.");

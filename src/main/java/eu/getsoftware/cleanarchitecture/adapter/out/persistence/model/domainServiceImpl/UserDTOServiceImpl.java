@@ -1,6 +1,6 @@
 package eu.getsoftware.cleanarchitecture.adapter.out.persistence.model.domainServiceImpl;
 
-import eu.getsoftware.cleanarchitecture.adapter.out.persistence.model.UserMappedEntity;
+import eu.getsoftware.cleanarchitecture.adapter.out.persistence.model.UserMappedDBEntity;
 import eu.getsoftware.cleanarchitecture.application.domain.model.mapper.IDomainMapper;
 import eu.getsoftware.cleanarchitecture.application.domain.model.modelInnerService.DomainEntityDTOServiceAbstr;
 import eu.getsoftware.cleanarchitecture.application.domain.model.modelInnerService.DomainEntityGatewayServiceAbstr;
@@ -9,7 +9,7 @@ import eu.getsoftware.cleanarchitecture.application.port.in.user.iPortService.dt
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserDTOServiceImpl extends DomainEntityDTOServiceAbstr<UserMappedEntity, UserRequestUseCaseDTO, UserResponseClientDTO> {
+public class UserDTOServiceImpl extends DomainEntityDTOServiceAbstr<UserMappedDBEntity, UserRequestUseCaseDTO, UserResponseClientDTO> {
 
     /**
      * 
@@ -20,8 +20,8 @@ public class UserDTOServiceImpl extends DomainEntityDTOServiceAbstr<UserMappedEn
      * @param domainEntityGatewayService
      */
     public UserDTOServiceImpl(
-            IDomainMapper<UserMappedEntity, UserRequestUseCaseDTO, UserResponseClientDTO> domainMapper,
-            DomainEntityGatewayServiceAbstr<UserMappedEntity> domainEntityGatewayService 
+            IDomainMapper<UserMappedDBEntity, UserRequestUseCaseDTO, UserResponseClientDTO> domainMapper,
+            DomainEntityGatewayServiceAbstr<UserMappedDBEntity> domainEntityGatewayService 
         ) {
         super(domainMapper, domainEntityGatewayService);
     }

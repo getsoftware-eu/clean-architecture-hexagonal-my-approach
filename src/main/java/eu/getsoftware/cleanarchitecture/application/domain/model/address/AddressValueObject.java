@@ -1,4 +1,4 @@
-package eu.getsoftware.cleanarchitecture.application.domain.model.tempDomainObjects;
+package eu.getsoftware.cleanarchitecture.application.domain.model.address;
 
 
 import eu.getsoftware.cleanarchitecture.application.domain.model.IAddressDomain;
@@ -9,7 +9,7 @@ import eu.getsoftware.cleanarchitecture.application.domain.model.IAddressDomain;
  * They also can contain business logic. Value objects mainly live as attributes of other entities.
  * A good example of a value object is the delivery address of the Order entity.
  */
-public record TempAddressValueObject(
+public record AddressValueObject(
         String street, 
         String city
 ) implements IAddressDomain {

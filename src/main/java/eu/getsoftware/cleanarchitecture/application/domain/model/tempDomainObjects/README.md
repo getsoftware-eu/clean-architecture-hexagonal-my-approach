@@ -1,1 +1,0 @@
-to represent internal domain (entities), double class to persistence entities

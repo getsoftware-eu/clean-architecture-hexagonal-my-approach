@@ -1,7 +1,7 @@
 package eu.getsoftware.cleanarchitecture.application.domain.model.mapper
 
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomainResponseDTO
-import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomainEntity
+import eu.getsoftware.cleanarchitecture.application.domain.model.user.UserDomainEntity
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomainRequestDTO
 import org.mapstruct.Mapping
 import org.mapstruct.MappingTarget
@@ -10,7 +10,7 @@ import org.mapstruct.Named
 /**
  * central generic Interface for mapping Entity to Dto in lower layers 
  */
-interface IDomainMapper<T: IUserDomainEntity, I : IUserDomainRequestDTO, O : IUserDomainResponseDTO>{
+interface IDomainMapper<T: UserDomainEntity, I : IUserDomainRequestDTO, O : IUserDomainResponseDTO>{
 
     fun toEntityById(id: Long?): T
 

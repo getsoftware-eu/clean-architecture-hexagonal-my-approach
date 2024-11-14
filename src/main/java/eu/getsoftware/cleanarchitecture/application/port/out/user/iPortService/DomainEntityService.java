@@ -1,10 +1,11 @@
 package eu.getsoftware.cleanarchitecture.application.port.out.user.iPortService;
 
-import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomainEntity;
+import eu.getsoftware.cleanarchitecture.application.domain.model.user.EntityIdentifier;
+import eu.getsoftware.cleanarchitecture.application.domain.model.user.UserDomainEntity;
 
 import java.util.UUID;
 
-public interface DomainEntityService<T extends IUserDomainEntity> {
+public interface DomainEntityService<I extends EntityIdentifier> {
 
-    T recreateDomainEntity(UUID domainEntityId);
+    UserDomainEntity recreateDomainEntity(I domainEntityId);
 }

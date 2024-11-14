@@ -1,6 +1,6 @@
 package eu.getsoftware.cleanarchitecture.application.domain.model.user;
 
-import eu.getsoftware.cleanarchitecture.adapter.out.persistence.model.UserMappedEntity;
+import eu.getsoftware.cleanarchitecture.adapter.out.persistence.model.UserMappedDBEntity;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -13,11 +13,10 @@ class IUserDomainEntityTest {
 
     @Test
     void given123Password_whenPasswordIsNotValid_thenIsFalse() {
-        UserMappedEntity userEntity = new UserMappedEntity();
-        userEntity.setName("Eugen");
+        UserMappedDBEntity userEntity = new UserMappedDBEntity();
         
         // when:
-        userEntity.setPassword("123");
+        userEntity.setInitValues("Eugen", "password");
         
         // then:
         assertThat(userEntity.isPasswordValid()).isFalse();
