@@ -1,8 +1,12 @@
 package eu.getsoftware.cleanarchitecture.adapter.in.web.controller;
 
-import eu.getsoftware.cleanarchitecture.application.port.in.user.iusecase.IUserExternalClientUseCase;
-import eu.getsoftware.cleanarchitecture.application.port.in.user.iportservice.dto.UserResponseClientDTO;
-import eu.getsoftware.cleanarchitecture.application.port.in.user.iportservice.dto.UserRequestUseCaseDTO;
+import eu.getsoftware.cleanarchitecture.application.domain.model.user.UserDomainId;
+import eu.getsoftware.cleanarchitecture.application.port.in.user.iportservice.dto.UserClientDTO;
+import eu.getsoftware.cleanarchitecture.application.port.in.user.iportservice.dto.UserUpdateRequestUseCaseDTO;
+import eu.getsoftware.cleanarchitecture.application.port.in.user.iusecase.IRegisterUserUseCase;
+import eu.getsoftware.cleanarchitecture.application.port.in.user.iportservice.dto.UserRegisterRequestUseCaseDTO;
+import eu.getsoftware.cleanarchitecture.application.port.in.user.iusecase.IUserUseCase;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,7 +14,8 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class UserRegisterController {
 
-    private final IUserExternalClientUseCase userInputUseCase;
+    private final IRegisterUserUseCase registerUserInputUseCase;
+    private final IUserUseCase userInputUseCase;
 
 //    @Operation(summary  = "creates a new user from client DTO", produces = "application/json")
 //    @ApiResponses(value = {
@@ -18,24 +23,34 @@ public class UserRegisterController {
 //            @ApiResponse(responseCode = "400", description = "Invalid input provided")
 //    })
     @PostMapping("/put")
-    UserResponseClientDTO create(@RequestBody UserRequestUseCaseDTO requestModel) {
+    UserClientDTO create(@Valid @RequestBody UserRegisterRequestUseCaseDTO requestModel) {
         
-        UserResponseClientDTO responseDTO = userInputUseCase.registerNewUser(requestModel);
+        UserClientDTO responseDTO = registerUserInputUseCase.execute(requestModel);
         
         return responseDTO; //ResponseEntity.status(HttpStatus.OK).body(responseDTO);
     }
     
     @GetMapping("/{userId}")
-    public UserResponseClientDTO findById(@RequestBody UserRequestUseCaseDTO requestModel, @PathVariable long userId) {
-        return userInputUseCase.findExistingUserById(requestModel, userId); //.orElseThrow(() -> new UserNotFoundException(id));
+    public UserClientDTO findByName(@Valid @RequestBody UserClientDTO requestModel) {
+        return userInputUseCase.findExistingUserByName(requestModel); //.orElseThrow(() -> new UserNotFoundException(id));
+    }      
+    
+    @GetMapping("/{userId}")
+    public UserClientDTO findByName(@Valid @RequestBody UserDomainId domainId) {
+        return userInputUseCase.findExistingUserByDomainId(domainId); //.orElseThrow(() -> new UserNotFoundException(id));
+    }  
+    
+    @PutMapping("/{userId}")
+    public UserClientDTO update(@Valid @RequestBody UserUpdateRequestUseCaseDTO requestModel) {
+        return userInputUseCase.updateExistingUser(requestModel); //.orElseThrow(() -> new UserNotFoundException(id));
     }
 
     @GetMapping("/demo")
-    UserResponseClientDTO createDemo() {
+    UserClientDTO createDemo() {
 
-        UserRequestUseCaseDTO sampleRequestDTO = new UserRequestUseCaseDTO(1, "name", "user", "password", "-");
+        UserRegisterRequestUseCaseDTO sampleRequestDTO = new UserRegisterRequestUseCaseDTO(1, "name", "user", "e@ma.il","password", "-");
 
-        UserResponseClientDTO responseDTO = userInputUseCase.registerNewUser(sampleRequestDTO);
+        UserClientDTO responseDTO = registerUserInputUseCase.execute(sampleRequestDTO);
 
         return responseDTO; //ResponseEntity.status(HttpStatus.OK).body(responseDTO);
     }

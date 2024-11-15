@@ -9,9 +9,9 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository 
-public interface JpaUserRepository extends IDomainEntityGateway<UserMappedDBEntity, Long>, JpaRepository<UserMappedDBEntity, Long> {
+public interface UserJpaRepository extends IDomainEntityGateway<UserMappedDBEntity, Long>, JpaRepository<UserMappedDBEntity, Long> {
 
-//    Optional<UserMappedDBEntity> findByName(String name);
+    Optional<UserMappedDBEntity> findByName(String name);
 
-//    Optional<UserMappedDBEntity> findByDomainEntityId(UserDomainId domainEntityId);
+    Optional<UserMappedDBEntity> findByDomainEntityId(UserDomainId domainEntityId);
 }

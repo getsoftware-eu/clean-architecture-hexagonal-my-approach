@@ -5,7 +5,7 @@ package eu.getsoftware.cleanarchitecture.application.domain.model.user;
  * 
  * EU: no getMethods, because RECORD implements it!!!
  */
-public interface IUserDomainRequestDTO
+public interface IDomainRequestDTO
 {
     long requesterId();
     String name();

@@ -1,24 +1,37 @@
 package eu.getsoftware.cleanarchitecture.application.domain.model.user;
 
+import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.Value;
+
 import java.util.UUID;
 
 /**
  * Value Object for DomainEntityId
- * @param uuidValue
  */
+@Value
+@Getter
+public class UserDomainId implements EntityIdentifier {
 
-public record UserDomainId(
-    String uuidValue
-) implements EntityIdentifier {
+    @NonNull
+    String uuidValue;
     
-   public UserDomainId(UUID userId)
-    {
-        this(userId.toString());
+    public static UserDomainId from(String value) {
+        if (value == null || value.isEmpty()) {
+            throw new IllegalArgumentException("UserDomainId cannot be null or empty");
+        }
+        return new UserDomainId(value);
     }
 
-    public UserDomainId { //Eu: primary constructor!!! without parameters
-        if (uuidValue == null || uuidValue.isBlank()) {
-            throw new IllegalArgumentException("uuidValue cannot be null or blank");
+    public static UserDomainId from(@NotNull UUID uuid) {
+        if (uuid == null) {
+            throw new IllegalArgumentException("UserDomainId cannot be null or empty");
         }
+        return new UserDomainId(uuid.toString());
+    }
+
+    public static UserDomainId generate() {
+        return new UserDomainId(UUID.randomUUID().toString());
     }
 }

@@ -3,15 +3,13 @@ package eu.getsoftware.cleanarchitecture.application.domain.usecase.user;
 import eu.getsoftware.cleanarchitecture.adapter.out.UserResponseDTOPortFormatter;
 import eu.getsoftware.cleanarchitecture.adapter.out.persistence.model.UserMappedDBEntity;
 import eu.getsoftware.cleanarchitecture.adapter.out.persistence.model.domainserviceimpl.UserDTOServiceImpl;
-import eu.getsoftware.cleanarchitecture.adapter.out.persistence.model.domainserviceimpl.UserGatewayServiceImpl;
 import eu.getsoftware.cleanarchitecture.adapter.out.persistence.outPortServiceImpl.UserPersistHelperPortServiceImpl;
 import eu.getsoftware.cleanarchitecture.application.domain.model.modelinnerservice.DomainEntityDTOServiceAbstr;
-import eu.getsoftware.cleanarchitecture.application.domain.model.modelinnerservice.DomainEntityGatewayServiceAbstr;
-import eu.getsoftware.cleanarchitecture.application.port.in.user.iportservice.dto.UserRequestUseCaseDTO;
-import eu.getsoftware.cleanarchitecture.application.port.in.user.iportservice.dto.UserResponseClientDTO;
-import eu.getsoftware.cleanarchitecture.application.port.in.user.iusecase.IUserExternalClientUseCase;
+import eu.getsoftware.cleanarchitecture.application.port.in.user.iportservice.dto.UserClientDTO;
+import eu.getsoftware.cleanarchitecture.application.port.in.user.iportservice.dto.UserRegisterRequestUseCaseDTO;
+import eu.getsoftware.cleanarchitecture.application.port.in.user.iusecase.IRegisterUserUseCase;
 import eu.getsoftware.cleanarchitecture.application.port.out.user.IUserResponseDTOPortPresenter;
-import eu.getsoftware.cleanarchitecture.application.port.out.user.iportservice.gateways.IPersistHelperPortService;
+import eu.getsoftware.cleanarchitecture.application.port.out.user.iportservice.gateways.IDomainPersistPortService;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.springframework.web.server.ResponseStatusException;
@@ -32,25 +30,24 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class UserExternalClientUseCaseImplTest {
 
-    private final DomainEntityGatewayServiceAbstr<UserMappedDBEntity> userDomainPersistService = mock(UserGatewayServiceImpl.class);
-    private final DomainEntityDTOServiceAbstr<UserMappedDBEntity, UserRequestUseCaseDTO, UserResponseClientDTO> userDTOService = mock(UserDTOServiceImpl.class);
-    private final IUserResponseDTOPortPresenter<UserResponseClientDTO> userResponseDTOPortPresenter = mock(UserResponseDTOPortFormatter.class);
-    private final IPersistHelperPortService<UserMappedDBEntity> persistHelperPortService = mock(UserPersistHelperPortServiceImpl.class);
+    private final DomainEntityDTOServiceAbstr<UserMappedDBEntity, UserRegisterRequestUseCaseDTO, UserClientDTO> userDTOService = mock(UserDTOServiceImpl.class);
+    private final IUserResponseDTOPortPresenter<UserClientDTO> userResponseDTOPortPresenter = mock(UserResponseDTOPortFormatter.class);
+    private final IDomainPersistPortService<UserMappedDBEntity> persistHelperPortService = mock(UserPersistHelperPortServiceImpl.class);
 
-    IUserExternalClientUseCase registerUseCase = new UserExternalClientUseCaseImpl(userDomainPersistService, userDTOService, userResponseDTOPortPresenter,persistHelperPortService);
+    IRegisterUserUseCase registerUseCase = new RegisterUserUseCaseImpl(userDomainPersistService, userDTOService, userResponseDTOPortPresenter,persistHelperPortService);
 
     @Test
     void shouldThrowResponseStatusException() {
         
         // given:
-        UserRequestUseCaseDTO requestDTO = new UserRequestUseCaseDTO(123, "name", "username", "123", "-");
+        UserRegisterRequestUseCaseDTO requestDTO = new UserRegisterRequestUseCaseDTO(123, "name", "username", "123", "-");
 
         //eu: we can not create DbEntity, but only snapShot it from created DomainEntity
         UserMappedDBEntity checkEntity = (UserMappedDBEntity) UserMappedDBEntity.builder().name(requestDTO.name()).password(requestDTO.password()).creationTime(LocalDateTime.now()).build();
         when(userDTOService.createEntityFromDTO(requestDTO)).thenReturn(checkEntity);
 
         // when:
-        assertThatThrownBy(() -> registerUseCase.registerNewUser(requestDTO)).isInstanceOf(ResponseStatusException.class);
+        assertThatThrownBy(() -> registerUseCase.execute(requestDTO)).isInstanceOf(ResponseStatusException.class);
         
         // then:
         verify(userDomainPersistService, times(0)).saveEntity(any(UserMappedDBEntity.class)); //one time: we saved created entity 
@@ -61,22 +58,22 @@ class UserExternalClientUseCaseImplTest {
     void checkInnerMethodTimesCalled() {
         
         // given:
-        UserRequestUseCaseDTO requestDTO = new UserRequestUseCaseDTO(123, "name", "username", "123456", "-");
+        UserRegisterRequestUseCaseDTO requestDTO = new UserRegisterRequestUseCaseDTO(123, "name", "username", "123456", "-");
 
         UserMappedDBEntity checkEntity = (UserMappedDBEntity) UserMappedDBEntity.builder().name(requestDTO.name()).password(requestDTO.password()).creationTime(LocalDateTime.now()).build();
         when(userDTOService.createEntityFromDTO(requestDTO)).thenReturn(checkEntity);
 
         // when:
         
-        UserResponseClientDTO responseDTO = registerUseCase.registerNewUser(requestDTO);
-        UserResponseClientDTO responseDTO2 = registerUseCase.registerNewUser(requestDTO);
+        UserClientDTO responseDTO = registerUseCase.execute(requestDTO);
+        UserClientDTO responseDTO2 = registerUseCase.execute(requestDTO);
 
         // then:
         assertThat(responseDTO2.isPasswordValid()).isFalse();
         assertThat(responseDTO2.name()).isEmpty();
         
         verify(userDomainPersistService, times(1)).saveEntity(any(UserMappedDBEntity.class)); //one time: we saved created entity 
-        verify(userResponseDTOPortPresenter, times(1)).prepareSuccessView(any(UserResponseClientDTO.class)); //one time: we processed the responseDto
+        verify(userResponseDTOPortPresenter, times(1)).prepareSuccessView(any(UserClientDTO.class)); //one time: we processed the responseDto
 
     }
 
@@ -84,14 +81,14 @@ class UserExternalClientUseCaseImplTest {
     void checkInnerArgumentValueCalled() {
 
         // given:
-        UserRequestUseCaseDTO requestDTO = new UserRequestUseCaseDTO(123, "name", "username", "123456", "-");
+        UserRegisterRequestUseCaseDTO requestDTO = new UserRegisterRequestUseCaseDTO(123, "name", "username", "123456", "-");
 
         UserMappedDBEntity checkEntity = (UserMappedDBEntity) UserMappedDBEntity.builder().name(requestDTO.name()).password(requestDTO.password()).creationTime(LocalDateTime.now()).build();
         when(userDTOService.createEntityFromDTO(requestDTO)).thenReturn(checkEntity);
         ArgumentCaptor<String> userRequestDtoArgumentCaptor = ArgumentCaptor.forClass(String.class); // eu: only STRING-ARGUMENTS
 
 
-        UserResponseClientDTO responseDTO = registerUseCase.registerNewUser(requestDTO);
+        UserClientDTO responseDTO = registerUseCase.execute(requestDTO);
 
         verify(userDomainPersistService).existsByName(userRequestDtoArgumentCaptor.capture()); //eu: capture inner method STRING-ARGUMENT call
         String capturedArgument = userRequestDtoArgumentCaptor.getValue(); //eu: value of inner called STRING-ARGUMENT ++++

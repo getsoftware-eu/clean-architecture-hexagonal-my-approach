@@ -1,7 +1,6 @@
 package eu.getsoftware.cleanarchitecture.adapter.out.persistence.model;
 
 import lombok.*;
-import eu.getsoftware.cleanarchitecture.application.domain.model.AddressValueObject;
 
 import jakarta.persistence.*;
 
@@ -16,7 +15,7 @@ import jakarta.persistence.*;
 @Setter
 @NoArgsConstructor
 //@RequiredArgsConstructor - never for Entity!!!
-public class AddressEmbeddableObject extends AddressValueObject //(no, manuell fill from DTO!!!)
+public class AddressDBEmbeddable //(no, manuell fill from DTO!!!)
 {
 //    @Id
 //    @Setter(AccessLevel.PROTECTED)
@@ -26,7 +25,7 @@ public class AddressEmbeddableObject extends AddressValueObject //(no, manuell f
     @NonNull
 //    @Column
     public String getStreet() {return street;};
-    
+
     @NonNull
 //    @Column
     public String getCity() {return city;};

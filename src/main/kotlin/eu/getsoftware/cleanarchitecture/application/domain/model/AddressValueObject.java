@@ -1,18 +1,17 @@
 package eu.getsoftware.cleanarchitecture.application.domain.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.Embeddable;
+import lombok.*;
 
 /**
  * Eugen: maybe nur ValueObject is record
  */
-@Builder
-@AllArgsConstructor
+@Value
+//@Embeddable
 @NoArgsConstructor
+@AllArgsConstructor
 public class AddressValueObject
 {
-    protected String street;
-
-    protected String city;
+    @With String street = "";
+    @With String city = "";
 }

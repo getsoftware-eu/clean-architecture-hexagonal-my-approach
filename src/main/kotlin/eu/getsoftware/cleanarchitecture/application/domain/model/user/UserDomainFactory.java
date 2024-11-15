@@ -1,39 +1,29 @@
 package eu.getsoftware.cleanarchitecture.application.domain.model.user;
 
-
-
 import eu.getsoftware.cleanarchitecture.application.domain.model.AddressValueObject;
 
-import java.util.UUID;
-
-public class UserDomainFactory implements IUserDomainFactory<UserDomainEntity> {
+public class UserDomainFactory /*implements IUserDomainFactory<UserRootDomainEntity>*/ {
     
-    @Override
-    public UserDomainEntity create(String name, String password) {
+    public static UserRootDomainEntity create(String name, String email, String password) {
         
-        AddressValueObject address = AddressValueObject.builder()
-                .street("street")
-                .city("city")
-                .build();
+        AddressValueObject address = new AddressValueObject()
+                                .withCity("city")
+                                .withStreet("street");
         
-        return create(name, password, address);
+        return create(name, email, password, address);
     }
     
-    public UserDomainEntity create(String name, String password, AddressValueObject address) {
+    public static UserRootDomainEntity create(String name, String email, String password, AddressValueObject address) {
         
-        UserDomainEntity user = UserDomainEntity.builder()
-                .domainEntityId(new UserDomainId(UUID.randomUUID()))
-                .address(address)
-                .build();
+        UserRootDomainEntity user = UserRootDomainEntity.create(name, password);
+
+        if(email!=null) user.setEmail(email); 
+        
+        if(address!=null) user.changeAddress(address);
         
         //Aggreate has no setters for these fields!
-        user.setInitValues(name, password);
+//        user.setInitValues(Map.ofEntries(Map.entry("name", name), Map.entry("password", password)));
         
         return user;
     }
-
-    public UserDomainEntity.UserDomainEntityBuilder getEntityBuilder(UserDomainId domainEntityId){
-        return UserDomainEntity.builder().domainEntityId(domainEntityId);
-    }
-    
 }

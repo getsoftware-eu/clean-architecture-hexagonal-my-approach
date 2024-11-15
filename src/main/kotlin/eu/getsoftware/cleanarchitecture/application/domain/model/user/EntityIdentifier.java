@@ -1,9 +1,5 @@
 package eu.getsoftware.cleanarchitecture.application.domain.model.user;
 
-import java.io.Serializable;
-import java.util.Objects;
-import java.util.UUID;
-
 /**
  *
  * Контракты и соглашения: Если связь между контекстами требует передачи данных, DDD предлагает использовать интеграционные механизмы, 
@@ -12,5 +8,5 @@ import java.util.UUID;
  */
 public interface EntityIdentifier   {
     
-    public String uuidValue();
+    public String getUuidValue();
 }
