@@ -17,17 +17,20 @@ import jakarta.persistence.*;
 //@RequiredArgsConstructor - never for Entity!!!
 public class AddressDBEmbeddable //(no, manuell fill from DTO!!!)
 {
+    private @NonNull String street;
+    private @NonNull String city;
+    
 //    @Id
 //    @Setter(AccessLevel.PROTECTED)
 //    @GeneratedValue(strategy= GenerationType.IDENTITY)
 //    private Long addressId;
 
-    @NonNull
-//    @Column
-    public String getStreet() {return street;};
-
-    @NonNull
-//    @Column
-    public String getCity() {return city;};
+//    @NonNull
+////    @Column
+//    public String getStreet() {return street;};
+//
+//    @NonNull
+////    @Column
+//    public String getCity() {return city;};
 
 }
