@@ -65,6 +65,10 @@ This is because, it becomes practically impossible to separate these two types o
 - <b>UseCase Layer:</b> example "onlineUseCase.java" (from the name we can recognize, we define a useCase and it belongs to "useCase" Layer)
 - <b>Main (Config) Layer:</b> I specified that Spring scans persistence beans in the external "adapter.out.persistence" package.
 
+
+### Presenter
+I removed the **Presenter** from the code in own '**HandlerAspect**' (Spring Boot), which automatically applies the **Presenter** to the results of a **UseCase**. This means that in the case of a successful response, it handles the DTO, and in case of an exception, it also processes it through the **Presenter**.
+
 ### My differences to the base article:
 - My modifications and corrections
     - 5 basic Layers ("domain.model", "domain.usecase", "domain.infrastructure", "application.port", "adapter", "Main") for the project package hierarchy. 
