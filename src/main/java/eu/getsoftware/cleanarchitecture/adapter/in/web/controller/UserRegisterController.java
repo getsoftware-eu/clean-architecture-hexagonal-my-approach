@@ -7,6 +7,7 @@ import eu.getsoftware.cleanarchitecture.application.port.in.user.iusecase.IRegis
 import eu.getsoftware.cleanarchitecture.application.port.in.user.iportservice.dto.UserRegisterRequestUseCaseDTO;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.iusecase.IUserUseCase;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,8 +35,8 @@ public class UserRegisterController {
 //    }
 //    
     @GetMapping("/name")
-    public UserClientDTO findByName(@Valid @RequestBody UserClientDTO requestModel) {
-        return userInputUseCase.findExistingUserByName(requestModel); //.orElseThrow(() -> new UserNotFoundException(id));
+    public UserClientDTO findByName(@NotEmpty @PathVariable String name) {
+        return userInputUseCase.findExistingUserByName(name); //.orElseThrow(() -> new UserNotFoundException(id));
     }      
     
     @GetMapping("/{userId}")
@@ -43,8 +44,13 @@ public class UserRegisterController {
         return userInputUseCase.findExistingUserByDomainId(domainId); //.orElseThrow(() -> new UserNotFoundException(id));
     }  
     
-    @PutMapping("/{userId}")
-    public UserClientDTO update(@Valid @RequestBody UserUpdateRequestUseCaseDTO requestModel) {
+    @PostMapping("/{userId}")
+    public UserClientDTO update(@Valid @ModelAttribute UserUpdateRequestUseCaseDTO requestModel, @PathVariable(value = "domainId", required = false) UserDomainId domainId) {
+        return userInputUseCase.updateExistingUser(requestModel); //.orElseThrow(() -> new UserNotFoundException(id));
+    }
+    
+    @PutMapping("/")
+    public UserClientDTO create(@Valid @ModelAttribute UserUpdateRequestUseCaseDTO requestModel) {
         return userInputUseCase.updateExistingUser(requestModel); //.orElseThrow(() -> new UserNotFoundException(id));
     }
 

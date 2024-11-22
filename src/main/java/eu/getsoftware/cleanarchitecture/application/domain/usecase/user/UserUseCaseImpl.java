@@ -30,9 +30,9 @@ public class UserUseCaseImpl implements IUserUseCase
     
 
     @Override 
-    public UserClientDTO findExistingUserByName(UserClientDTO dto)
+    public UserClientDTO findExistingUserByName(String searchName)
     {
-        Optional<UserRootDomainEntity> entityByNameOpt = userGatewayService.findByField("name", dto.name());
+        Optional<UserRootDomainEntity> entityByNameOpt = userGatewayService.findByField("name", searchName);
 
         if (entityByNameOpt.isEmpty()) {
             return userResponseDTOPortPresenter.prepareFailView("User not exists.");

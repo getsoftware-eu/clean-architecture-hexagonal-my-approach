@@ -15,7 +15,7 @@ public interface IUserUseCase
 {
     UserClientDTO updateExistingUser(UserUpdateRequestUseCaseDTO requestModel);
 	
-	UserClientDTO findExistingUserByName(UserClientDTO requestModel);
+	UserClientDTO findExistingUserByName(String searchName);
 	
     UserClientDTO findExistingUserByDomainId(UserDomainId userId);
 }
