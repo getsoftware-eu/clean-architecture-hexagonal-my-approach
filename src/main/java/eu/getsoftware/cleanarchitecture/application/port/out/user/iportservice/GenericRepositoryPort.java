@@ -10,5 +10,5 @@ public interface GenericRepositoryPort<T, ID> {
 
     Optional<T> findByField(String fieldName, Object value);
 
-    void saveDB(T entity);
+    void convertAndPersist(T entity);
 }

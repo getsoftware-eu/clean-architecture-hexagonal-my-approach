@@ -43,7 +43,7 @@ public class GenericRepositoryAdapter<T, DBEntity, ID> implements GenericReposit
 
     @Override
     @Transactional // eu : but not in Domain interface!!! write to db
-    public void saveDB(T entity) {
+    public void convertAndPersist(T entity) {
         DBEntity dbEntity = mapper.toDb(entity);
         repository.save(dbEntity);
     }
