@@ -9,12 +9,22 @@ import org.mapstruct.*;
 /**
  * unmappedTargetPolicy = ReportingPolicy.IGNORE - eu: не забудешь новый field
  */
-@Mapper(componentModel = "spring")
-public interface UserDtoMapper extends DtoGenericMapper<UserRootDomainEntity, UserClientDTO> {
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
+public interface UserDtoMapper //extends DtoGenericMapper<UserRootDomainEntity, UserClientDTO> 
+{
 
-    @Override
+//    @Override
     @Mapping(target = "creationTime", defaultValue = "LocalDateTime.now().toString()")
     UserClientDTO toDto(UserRootDomainEntity domain);
+
+//    @Mapping(source = "schadenAussenwirkungId", target = "schadenAussenwirkung")
+//    @Mapping(source = "haufSchadenAussenwirkungId", target = "haufSchadenAussenwirkung")
+//    @Mapping(source = "schadenFinanziellId", target = "schadenFinanziell")
+//    @Mapping(source = "haufSchadenFinanziellId", target = "haufSchadenFinanziell")
+//    @Mapping(source = "schadenGeschaeftssteuerungId", target = "schadenGeschaeftssteuerung")
+//    @Mapping(source = "haufSchadenGeschaeftssteuerungId", target = "haufSchadenGeschaeftssteuerung")
+//    @Mapping(source = "schadenVorschriftenVerletzungId", target = "schadenVorschriftenVerletzung")
+//    @Mapping(source = "haufSchadenVorschriftenVerletzungId", target = "haufSchadenVorschriftenVerletzung")
+//    fun updateFromDto(formDto: BiaFormDTO?, @MappingTarget bia: Bia?)
 }
 
- 

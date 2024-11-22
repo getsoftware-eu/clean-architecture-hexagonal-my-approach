@@ -8,5 +8,5 @@ package eu.getsoftware.cleanarchitecture.application.domain.model.user;
  */
 public interface EntityIdentifier   {
     
-    public String getUuidValue();
+    public String uuidValue();
 }

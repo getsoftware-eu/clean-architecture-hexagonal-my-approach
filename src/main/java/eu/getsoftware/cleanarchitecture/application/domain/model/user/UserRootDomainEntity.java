@@ -28,7 +28,7 @@ public class UserRootDomainEntity /*implements IRootDomainEntity*/
     protected String name;
     protected String password;
     protected String email;
-    public LocalDateTime creationTime;
+    public LocalDateTime creationTime = LocalDateTime.now();
     protected AddressValueObject address;
 
     public String getEmail() {

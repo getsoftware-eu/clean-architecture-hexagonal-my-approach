@@ -21,4 +21,15 @@ spring:
   
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.xml
-    enabled: false
+    enabled: true
+
+debug: false
+#logging:
+#  level:
+#    org.springframework.web: DEBUG
+#    org.springframework.web.servlet.DispatcherServlet: DEBUG
+#    org.springframework.web.method.annotation: TRACE
+#    org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping: DEBUG
+#    org.springframework.context: DEBUG
+#    org.springframework.context.annotation: DEBUG
+#    org.springframework.beans.factory: DEBUG

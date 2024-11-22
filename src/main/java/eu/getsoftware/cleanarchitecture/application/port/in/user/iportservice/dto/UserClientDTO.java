@@ -8,18 +8,16 @@ import eu.getsoftware.cleanarchitecture.application.domain.model.user.UserDomain
  * 
  * RESPONSE Representation:
  * every response has generated login of requester (session)??? and creationTime
- * @param login
  */
 public record UserClientDTO(
-      UserDomainId domainId,
-      String login,
+      UserDomainId domainEntityId,
       String name,
       String creationTime
 ) implements IUserDomainResponseDTO {
     
     public UserClientDTO withCreationTime(String newCreationTimeStr)
     {
-        return new UserClientDTO(domainId, login, name, newCreationTimeStr);
+        return new UserClientDTO(domainEntityId, name, newCreationTimeStr);
     }
 
     @Override

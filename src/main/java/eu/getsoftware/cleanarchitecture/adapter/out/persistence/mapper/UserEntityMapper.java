@@ -10,7 +10,7 @@ import org.mapstruct.Named;
 /**
  * unmappedTargetPolicy = ReportingPolicy.IGNORE - eu: не забудешь новый field
  */
-@Mapper(uses = AddressValueObjectMapper.class/*, componentModel = "spring"*/)
+@Mapper//(uses = AddressValueObjectMapper.class)
 public interface UserEntityMapper extends EntityGenericMapper<UserRootDomainEntity, UserMappedDBEntity> {
 
     @Override

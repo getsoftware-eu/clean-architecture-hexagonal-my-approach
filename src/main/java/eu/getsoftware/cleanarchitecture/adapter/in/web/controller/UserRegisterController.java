@@ -10,7 +10,8 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-@RestController("/api/v1/register/user")
+@RestController 
+@RequestMapping("/api/v1/register/user")
 @RequiredArgsConstructor
 public class UserRegisterController {
 
@@ -27,33 +28,35 @@ public class UserRegisterController {
 //            @ApiResponse(responseCode = "200", description = "Successfully retrieved greeting"),
 //            @ApiResponse(responseCode = "400", description = "Invalid input provided")
 //    })
-    @PostMapping("/put")
-    UserClientDTO create(@Valid @RequestBody UserRegisterRequestUseCaseDTO requestModel) {
-        
-        UserClientDTO responseDTO = registerUserInputUseCase.execute(requestModel);
-        
-        return responseDTO; //ResponseEntity.status(HttpStatus.OK).body(responseDTO);
-    }
+//    @PostMapping("/put")
+//    UserClientDTO create(@Valid @RequestBody UserRegisterRequestUseCaseDTO requestModel) {
+//        
+//        UserClientDTO responseDTO = registerUserInputUseCase.execute(requestModel);
+//        
+//        return responseDTO; //ResponseEntity.status(HttpStatus.OK).body(responseDTO);
+//    }
+//    
+//    @GetMapping("/name")
+//    public UserClientDTO findByName(@Valid @RequestBody UserClientDTO requestModel) {
+//        return userInputUseCase.findExistingUserByName(requestModel); //.orElseThrow(() -> new UserNotFoundException(id));
+//    }      
     
-    @GetMapping("/name")
-    public UserClientDTO findByName(@Valid @RequestBody UserClientDTO requestModel) {
-        return userInputUseCase.findExistingUserByName(requestModel); //.orElseThrow(() -> new UserNotFoundException(id));
-    }      
+//    @GetMapping("/{userId}")
+//    public UserClientDTO findById(@Valid @RequestBody String domainId) {
+//        return userInputUseCase.findExistingUserByDomainId(domainId); //.orElseThrow(() -> new UserNotFoundException(id));
+//    }  
     
-    @GetMapping("/{userId}")
-    public UserClientDTO findById(@Valid @RequestBody UserDomainId domainId) {
-        return userInputUseCase.findExistingUserByDomainId(domainId); //.orElseThrow(() -> new UserNotFoundException(id));
-    }  
-    
-    @PutMapping("/{userId}")
-    public UserClientDTO update(@Valid @RequestBody UserUpdateRequestUseCaseDTO requestModel) {
-        return userInputUseCase.updateExistingUser(requestModel); //.orElseThrow(() -> new UserNotFoundException(id));
-    }
+//    @PutMapping("/{userId}")
+//    public UserClientDTO update(@Valid @RequestBody UserUpdateRequestUseCaseDTO requestModel) {
+//        return userInputUseCase.updateExistingUser(requestModel); //.orElseThrow(() -> new UserNotFoundException(id));
+//    }
 
     @GetMapping("/demo")
     UserClientDTO createDemo() {
 
-        UserRegisterRequestUseCaseDTO sampleRequestDTO = new UserRegisterRequestUseCaseDTO(1, "name", "user", "e@ma.il","password", "-");
+        System.out.println("uraaa");
+
+        UserRegisterRequestUseCaseDTO sampleRequestDTO = new UserRegisterRequestUseCaseDTO(1, "name", "user", "e@ma.il","password2", "-", null);
 
         UserClientDTO responseDTO = registerUserInputUseCase.execute(sampleRequestDTO);
 

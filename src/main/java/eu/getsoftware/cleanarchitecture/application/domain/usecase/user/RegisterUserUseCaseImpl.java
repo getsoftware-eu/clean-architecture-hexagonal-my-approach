@@ -8,6 +8,7 @@ import eu.getsoftware.cleanarchitecture.application.port.in.user.iportservice.dt
 import eu.getsoftware.cleanarchitecture.application.port.in.user.iusecase.IRegisterUserUseCase;
 import eu.getsoftware.cleanarchitecture.application.port.out.user.IUserResponseDTOPortPresenter;
 import eu.getsoftware.cleanarchitecture.application.port.out.user.iportservice.gateways.UserGatewayService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 /**
@@ -16,19 +17,19 @@ import org.springframework.stereotype.Service;
  * The input boundary exposes our use case to outer layers:
  */
 @Service
-//@RequiredArgsConstructor
+@RequiredArgsConstructor
 public class RegisterUserUseCaseImpl implements IRegisterUserUseCase
 {
     private final UserGatewayService userGatewayService;
     private final IUserResponseDTOPortPresenter userResponseDTOPortPresenter;
     private final UserDtoMapper userDtoMapper;
 
-    RegisterUserUseCaseImpl(UserGatewayService userGatewayService, IUserResponseDTOPortPresenter userResponseDTOPortPresenter, UserDtoMapper userDtoMapper)
-    {
-        this.userGatewayService = userGatewayService;
-        this.userResponseDTOPortPresenter = userResponseDTOPortPresenter;
-        this.userDtoMapper = userDtoMapper;
-    }
+//    RegisterUserUseCaseImpl(UserGatewayService userGatewayService, IUserResponseDTOPortPresenter userResponseDTOPortPresenter, UserDtoMapper userDtoMapper)
+//    {
+//        this.userGatewayService = userGatewayService;
+//        this.userResponseDTOPortPresenter = userResponseDTOPortPresenter;
+//        this.userDtoMapper = userDtoMapper;
+//    }
     /**
      * Eugen:
      * Слой of "application rules" (Use Cases). 

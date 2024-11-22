@@ -23,7 +23,7 @@ public class GenericService<T, ID> {
     public T findOrThrow(ID domainId) {
         return repositoryPort.findByDomainId(domainId)
                 .orElseThrow(() -> new EntityNotFoundException("Entity not found for ID: " + domainId));
-    }
+    } 
 
     public Optional<T> findByField(String fieldName, Object value) {
         return repositoryPort.findByField(fieldName, value);

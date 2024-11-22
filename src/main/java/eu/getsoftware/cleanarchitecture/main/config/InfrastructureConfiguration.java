@@ -19,24 +19,25 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EntityScan(basePackages = {"eu.getsoftware.cleanarchitecture.adapter.out.persistence.model"})
 public class InfrastructureConfiguration
 {
-	@Bean
-	BeanFactoryPostProcessor beanFactoryPostProcessor(ApplicationContext beanRegistry) {
-		return beanFactory -> {
-			genericApplicationContext((BeanDefinitionRegistry) ((AnnotationConfigServletWebServerApplicationContext) beanRegistry).getBeanFactory());
-		};
-	}
-	
-	void genericApplicationContext(BeanDefinitionRegistry beanRegistry) {
-		ClassPathBeanDefinitionScanner beanDefinitionScanner = new ClassPathBeanDefinitionScanner(beanRegistry);
-		beanDefinitionScanner.addIncludeFilter(removeModelAndEntitiesFilter());
-		beanDefinitionScanner.scan("eu.getsoftware.cleanarchitecture");
-	}
-	
-	static TypeFilter removeModelAndEntitiesFilter() {
-		return (MetadataReader mr, MetadataReaderFactory mrf) -> !mr.getClassMetadata()
-				.getClassName()
-				.endsWith("Model");
-	}
+//	@Bean
+//	BeanFactoryPostProcessor beanFactoryPostProcessor(ApplicationContext beanRegistry) {
+//		return beanFactory -> {
+//			genericApplicationContext((BeanDefinitionRegistry) ((AnnotationConfigServletWebServerApplicationContext) beanRegistry).getBeanFactory());
+//		};
+//	}
+//
+//	void genericApplicationContext(BeanDefinitionRegistry beanRegistry) {
+//		ClassPathBeanDefinitionScanner beanDefinitionScanner = new ClassPathBeanDefinitionScanner(beanRegistry);
+//		beanDefinitionScanner.addIncludeFilter(removeModelAndEntitiesFilter());
+//		//ASK eu: boot is not parent to bean folders...
+//		beanDefinitionScanner.scan("eu.getsoftware.cleanarchitecture.adapter", "eu.getsoftware.cleanarchitecture.application", "eu.getsoftware.cleanarchitecture.common");
+//	}
+//
+//	static TypeFilter removeModelAndEntitiesFilter() {
+//		return (MetadataReader mr, MetadataReaderFactory mrf) -> !mr.getClassMetadata()
+//				.getClassName()
+//				.endsWith("Model");
+//	}
 
 //	@Bean //bean for our own created MapperInterface
 //	public IDomainMapper<UserMappedEntity, RequestUserAppDTO> domainMapper() {

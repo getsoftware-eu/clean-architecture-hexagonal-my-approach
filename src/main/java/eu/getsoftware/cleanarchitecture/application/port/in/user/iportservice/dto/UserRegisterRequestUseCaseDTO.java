@@ -21,6 +21,7 @@ public record UserRegisterRequestUseCaseDTO(
 	long requesterId,
 	
 	@NotBlank(message = "Name cannot be blank")
+	@Size(min = 3, message = "Name must be at least 3 characters long")
 	String name,
 
 	@Email(message = "Invalid email format")
@@ -33,16 +34,22 @@ public record UserRegisterRequestUseCaseDTO(
 	@Size(max = 200, message = "{validation.name.size.too_long}")	
 	String password,
 
-	String specialFieldForUseCase
+	String specialFieldForUseCase,
+	
+	LocalDateTime creationTime
+	
 ) implements IDomainRequestDTO {
 
-	private final static LocalDateTime creationTime = LocalDateTime.now();
-
-//	@Override
-	public LocalDateTime getCreationTime() {
-		return creationTime;
+	public UserRegisterRequestUseCaseDTO {
+		
+		if (creationTime == null) {
+			creationTime = LocalDateTime.now();
+		}
+		
+//		validateBusinessLogic();
 	}
-
+	
+//	@Override
 	public void validateBusinessLogic() {
 		if (name.length() < 3) {
 			throw new IllegalArgumentException("Name must be at least 3 characters long");

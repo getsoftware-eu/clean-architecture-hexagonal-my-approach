@@ -4,7 +4,7 @@
 //import eu.getsoftware.cleanarchitecture.application.port.`in`.user.iportservice.dto.UserRequestUseCaseDTO
 //import eu.getsoftware.cleanarchitecture.application.port.`in`.user.iportservice.dto.UserResponseClientDTO
 //import eu.getsoftware.cleanarchitecture.application.port.`in`.user.iusecase.IUserExternalClientUseCase
-//import eu.getsoftware.cleanarchitecture.main.MainApplication
+//import eu.getsoftware.cleanarchitecture.MainApplication
 //import org.junit.jupiter.api.Assertions
 //import org.junit.jupiter.api.Test
 //import org.springframework.beans.factory.annotation.Autowired

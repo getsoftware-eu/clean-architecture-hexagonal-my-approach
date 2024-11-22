@@ -7,7 +7,7 @@ package eu.getsoftware.cleanarchitecture.application.domain.model.user;
  */
 public interface IUserDomainResponseDTO
 {
-    EntityIdentifier domainId();
+    EntityIdentifier domainEntityId();
     String name();
     boolean isPasswordValid();
     String creationTime();

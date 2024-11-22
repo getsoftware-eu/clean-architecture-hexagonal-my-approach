@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Data
-@Table(name = "user" /*, schema = "userschema"*/) //eu: Every bounded context stores its entities in its own DB schema
+@Table(name = "users" /*, schema = "userschema"*/) //eu: Every bounded context stores its entities in its own DB schema
 @Getter 
 //@Setter
 @NoArgsConstructor(access = AccessLevel.PUBLIC) // Для Hibernate или других ORM

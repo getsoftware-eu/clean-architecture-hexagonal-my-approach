@@ -48,7 +48,7 @@ dependencies {
 kapt {
     keepJavacAnnotationProcessors = true
     arguments {
-//        arg("mapstruct.defaultComponentModel", "spring")
+        arg("mapstruct.defaultComponentModel", "spring")
         arg("mapstruct.unmappedTargetPolicy", "IGNORE")
     }
 }
