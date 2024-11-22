@@ -1,5 +1,6 @@
 package eu.getsoftware.cleanarchitecture.application.domain.usecase.user;
 
+import eu.getsoftware.cleanarchitecture.adapter.out.persistence.mapper.AddressValueObjectMapper;
 import eu.getsoftware.cleanarchitecture.adapter.out.persistence.mapper.UserDtoMapper;
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.UserDomainFactory;
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.UserRootDomainEntity;
@@ -23,6 +24,7 @@ public class RegisterUserUseCaseImpl implements IRegisterUserUseCase
     private final UserGatewayService userGatewayService;
     private final IUserResponseDTOPortPresenter userResponseDTOPortPresenter;
     private final UserDtoMapper userDtoMapper;
+    private final eu.getsoftware.cleanarchitecture.adapter.out.persistence.mapper.AddressValueObjectMapper addressValueObjectMapper;
 
 //    RegisterUserUseCaseImpl(UserGatewayService userGatewayService, IUserResponseDTOPortPresenter userResponseDTOPortPresenter, UserDtoMapper userDtoMapper)
 //    {
@@ -55,7 +57,8 @@ public class RegisterUserUseCaseImpl implements IRegisterUserUseCase
             return userResponseDTOPortPresenter.prepareFailView("User with name " + requestUserDto.name() + " already exists.");
         }
 
-        UserRootDomainEntity userDomainEntity = UserDomainFactory.create(requestUserDto.name(), requestUserDto.email() , requestUserDto.password());
+        UserDomainFactory userDomainFactory = new UserDomainFactory(addressValueObjectMapper);
+        UserRootDomainEntity userDomainEntity = userDomainFactory.create(requestUserDto.name(), requestUserDto.email() , requestUserDto.password());
 
         if (!userDomainEntity.isPasswordValid())
             return userResponseDTOPortPresenter.prepareFailView("User password must have more than 5 characters.");

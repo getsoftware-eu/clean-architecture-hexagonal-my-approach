@@ -104,7 +104,7 @@ public class UserRootDomainEntity /*implements IRootDomainEntity*/
     public void changeAddress(AddressValueObject address) {
 
         if (address == null 
-                || address.getCity().isEmpty()) {
+                || address.city().isEmpty()) {
             throw new IllegalArgumentException("address not valid");
         }
        

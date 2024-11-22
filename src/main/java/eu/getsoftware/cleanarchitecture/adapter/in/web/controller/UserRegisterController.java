@@ -8,6 +8,8 @@ import eu.getsoftware.cleanarchitecture.application.port.in.user.iportservice.dt
 import eu.getsoftware.cleanarchitecture.application.port.in.user.iusecase.IUserUseCase;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController 
@@ -17,11 +19,6 @@ public class UserRegisterController {
 
     private final IRegisterUserUseCase registerUserInputUseCase;
     private final IUserUseCase userInputUseCase;
-
-//    UserRegisterController(IRegisterUserUseCase registerUserInputUseCase,  IUserUseCase userInputUseCase) {
-//        this.registerUserInputUseCase = registerUserInputUseCase;
-//        this.userInputUseCase = userInputUseCase;
-//    }
     
 //    @Operation(summary  = "creates a new user from client DTO", produces = "application/json")
 //    @ApiResponses(value = {
@@ -30,36 +27,36 @@ public class UserRegisterController {
 //    })
 //    @PostMapping("/put")
 //    UserClientDTO create(@Valid @RequestBody UserRegisterRequestUseCaseDTO requestModel) {
-//        
+//
 //        UserClientDTO responseDTO = registerUserInputUseCase.execute(requestModel);
-//        
+//
 //        return responseDTO; //ResponseEntity.status(HttpStatus.OK).body(responseDTO);
 //    }
 //    
-//    @GetMapping("/name")
-//    public UserClientDTO findByName(@Valid @RequestBody UserClientDTO requestModel) {
-//        return userInputUseCase.findExistingUserByName(requestModel); //.orElseThrow(() -> new UserNotFoundException(id));
-//    }      
+    @GetMapping("/name")
+    public UserClientDTO findByName(@Valid @RequestBody UserClientDTO requestModel) {
+        return userInputUseCase.findExistingUserByName(requestModel); //.orElseThrow(() -> new UserNotFoundException(id));
+    }      
     
-//    @GetMapping("/{userId}")
-//    public UserClientDTO findById(@Valid @RequestBody String domainId) {
-//        return userInputUseCase.findExistingUserByDomainId(domainId); //.orElseThrow(() -> new UserNotFoundException(id));
-//    }  
+    @GetMapping("/{userId}")
+    public UserClientDTO findById(@Valid @RequestBody UserDomainId domainId) {
+        return userInputUseCase.findExistingUserByDomainId(domainId); //.orElseThrow(() -> new UserNotFoundException(id));
+    }  
     
-//    @PutMapping("/{userId}")
-//    public UserClientDTO update(@Valid @RequestBody UserUpdateRequestUseCaseDTO requestModel) {
-//        return userInputUseCase.updateExistingUser(requestModel); //.orElseThrow(() -> new UserNotFoundException(id));
-//    }
+    @PutMapping("/{userId}")
+    public UserClientDTO update(@Valid @RequestBody UserUpdateRequestUseCaseDTO requestModel) {
+        return userInputUseCase.updateExistingUser(requestModel); //.orElseThrow(() -> new UserNotFoundException(id));
+    }
 
     @GetMapping("/demo")
-    UserClientDTO createDemo() {
+    ResponseEntity<UserClientDTO> createDemo() {
 
         System.out.println("uraaa");
 
-        UserRegisterRequestUseCaseDTO sampleRequestDTO = new UserRegisterRequestUseCaseDTO(1, "name", "user", "e@ma.il","password2", "-", null);
+        UserRegisterRequestUseCaseDTO sampleRequestDTO = new UserRegisterRequestUseCaseDTO(1, "asas", "usdsdser", "e@madd.il","password3", "-", null);
 
         UserClientDTO responseDTO = registerUserInputUseCase.execute(sampleRequestDTO);
 
-        return responseDTO; //ResponseEntity.status(HttpStatus.OK).body(responseDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(responseDTO);
     }
 }

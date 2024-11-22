@@ -7,13 +7,14 @@ import eu.getsoftware.cleanarchitecture.application.domain.model.AddressValueObj
 public class UserDomainFactory /*implements IUserDomainFactory<UserRootDomainEntity>*/ {
 
     private static AddressValueObjectMapper addressValueObjectMapper;
-
+    
+    public UserDomainFactory(AddressValueObjectMapper addressValueObjectMapper){
+        this.addressValueObjectMapper = addressValueObjectMapper;
+    }
+    
     public static UserRootDomainEntity create(String name, String email, String password) {
         
-        AddressValueObject address = new AddressValueObject()
-//                                .withCity("city")
-//                                .withStreet("street")
-                                ;
+        AddressValueObject address = AddressValueObject.from("city", "street");
 
         AddressDBEmbeddable dbEntity = addressValueObjectMapper.toDb(address);
         AddressValueObject valueObject = addressValueObjectMapper.toDomain(dbEntity);

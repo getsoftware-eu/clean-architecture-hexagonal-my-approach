@@ -49,6 +49,6 @@ public class ApiExceptionHandler {
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<JsonErrorResponse> handleGenericException(Exception ex) {
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-				.body(new JsonErrorResponse("SERVER_ERROR", "An unexpected error occurred"));
+				.body(new JsonErrorResponse("SERVER_ERROR", ex.getMessage()));
 	}
 }

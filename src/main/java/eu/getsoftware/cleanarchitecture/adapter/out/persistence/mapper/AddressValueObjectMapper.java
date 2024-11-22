@@ -4,6 +4,7 @@ import eu.getsoftware.cleanarchitecture.adapter.out.persistence.model.AddressDBE
 import eu.getsoftware.cleanarchitecture.application.domain.model.AddressValueObject;
 import eu.getsoftware.cleanarchitecture.application.domain.model.mapper.EntityGenericMapper;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 /**
  * unmappedTargetPolicy = ReportingPolicy.IGNORE - eu: не забудешь новый field

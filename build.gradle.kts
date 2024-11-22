@@ -56,3 +56,7 @@ kapt {
 tasks.withType<Test> {
     useJUnitPlatform()
 }
+
+//tasks.withType<JavaCompile> {
+//    options.annotationProcessorPath = configurations.kapt.get()
+//}

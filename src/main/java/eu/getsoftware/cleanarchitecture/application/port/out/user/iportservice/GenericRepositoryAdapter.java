@@ -4,6 +4,7 @@ import eu.getsoftware.cleanarchitecture.application.domain.model.mapper.EntityGe
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Field;
 import java.util.Optional;
@@ -14,11 +15,6 @@ public class GenericRepositoryAdapter<T, DBEntity, ID> implements GenericReposit
     private final JpaRepository<DBEntity, Long> repository;
     private final EntityGenericMapper<T, DBEntity> mapper;
 
-//    GenericRepositoryAdapter(JpaRepository<DBEntity, Long> repository, EntityGenericMapper<T, DBEntity> mapper) {
-//        this.repository = repository;
-//        this.mapper = mapper;
-//    }
-    
     @Override
     public Optional<T> findById(Long id) {
         return repository.findById(id).map(mapper::toDomain);
@@ -46,7 +42,8 @@ public class GenericRepositoryAdapter<T, DBEntity, ID> implements GenericReposit
     }
 
     @Override
-    public void save(T entity) {
+    @Transactional // eu : but not in Domain interface!!! write to db
+    public void saveDB(T entity) {
         DBEntity dbEntity = mapper.toDb(entity);
         repository.save(dbEntity);
     }

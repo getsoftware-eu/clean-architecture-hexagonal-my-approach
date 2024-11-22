@@ -30,6 +30,6 @@ public class GenericService<T, ID> {
     }
 
     public void saveToDb(T entity) {
-        repositoryPort.save(entity);
+        repositoryPort.saveDB(entity);
     }
 }
