@@ -18,9 +18,6 @@ public record UserDomainId(
 ) implements EntityIdentifier 
 {
 
-    @JsonCreator // Spring должен десериализовать JSON в объект UserDomainId. Используйте библиотеку Jackson, которая по умолчанию интегрирована в Spring Boot:
-    public UserDomainId {}
-    
     public static UserDomainId from(@NotEmpty String value) {
         if (value == null || value.isEmpty()) {
             throw new IllegalArgumentException("UserDomainId cannot be null or empty");

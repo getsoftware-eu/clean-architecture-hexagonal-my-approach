@@ -1,5 +1,6 @@
 package eu.getsoftware.cleanarchitecture.adapter.in.web.controller;
 
+import eu.getsoftware.cleanarchitecture.application.domain.model.AddressValueObject;
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.UserDomainId;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.iportservice.dto.UserClientDTO;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.iportservice.dto.UserUpdateRequestUseCaseDTO;
@@ -14,12 +15,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController 
-@RequestMapping("/api/v1/register/user")
+@RequestMapping("/api/v1/user")
 @RequiredArgsConstructor
-public class UserRegisterController {
+public class UserCrudController {
 
-    private final IRegisterUserUseCase registerUserInputUseCase;
+    private final IRegisterUserUseCase registerUserUseCase;
     private final IUserUseCase userInputUseCase;
+
+    @PutMapping
+    public UserClientDTO create(@Valid @RequestBody UserRegisterRequestUseCaseDTO requestModel) {
+        return registerUserUseCase.execute(requestModel); //.orElseThrow(() -> new UserNotFoundException(id));
+    }
     
 //    @Operation(summary  = "creates a new user from client DTO", produces = "application/json")
 //    @ApiResponses(value = {
@@ -40,18 +46,23 @@ public class UserRegisterController {
     }      
     
     @GetMapping("/{userId}")
-    public UserClientDTO findById(@Valid @RequestBody UserDomainId domainId) {
+    public UserClientDTO findById(@PathVariable @Valid UserDomainId domainId) {
         return userInputUseCase.findExistingUserByDomainId(domainId); //.orElseThrow(() -> new UserNotFoundException(id));
     }  
     
     @PostMapping("/{userId}")
-    public UserClientDTO update(@Valid @ModelAttribute UserUpdateRequestUseCaseDTO requestModel, @PathVariable(value = "domainId", required = false) UserDomainId domainId) {
+    public UserClientDTO update(@RequestBody @Valid UserUpdateRequestUseCaseDTO requestModel, 
+                                @PathVariable(value = "domainId", required = false) UserDomainId domainId) {
         return userInputUseCase.updateExistingUser(requestModel); //.orElseThrow(() -> new UserNotFoundException(id));
     }
     
-    @PutMapping("/")
-    public UserClientDTO create(@Valid @ModelAttribute UserUpdateRequestUseCaseDTO requestModel) {
-        return userInputUseCase.updateExistingUser(requestModel); //.orElseThrow(() -> new UserNotFoundException(id));
+ 
+
+    @PatchMapping("/{userId}/address")
+    public UserClientDTO updateAddress(
+            @PathVariable @Valid UserDomainId userId,
+            @Valid @RequestBody AddressValueObject address) {
+        return userInputUseCase.updateUserAddress(userId, address);
     }
 
     @GetMapping("/demo")
@@ -61,7 +72,7 @@ public class UserRegisterController {
 
         UserRegisterRequestUseCaseDTO sampleRequestDTO = new UserRegisterRequestUseCaseDTO(1, "asas", "usdsdser", "e@madd.il","password3", "-", null);
 
-        UserClientDTO responseDTO = registerUserInputUseCase.execute(sampleRequestDTO);
+        UserClientDTO responseDTO = registerUserUseCase.execute(sampleRequestDTO);
 
         return ResponseEntity.status(HttpStatus.OK).body(responseDTO);
     }

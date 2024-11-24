@@ -1,5 +1,6 @@
 package eu.getsoftware.cleanarchitecture.application.port.in.user.iusecase;
 
+import eu.getsoftware.cleanarchitecture.application.domain.model.AddressValueObject;
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.UserDomainId;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.iportservice.dto.UserClientDTO;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.iportservice.dto.UserUpdateRequestUseCaseDTO;
@@ -13,7 +14,10 @@ import eu.getsoftware.cleanarchitecture.application.port.in.user.iportservice.dt
  */
 public interface IUserUseCase
 {
+    
     UserClientDTO updateExistingUser(UserUpdateRequestUseCaseDTO requestModel);
+    
+    UserClientDTO updateUserAddress(UserDomainId userDomainId, AddressValueObject addressValueObject);
 	
 	UserClientDTO findExistingUserByName(String searchName);
 	
