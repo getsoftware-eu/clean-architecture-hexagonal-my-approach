@@ -26,6 +26,8 @@ public class RegisterUserUseCaseImpl implements IRegisterUserUseCase
     private final UserDtoMapper userDtoMapper;
     private final eu.getsoftware.cleanarchitecture.adapter.out.persistence.mapper.AddressValueObjectMapper addressValueObjectMapper;
 
+    UserDomainFactory userDomainFactory = new UserDomainFactory(addressValueObjectMapper);
+
 //    RegisterUserUseCaseImpl(UserGatewayService userGatewayService, IUserResponseDTOPortPresenter userResponseDTOPortPresenter, UserDtoMapper userDtoMapper)
 //    {
 //        this.userGatewayService = userGatewayService;
@@ -57,7 +59,6 @@ public class RegisterUserUseCaseImpl implements IRegisterUserUseCase
             return userResponseDTOPortPresenter.prepareFailView("User with name " + requestUserDto.name() + " already exists.");
         }
 
-        UserDomainFactory userDomainFactory = new UserDomainFactory(addressValueObjectMapper);
         UserRootDomainEntity userDomainEntity = userDomainFactory.create(requestUserDto.name(), requestUserDto.email() , requestUserDto.password());
 
         if (!userDomainEntity.isPasswordValid())

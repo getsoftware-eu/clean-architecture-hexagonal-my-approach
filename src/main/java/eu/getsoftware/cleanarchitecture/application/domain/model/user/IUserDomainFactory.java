@@ -1,6 +1,6 @@
 //package eu.getsoftware.cleanarchitecture.application.domain.model.user;
 //
-//import eu.getsoftware.cleanarchitecture.application.domain.model.AddressValueObject;
+//import eu.getsoftware.cleanarchitecture.application.domain.model.address.AddressValueObject;
 //
 ///**
 // * Eugen: 

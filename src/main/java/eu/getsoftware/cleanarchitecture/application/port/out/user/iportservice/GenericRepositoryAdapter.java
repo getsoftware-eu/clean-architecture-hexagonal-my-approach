@@ -7,7 +7,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Field;
+import java.util.Collection;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 public class GenericRepositoryAdapter<T, DBEntity, ID> implements GenericRepositoryPort<T, ID> {
@@ -18,6 +20,11 @@ public class GenericRepositoryAdapter<T, DBEntity, ID> implements GenericReposit
     @Override
     public Optional<T> findById(Long id) {
         return repository.findById(id).map(mapper::toDomain);
+    }    
+   
+    @Override
+    public Collection<T> findAll() {
+        return repository.findAll().stream().map(mapper::toDomain).toList();
     }    
     
     @Override

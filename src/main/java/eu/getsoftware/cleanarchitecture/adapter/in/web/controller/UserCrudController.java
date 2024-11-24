@@ -1,12 +1,12 @@
 package eu.getsoftware.cleanarchitecture.adapter.in.web.controller;
 
-import eu.getsoftware.cleanarchitecture.application.domain.model.AddressValueObject;
+import eu.getsoftware.cleanarchitecture.application.domain.model.address.AddressValueObject;
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.UserDomainId;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.iportservice.dto.UserClientDTO;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.iportservice.dto.UserUpdateRequestUseCaseDTO;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.iusecase.IRegisterUserUseCase;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.iportservice.dto.UserRegisterRequestUseCaseDTO;
-import eu.getsoftware.cleanarchitecture.application.port.in.user.iusecase.IUserUseCase;
+import eu.getsoftware.cleanarchitecture.application.port.in.user.iusecase.UserCrudUseCase;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserCrudController {
 
     private final IRegisterUserUseCase registerUserUseCase;
-    private final IUserUseCase userInputUseCase;
+    private final UserCrudUseCase userInputUseCase;
 
     @PutMapping
     public UserClientDTO create(@Valid @RequestBody UserRegisterRequestUseCaseDTO requestModel) {

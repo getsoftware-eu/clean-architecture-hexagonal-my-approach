@@ -38,6 +38,8 @@ public class UserRegisterControllerIntegrationTest {
     @Autowired
     private MockMvc mockMvc;
 
+    private String domainEntityId = "550e8400-e29b-41d4-a716-446655440022";
+
     @Test
     void testCreateUser() throws Exception {
         mockMvc.perform(put("/api/v1/user")
@@ -55,14 +57,14 @@ public class UserRegisterControllerIntegrationTest {
     @Test
     void testFindById() throws Exception {
         // Prepopulate database or use separate test to create the user
-        mockMvc.perform(get("/api/v1/user/1")
+        mockMvc.perform(get("/api/v1/user/"+domainEntityId)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
     @Test
     void testUpdateAddress() throws Exception {
-        mockMvc.perform(patch("/api/v1/user/1/address")
+        mockMvc.perform(patch("/api/v1/user/"+domainEntityId+"/address")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                         {

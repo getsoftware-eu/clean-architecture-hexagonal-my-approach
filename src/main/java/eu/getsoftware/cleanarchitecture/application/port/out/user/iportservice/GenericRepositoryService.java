@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.Optional;
 
 @RequiredArgsConstructor
-public class GenericService<T, ID> {
+public class GenericRepositoryService<T, ID> {
 
     private final GenericRepositoryPort<T, ID> repositoryPort;
 

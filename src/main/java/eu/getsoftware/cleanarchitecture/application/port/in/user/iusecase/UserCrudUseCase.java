@@ -1,6 +1,6 @@
 package eu.getsoftware.cleanarchitecture.application.port.in.user.iusecase;
 
-import eu.getsoftware.cleanarchitecture.application.domain.model.AddressValueObject;
+import eu.getsoftware.cleanarchitecture.application.domain.model.address.AddressValueObject;
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.UserDomainId;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.iportservice.dto.UserClientDTO;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.iportservice.dto.UserUpdateRequestUseCaseDTO;
@@ -12,7 +12,7 @@ import eu.getsoftware.cleanarchitecture.application.port.in.user.iportservice.dt
  * The boundaries are contracts defining how components can interact. 
  * The input boundary exposes our use case to outer layers:
  */
-public interface IUserUseCase
+public interface UserCrudUseCase
 {
     
     UserClientDTO updateExistingUser(UserUpdateRequestUseCaseDTO requestModel);

@@ -1,10 +1,9 @@
 package eu.getsoftware.cleanarchitecture.adapter.out.persistence.mapper;
 
 import eu.getsoftware.cleanarchitecture.adapter.out.persistence.model.AddressDBEmbeddable;
-import eu.getsoftware.cleanarchitecture.application.domain.model.AddressValueObject;
+import eu.getsoftware.cleanarchitecture.application.domain.model.address.AddressValueObject;
 import eu.getsoftware.cleanarchitecture.application.domain.model.mapper.EntityGenericMapper;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
 /**
  * unmappedTargetPolicy = ReportingPolicy.IGNORE - eu: не забудешь новый field

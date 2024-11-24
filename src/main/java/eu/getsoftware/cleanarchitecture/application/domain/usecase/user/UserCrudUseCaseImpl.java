@@ -1,16 +1,14 @@
 package eu.getsoftware.cleanarchitecture.application.domain.usecase.user;
 
 import eu.getsoftware.cleanarchitecture.adapter.out.persistence.mapper.UserDtoMapper;
-import eu.getsoftware.cleanarchitecture.application.domain.model.AddressValueObject;
-import eu.getsoftware.cleanarchitecture.application.domain.model.domain.BusinessException;
+import eu.getsoftware.cleanarchitecture.application.domain.model.address.AddressValueObject;
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.UserDomainId;
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.UserRootDomainEntity;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.iportservice.dto.UserClientDTO;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.iportservice.dto.UserUpdateRequestUseCaseDTO;
-import eu.getsoftware.cleanarchitecture.application.port.in.user.iusecase.IUserUseCase;
+import eu.getsoftware.cleanarchitecture.application.port.in.user.iusecase.UserCrudUseCase;
 import eu.getsoftware.cleanarchitecture.application.port.out.user.IUserResponseDTOPortPresenter;
 import eu.getsoftware.cleanarchitecture.application.port.out.user.iportservice.gateways.UserGatewayService;
-import eu.getsoftware.cleanarchitecture.common.error.UserNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,7 +23,7 @@ import java.util.Optional;
  */
 @Service
 @RequiredArgsConstructor
-public class UserUseCaseImpl implements IUserUseCase
+public class UserCrudUseCaseImpl implements UserCrudUseCase
 {
     private final UserGatewayService userGatewayService;
     private final IUserResponseDTOPortPresenter userResponseDTOPortPresenter;

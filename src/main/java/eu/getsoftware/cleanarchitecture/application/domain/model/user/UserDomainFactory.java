@@ -2,7 +2,7 @@ package eu.getsoftware.cleanarchitecture.application.domain.model.user;
 
 import eu.getsoftware.cleanarchitecture.adapter.out.persistence.mapper.AddressValueObjectMapper;
 import eu.getsoftware.cleanarchitecture.adapter.out.persistence.model.AddressDBEmbeddable;
-import eu.getsoftware.cleanarchitecture.application.domain.model.AddressValueObject;
+import eu.getsoftware.cleanarchitecture.application.domain.model.address.AddressValueObject;
 
 public class UserDomainFactory /*implements IUserDomainFactory<UserRootDomainEntity>*/ {
 
