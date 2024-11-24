@@ -3,6 +3,7 @@ package eu.getsoftware.cleanarchitecture.application.domain.model.user;
 import eu.getsoftware.cleanarchitecture.application.domain.model.address.AddressValueObject;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
+import org.springframework.validation.annotation.Validated;
 
 import java.time.LocalDateTime;
 import java.util.Map;
@@ -101,7 +102,7 @@ public class UserRootDomainEntity /*implements IRootDomainEntity*/
 
     }
 
-    public void changeAddress(AddressValueObject address) {
+    public void changeAddress(@Validated AddressValueObject address) {
 
         if (address == null 
                 || address.city().isEmpty()) {

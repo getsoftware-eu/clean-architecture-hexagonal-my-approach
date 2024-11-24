@@ -11,6 +11,7 @@ import eu.getsoftware.cleanarchitecture.application.port.out.user.IUserResponseD
 import eu.getsoftware.cleanarchitecture.application.port.out.user.iportservice.gateways.UserGatewayService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 /**
  * DTO creation for Grenzen
@@ -24,9 +25,9 @@ public class RegisterUserUseCaseImpl implements IRegisterUserUseCase
     private final UserGatewayService userGatewayService;
     private final IUserResponseDTOPortPresenter userResponseDTOPortPresenter;
     private final UserDtoMapper userDtoMapper;
-    private final eu.getsoftware.cleanarchitecture.adapter.out.persistence.mapper.AddressValueObjectMapper addressValueObjectMapper;
+    private final AddressValueObjectMapper addressValueObjectMapper;
 
-    UserDomainFactory userDomainFactory = new UserDomainFactory(addressValueObjectMapper);
+//    UserDomainFactory userDomainFactory = new UserDomainFactory();
 
 //    RegisterUserUseCaseImpl(UserGatewayService userGatewayService, IUserResponseDTOPortPresenter userResponseDTOPortPresenter, UserDtoMapper userDtoMapper)
 //    {
@@ -51,7 +52,7 @@ public class RegisterUserUseCaseImpl implements IRegisterUserUseCase
      *
      * @return
      */
-    public UserClientDTO execute(UserRegisterRequestUseCaseDTO requestUserDto) {
+    public UserClientDTO execute(@Validated UserRegisterRequestUseCaseDTO requestUserDto) {
 
         requestUserDto.validateBusinessLogic();
         
@@ -59,7 +60,7 @@ public class RegisterUserUseCaseImpl implements IRegisterUserUseCase
             return userResponseDTOPortPresenter.prepareFailView("User with name " + requestUserDto.name() + " already exists.");
         }
 
-        UserRootDomainEntity userDomainEntity = userDomainFactory.create(requestUserDto.name(), requestUserDto.email() , requestUserDto.password());
+        UserRootDomainEntity userDomainEntity = UserDomainFactory.create(requestUserDto.name(), requestUserDto.email() , requestUserDto.password());
 
         if (!userDomainEntity.isPasswordValid())
             return userResponseDTOPortPresenter.prepareFailView("User password must have more than 5 characters.");
