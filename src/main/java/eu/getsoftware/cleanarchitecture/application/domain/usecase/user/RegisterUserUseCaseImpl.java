@@ -54,7 +54,7 @@ public class RegisterUserUseCaseImpl implements IRegisterUserUseCase
      */
     public UserClientDTO execute(@Validated UserRegisterRequestUseCaseDTO requestUserDto) {
 
-        requestUserDto.validateBusinessLogic();
+        //requestUserDto.validateBusinessLogic(); - intern
         
         if (userGatewayService.findByField("name", requestUserDto.name()).isPresent()) {
             return userResponseDTOPortPresenter.prepareFailView("User with name " + requestUserDto.name() + " already exists.");

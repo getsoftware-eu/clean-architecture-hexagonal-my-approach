@@ -68,7 +68,7 @@ public class UserRegisterControllerIntegrationTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                         {
-                          "city": "New York",
+                          "city": "dummy",
                           "street": "5th Avenue"
                         }
                         """))

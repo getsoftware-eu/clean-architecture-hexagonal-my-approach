@@ -46,15 +46,17 @@ public record UserRegisterRequestUseCaseDTO(
 			creationTime = LocalDateTime.now();
 		}
 		
-//		validateBusinessLogic();
+		validateName(name); //parameter, noch keine Fields
+		validatePasswort(password);
 	}
-	
-//	@Override
-	public void validateBusinessLogic() {
-		if (name.length() < 3) {
+
+	private void validateName(String checkName) {
+		if (checkName.length() < 3) {
 			throw new IllegalArgumentException("Name must be at least 3 characters long");
 		}
-		if (password.equalsIgnoreCase("password")) {
+	}
+	private void validatePasswort(String checkPassword) {
+		if (checkPassword.equalsIgnoreCase("password")) {
 			throw new IllegalArgumentException("Password cannot be 'password'");
 		}
 	}
