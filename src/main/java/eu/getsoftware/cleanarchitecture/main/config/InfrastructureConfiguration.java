@@ -19,6 +19,17 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EntityScan(basePackages = {"eu.getsoftware.cleanarchitecture.adapter.out.persistence.model"})
 public class InfrastructureConfiguration
 {
+
+    /**
+     * 
+     * цель: для ЧИСТЫХ domain-классов получить Spring Beans!!
+     * хотя мы не пишем @Component
+     * 
+     * MAIN module: we're using the spring-boot dependency injection to create all our instances. 
+     * As we're [NOT using @Component], we're scanning our root package and ignoring only the Model objects 
+     * //все остальное станет Beans вообще без аннотаций, круто.
+     */
+
 //	@Bean
 //	BeanFactoryPostProcessor beanFactoryPostProcessor(ApplicationContext beanRegistry) {
 //		return beanFactory -> {
@@ -38,12 +49,5 @@ public class InfrastructureConfiguration
 //				.getClassName()
 //				.endsWith("Model");
 //	}
-
-//	@Bean //bean for our own created MapperInterface
-//	public IDomainMapper<UserMappedEntity, RequestUserAppDTO> domainMapper() {
-//
-//		IDomainMapper modelMapper = new RequestUserAppDTOMapper();
-////		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-//		return modelMapper;
-//	}
+    
 }
