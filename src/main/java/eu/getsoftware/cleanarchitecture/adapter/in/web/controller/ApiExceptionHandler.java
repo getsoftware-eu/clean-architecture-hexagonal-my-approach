@@ -2,7 +2,7 @@ package eu.getsoftware.cleanarchitecture.adapter.in.web.controller;
 
 import eu.getsoftware.cleanarchitecture.application.domain.model.domain.BusinessException;
 import eu.getsoftware.cleanarchitecture.common.error.JsonErrorResponse;
-import eu.getsoftware.cleanarchitecture.common.error.UserNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -15,12 +15,12 @@ import java.util.Map;
 @ControllerAdvice
 public class ApiExceptionHandler {
 	
-	@ExceptionHandler(UserNotFoundException.class)
-	public ResponseEntity<JsonErrorResponse> handleApiException(UserNotFoundException ex) {
+	@ExceptionHandler(EntityNotFoundException.class)
+	public ResponseEntity<JsonErrorResponse> handleApiException(EntityNotFoundException ex) {
 		
 		JsonErrorResponse response =
 				new JsonErrorResponse("error-0001",
-						"No user found with ID " + ex.getId());
+						"No user found: " + ex.getMessage());
 		
 		return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
 	}

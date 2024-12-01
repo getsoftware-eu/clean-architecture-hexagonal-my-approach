@@ -24,7 +24,7 @@ public class UserCrudController {
 
     @PutMapping
     public UserClientDTO create(@Valid @RequestBody UserRegisterRequestUseCaseDTO requestModel) {
-        return registerUserUseCase.execute(requestModel); //.orElseThrow(() -> new UserNotFoundException(id));
+        return registerUserUseCase.execute(requestModel); //.orElseThrow(() -> new EntityNotFoundException(id));
     }
     
 //    @Operation(summary  = "creates a new user from client DTO", produces = "application/json")
@@ -42,18 +42,18 @@ public class UserCrudController {
 //    
     @GetMapping("/name")
     public UserClientDTO findByName(@NotEmpty @PathVariable String name) {
-        return userInputUseCase.findExistingUserByName(name); //.orElseThrow(() -> new UserNotFoundException(id));
+        return userInputUseCase.findExistingUserByName(name); //.orElseThrow(() -> new EntityNotFoundException(id));
     }      
     
     @GetMapping("/{userId}")
     public UserClientDTO findById(@PathVariable @Valid UserDomainId domainId) {
-        return userInputUseCase.findExistingUserByDomainId(domainId); //.orElseThrow(() -> new UserNotFoundException(id));
+        return userInputUseCase.findExistingUserByDomainId(domainId); //.orElseThrow(() -> new EntityNotFoundException(id));
     }  
     
     @PostMapping("/{userId}")
     public UserClientDTO update(@RequestBody @Valid UserUpdateRequestUseCaseDTO requestModel, 
                                 @PathVariable(value = "domainId", required = false) UserDomainId domainId) {
-        return userInputUseCase.updateExistingUser(requestModel); //.orElseThrow(() -> new UserNotFoundException(id));
+        return userInputUseCase.updateExistingUser(requestModel); //.orElseThrow(() -> new EntityNotFoundException(id));
     }
     
  

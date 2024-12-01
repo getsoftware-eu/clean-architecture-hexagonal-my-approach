@@ -1,7 +1,7 @@
 package eu.getsoftware.cleanarchitecture.application.domain.model.modelinnerservice
 
 import eu.getsoftware.cleanarchitecture.application.domain.model.mapper.IMappedDBEntity
-import eu.getsoftware.cleanarchitecture.common.error.UserNotFoundException
+import jakarta.persistence.EntityNotFoundException
 import org.springframework.data.jpa.repository.JpaRepository
 import java.util.*
 
@@ -56,7 +56,7 @@ public abstract class GenericRepositoryServiceAbstr<T: IMappedDBEntity>(
 //            val dto: Z? = entityMapper.toDsRequestDTO(user)
             //            return new UserDsRequestApplicationModelDTO(user.getName(), user.getPassword(), user.getCreationTime());
             return user
-        } else throw UserNotFoundException(id)
+        } else throw EntityNotFoundException("Id not found " + id)
     }  
     
     //override
