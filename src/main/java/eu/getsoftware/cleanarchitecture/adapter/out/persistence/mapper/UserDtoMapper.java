@@ -1,8 +1,7 @@
 package eu.getsoftware.cleanarchitecture.adapter.out.persistence.mapper;
 
-import eu.getsoftware.cleanarchitecture.application.domain.model.mapper.DtoGenericMapper;
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.UserRootDomainEntity;
-import eu.getsoftware.cleanarchitecture.application.port.in.user.iportservice.dto.UserClientDTO;
+import eu.getsoftware.cleanarchitecture.application.port.in.user.dto.UserClientDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.*;
 

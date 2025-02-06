@@ -1,4 +1,4 @@
-package eu.getsoftware.cleanarchitecture.common.error;
+package eu.getsoftware.cleanarchitecture.adapter.common.error;
 
 import lombok.Data;
 

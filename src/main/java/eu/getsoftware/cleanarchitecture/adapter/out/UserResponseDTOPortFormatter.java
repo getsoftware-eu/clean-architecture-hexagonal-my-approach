@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 import eu.getsoftware.cleanarchitecture.application.domain.model.domain.BusinessException;
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomainResponseDTO;
 import eu.getsoftware.cleanarchitecture.application.port.out.user.IUserResponseDTOPortPresenter;
-import eu.getsoftware.cleanarchitecture.common.error.JsonErrorResponse;
+import eu.getsoftware.cleanarchitecture.adapter.common.error.JsonErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;

@@ -1,4 +1,4 @@
-package eu.getsoftware.cleanarchitecture.application.port.in.user.iportservice.dto;
+package eu.getsoftware.cleanarchitecture.application.port.in.user.dto;
 
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.IUserDomainResponseDTO;
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.UserDomainId;

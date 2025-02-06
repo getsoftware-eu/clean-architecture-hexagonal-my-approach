@@ -1,7 +1,7 @@
 package eu.getsoftware.cleanarchitecture.adapter.in.web.controller;
 
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.UserDomainId;
-import eu.getsoftware.cleanarchitecture.application.port.in.user.iportservice.dto.UserClientDTO;
+import eu.getsoftware.cleanarchitecture.application.port.in.user.dto.UserClientDTO;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.iusecase.UserCrudUseCase;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

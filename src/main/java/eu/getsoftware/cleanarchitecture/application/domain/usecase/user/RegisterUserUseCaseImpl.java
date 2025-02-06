@@ -4,8 +4,8 @@ import eu.getsoftware.cleanarchitecture.adapter.out.persistence.mapper.AddressVa
 import eu.getsoftware.cleanarchitecture.adapter.out.persistence.mapper.UserDtoMapper;
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.UserDomainFactory;
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.UserRootDomainEntity;
-import eu.getsoftware.cleanarchitecture.application.port.in.user.iportservice.dto.UserClientDTO;
-import eu.getsoftware.cleanarchitecture.application.port.in.user.iportservice.dto.UserRegisterRequestUseCaseDTO;
+import eu.getsoftware.cleanarchitecture.application.port.in.user.dto.UserClientDTO;
+import eu.getsoftware.cleanarchitecture.application.port.in.user.dto.UserRegisterRequestUseCaseDTO;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.iusecase.IRegisterUserUseCase;
 import eu.getsoftware.cleanarchitecture.application.port.out.user.IUserResponseDTOPortPresenter;
 import eu.getsoftware.cleanarchitecture.application.port.out.user.iportservice.gateways.UserGatewayService;
