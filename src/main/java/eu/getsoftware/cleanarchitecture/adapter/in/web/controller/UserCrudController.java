@@ -4,7 +4,7 @@ import eu.getsoftware.cleanarchitecture.application.domain.model.address.Address
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.UserDomainId;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.dto.UserClientDTO;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.dto.UserUpdateRequestUseCaseDTO;
-import eu.getsoftware.cleanarchitecture.application.port.in.user.iusecase.IRegisterUserUseCase;
+import eu.getsoftware.cleanarchitecture.application.port.in.user.iusecase.RegisterUserUseCase;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.dto.UserRegisterRequestUseCaseDTO;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.iusecase.UserCrudUseCase;
 import jakarta.validation.Valid;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class UserCrudController {
 
-    private final IRegisterUserUseCase registerUserUseCase;
+    private final RegisterUserUseCase registerUserUseCase;
     private final UserCrudUseCase userInputUseCase;
 
     @PutMapping
