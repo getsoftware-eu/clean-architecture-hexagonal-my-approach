@@ -17,7 +17,7 @@ This is because, it becomes practically impossible to separate these two types o
 ## My Approach to implement domain-centric architecture: 
 ###  Clean-Architecture (Onion) with Java (+ Domain-driven Design, + 'Hexagon' Architecture) 
 
-![structure](/docs/img/onion3Tree.jpg)
+![structure](/docs/img/onion31tree.jpg)
 
 ### Layer Structure:
 1. <b>Application</b> - the boundary between the core application logic and the external world.
