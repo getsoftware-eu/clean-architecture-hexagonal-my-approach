@@ -1,7 +1,7 @@
 package eu.getsoftware.cleanarchitecture.adapter.out.persistence.repository;
 
 import eu.getsoftware.cleanarchitecture.application.domain.model.mapper.EntityGenericMapper;
-import eu.getsoftware.cleanarchitecture.application.port.in.user.iqueryservice.GenericQueryPort;
+import eu.getsoftware.cleanarchitecture.application.port.in.user.iqueryservice.GenericQueryPortService;
 import eu.getsoftware.cleanarchitecture.application.port.out.user.iportservice.GenericRepositoryPort;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +13,7 @@ import java.util.Collection;
 import java.util.Optional;
 
 @RequiredArgsConstructor
-public class GenericRepositoryJpaAdapter<T, DBEntity, ID> implements GenericQueryPort<T>, GenericRepositoryPort<T, ID> {
+public class GenericRepositoryJpaAdapter<T, DBEntity, ID> implements GenericQueryPortService<T>, GenericRepositoryPort<T, ID> {
 
     private final JpaRepository<DBEntity, Long> repository;
     private final EntityGenericMapper<T, DBEntity> mapper;

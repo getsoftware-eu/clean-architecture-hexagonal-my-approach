@@ -7,6 +7,7 @@ import eu.getsoftware.cleanarchitecture.application.port.in.user.dto.UserUpdateR
 
 /**
  * eu: in.port only DTO, no inner entity
+ * Команды (Commands) идут через UseCase.
  * 
  * DTO creation for Grenzen
  * The boundaries are contracts defining how components can interact. 
@@ -14,12 +15,7 @@ import eu.getsoftware.cleanarchitecture.application.port.in.user.dto.UserUpdateR
  */
 public interface UserCrudUseCase
 {
-    
     UserClientDTO updateExistingUser(UserUpdateRequestUseCaseDTO requestModel);
-    
+   
     UserClientDTO updateUserAddress(UserDomainId userDomainId, AddressValueObject addressValueObject);
-	
-	UserClientDTO findExistingUserByName(String searchName);
-	
-    UserClientDTO findExistingUserByDomainId(UserDomainId userId);
 }
