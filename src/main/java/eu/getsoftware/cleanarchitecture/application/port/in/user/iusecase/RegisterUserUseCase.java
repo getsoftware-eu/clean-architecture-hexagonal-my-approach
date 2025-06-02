@@ -5,7 +5,7 @@ import eu.getsoftware.cleanarchitecture.application.port.in.user.dto.UserRegiste
 
 /**
  * eu: in.port only DTO, no inner entity
- * Команды (Commands) идут через UseCase.
+ * Commands идут через UseCase. UseCase - содержит бизнес-логику и взаимодействует с репозиториями.
  * 
  * DTO creation for Grenzen
  * The boundaries are contracts defining how components can interact. 

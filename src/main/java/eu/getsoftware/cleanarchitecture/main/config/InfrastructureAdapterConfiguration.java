@@ -17,7 +17,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 //eu: scan custom persistence Beans in external "adapter" package!
 @EnableJpaRepositories(basePackages = { "eu.getsoftware.cleanarchitecture.adapter.out.persistence.repository" })
 @EntityScan(basePackages = {"eu.getsoftware.cleanarchitecture.adapter.out.persistence.model"})
-public class InfrastructureConfiguration
+public class InfrastructureAdapterConfiguration
 {
 
     /**
