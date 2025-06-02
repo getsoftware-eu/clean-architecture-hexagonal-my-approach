@@ -1,5 +1,7 @@
 package eu.getsoftware.cleanarchitecture.application.domain.usecase.user;
 
+import eu.getsoftware.cleanarchitecture.adapter.out.persistence.service.UserOutRepositoryQueryAdapter;
+import eu.getsoftware.cleanarchitecture.adapter.out.persistence.service.UserOutRepositoryUpdateAdapter;
 import eu.getsoftware.cleanarchitecture.application.domain.model.address.AddressValueObject;
 import eu.getsoftware.cleanarchitecture.application.domain.model.mapper.DtoGenericMapper;
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.UserDomainId;
@@ -8,7 +10,6 @@ import eu.getsoftware.cleanarchitecture.application.port.in.user.dto.UserClientD
 import eu.getsoftware.cleanarchitecture.application.port.in.user.dto.UserUpdateRequestUseCaseDTO;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.iusecase.UserUpdateUseCase;
 import eu.getsoftware.cleanarchitecture.application.port.out.user.IUserResponseDTOPortPresenter;
-import eu.getsoftware.cleanarchitecture.application.port.out.user.iportservice.gateways.UserGatewayService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,8 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class UserUpdateUseCaseImpl implements UserUpdateUseCase
 {
-    private final UserGatewayService userGatewayService;
+    private final UserOutRepositoryQueryAdapter userOutRepositoryQueryAdapter;
+    private final UserOutRepositoryUpdateAdapter userOutRepositoryUpdateAdapter;
     private final IUserResponseDTOPortPresenter userResponseDTOPortPresenter;
     private final DtoGenericMapper<UserRootDomainEntity, UserClientDTO> userDtoMapper;
     
@@ -35,7 +37,7 @@ public class UserUpdateUseCaseImpl implements UserUpdateUseCase
         UserRootDomainEntity entity;
         
         try{
-          entity = userGatewayService.findOrThrow(requestModel.domainId());
+          entity = userOutRepositoryQueryAdapter.findOrThrow(requestModel.domainId());
         }
         catch (EntityNotFoundException e) {
             return userResponseDTOPortPresenter.prepareFailView(e.getMessage());
@@ -46,8 +48,8 @@ public class UserUpdateUseCaseImpl implements UserUpdateUseCase
         {
             entity.setEmail( requestModel.email());
         }
-        
-        userGatewayService.saveToDb(entity);
+
+        userOutRepositoryUpdateAdapter.convertAndPersist(entity);
         
         return userDtoMapper.toDto(entity);
 
@@ -57,7 +59,7 @@ public class UserUpdateUseCaseImpl implements UserUpdateUseCase
     @Override
     public UserClientDTO updateUserAddress(UserDomainId userDomainId, AddressValueObject addressValueObject) {
 
-        UserRootDomainEntity entityById = userGatewayService.findOrThrow(userDomainId);
+        UserRootDomainEntity entityById = userOutRepositoryQueryAdapter.findOrThrow(userDomainId);
 
         entityById.changeAddress(addressValueObject);
 

@@ -1,12 +1,10 @@
-package eu.getsoftware.cleanarchitecture.adapter.out.persistence.repository;
+package eu.getsoftware.cleanarchitecture.application.domain.usecase.user.service;
 
 import eu.getsoftware.cleanarchitecture.application.domain.model.mapper.EntityGenericMapper;
-import eu.getsoftware.cleanarchitecture.application.port.out.user.iportservice.GenericOutPersistService;
 import eu.getsoftware.cleanarchitecture.application.port.out.user.iportservice.GenericOutRepositoryQueryService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Field;
 import java.util.Collection;
@@ -19,7 +17,7 @@ import java.util.Optional;
  * @param <ID>
  */
 @RequiredArgsConstructor
-public class GenericRepositoryJpaAdapter<T, DBEntity, ID> implements GenericOutRepositoryQueryService<T, ID>, GenericOutPersistService<T, ID> {
+public class GenericOutRepositoryQueryAdapter<T, DBEntity, ID> implements GenericOutRepositoryQueryService<T, ID> {
 
     private final JpaRepository<DBEntity, Long> repository;
     private final EntityGenericMapper<T, DBEntity> mapper;
@@ -55,10 +53,25 @@ public class GenericRepositoryJpaAdapter<T, DBEntity, ID> implements GenericOutR
         return Optional.empty();
     }
 
-    @Override
-    @Transactional // eu : but not in Domain interface!!! write to db
-    public void convertAndPersist(T entity) {
-        DBEntity dbEntity = mapper.toDb(entity);
-        repository.save(dbEntity);
-    }
+    public T findOrThrow(Long entityId) {
+        return this.findById(entityId)
+                .orElseThrow(() -> new EntityNotFoundException("Entity not found for ID: " + entityId));
+    }    
+
+    //eu: экономит бесчисленные .orElseThrow в коде!!! +++
+    public T findOrThrow(ID domainId) {
+        return this.findByDomainId(domainId)
+                .orElseThrow(() -> new EntityNotFoundException("Entity not found for ID: " + domainId));
+    } 
+
+//    public Optional<T> findByField(String fieldName, Object value) {
+//        return this.findByField(fieldName, value);
+//    }    
+    
+//    @Override
+//    @Transactional // eu : but not in Domain interface!!! write to db
+//    public void convertAndPersist(T entity) {
+//        DBEntity dbEntity = mapper.toDb(entity);
+//        repository.save(dbEntity);
+//    }
 }

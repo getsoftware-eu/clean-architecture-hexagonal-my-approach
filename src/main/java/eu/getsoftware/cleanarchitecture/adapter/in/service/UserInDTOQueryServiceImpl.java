@@ -1,12 +1,12 @@
-package eu.getsoftware.cleanarchitecture.application.domain.usecase.user.outqueryservice;
+package eu.getsoftware.cleanarchitecture.adapter.in.service;
 
+import eu.getsoftware.cleanarchitecture.adapter.out.persistence.service.UserOutRepositoryQueryAdapter;
 import eu.getsoftware.cleanarchitecture.application.domain.model.mapper.DtoGenericMapper;
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.UserDomainId;
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.UserRootDomainEntity;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.dto.UserClientDTO;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.iqueryservice.UserInDTOQueryService;
 import eu.getsoftware.cleanarchitecture.application.port.out.user.IUserResponseDTOPortPresenter;
-import eu.getsoftware.cleanarchitecture.application.port.out.user.iportservice.gateways.UserGatewayService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,14 +17,14 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserInDTOQueryServiceImpl implements UserInDTOQueryService {
 
-    private final UserGatewayService userGatewayService;
+    private final UserOutRepositoryQueryAdapter userOutRepositoryQueryAdapter;
     private final IUserResponseDTOPortPresenter userResponseDTOPortPresenter;
     private final DtoGenericMapper<UserRootDomainEntity, UserClientDTO> userDtoMapper;
     
     @Override
     public UserClientDTO findExistingUserByName(String searchName)
     {
-        Optional<UserRootDomainEntity> entityByNameOpt = userGatewayService.findByField("name", searchName);
+        Optional<UserRootDomainEntity> entityByNameOpt = userOutRepositoryQueryAdapter.findByField("name", searchName);
 
         if (entityByNameOpt.isEmpty()) {
             return userResponseDTOPortPresenter.prepareFailView("User not exists.");
@@ -43,7 +43,7 @@ public class UserInDTOQueryServiceImpl implements UserInDTOQueryService {
         UserRootDomainEntity entityById;
 
         try {
-            entityById = userGatewayService.findOrThrow(userId);
+            entityById = userOutRepositoryQueryAdapter.findOrThrow(userId);
         }
         catch (EntityNotFoundException e) {
             return userResponseDTOPortPresenter.prepareFailView(e.getMessage());

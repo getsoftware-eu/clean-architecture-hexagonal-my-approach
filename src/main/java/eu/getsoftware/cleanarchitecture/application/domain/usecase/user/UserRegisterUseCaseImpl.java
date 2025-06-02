@@ -2,13 +2,14 @@ package eu.getsoftware.cleanarchitecture.application.domain.usecase.user;
 
 import eu.getsoftware.cleanarchitecture.adapter.out.persistence.mapper.AddressValueObjectMapper;
 import eu.getsoftware.cleanarchitecture.adapter.out.persistence.mapper.UserDtoMapper;
+import eu.getsoftware.cleanarchitecture.adapter.out.persistence.service.UserOutRepositoryQueryAdapter;
+import eu.getsoftware.cleanarchitecture.adapter.out.persistence.service.UserOutRepositoryUpdateAdapter;
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.UserDomainFactory;
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.UserRootDomainEntity;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.dto.UserClientDTO;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.dto.UserRegisterRequestUseCaseDTO;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.iusecase.UserRegisterUseCase;
 import eu.getsoftware.cleanarchitecture.application.port.out.user.IUserResponseDTOPortPresenter;
-import eu.getsoftware.cleanarchitecture.application.port.out.user.iportservice.gateways.UserGatewayService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -22,7 +23,8 @@ import org.springframework.validation.annotation.Validated;
 @RequiredArgsConstructor
 public class UserRegisterUseCaseImpl implements UserRegisterUseCase
 {
-    private final UserGatewayService userGatewayService;
+    private final UserOutRepositoryQueryAdapter userOutRepositoryQueryAdapter;
+    private final UserOutRepositoryUpdateAdapter userOutRepositoryUpdateAdapter;
     private final IUserResponseDTOPortPresenter userResponseDTOPortPresenter;
     private final UserDtoMapper userDtoMapper;
     private final AddressValueObjectMapper addressValueObjectMapper;
@@ -56,7 +58,7 @@ public class UserRegisterUseCaseImpl implements UserRegisterUseCase
 
         //requestUserDto.validateBusinessLogic(); - intern
         
-        if (userGatewayService.findByField("name", requestUserDto.name()).isPresent()) {
+        if (userOutRepositoryQueryAdapter.findByField("name", requestUserDto.name()).isPresent()) {
             return userResponseDTOPortPresenter.prepareFailView("User with name " + requestUserDto.name() + " already exists.");
         }
 
@@ -66,7 +68,7 @@ public class UserRegisterUseCaseImpl implements UserRegisterUseCase
             return userResponseDTOPortPresenter.prepareFailView("User password must have more than 5 characters.");
 
         //A3 domain is correct, we can send it to lower layer for persist
-        userGatewayService.saveToDb(userDomainEntity);
+        userOutRepositoryUpdateAdapter.convertAndPersist(userDomainEntity);
 
         return userDtoMapper.toDto(userDomainEntity);
                 

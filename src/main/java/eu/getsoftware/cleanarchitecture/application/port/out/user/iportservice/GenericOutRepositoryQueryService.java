@@ -1,5 +1,7 @@
 package eu.getsoftware.cleanarchitecture.application.port.out.user.iportservice;
 
+import jakarta.persistence.EntityNotFoundException;
+
 import java.util.Collection;
 import java.util.Optional;
 
@@ -18,5 +20,10 @@ public interface GenericOutRepositoryQueryService<T, ID> {
     Optional<T> findByField(String fieldName, Object value);
 
     Optional<T> findByDomainId(ID id);
+
+    public T findOrThrow(Long entityId);
+
+    //eu: экономит бесчисленные .orElseThrow в коде!!! +++
+    public T findOrThrow(ID domainId);
 
 }
