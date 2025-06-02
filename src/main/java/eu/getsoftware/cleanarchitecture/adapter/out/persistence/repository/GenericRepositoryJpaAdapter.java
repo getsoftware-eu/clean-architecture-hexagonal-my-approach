@@ -1,8 +1,8 @@
 package eu.getsoftware.cleanarchitecture.adapter.out.persistence.repository;
 
 import eu.getsoftware.cleanarchitecture.application.domain.model.mapper.EntityGenericMapper;
-import eu.getsoftware.cleanarchitecture.application.port.in.user.iqueryservice.GenericQueryPortService;
-import eu.getsoftware.cleanarchitecture.application.port.out.user.iportservice.GenericRepositoryPort;
+import eu.getsoftware.cleanarchitecture.application.port.out.user.iportservice.GenericOutPersistService;
+import eu.getsoftware.cleanarchitecture.application.port.out.user.iportservice.GenericOutRepositoryQueryService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,8 +12,14 @@ import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.Optional;
 
+/**
+ * Interface segragation???
+ * @param <T>
+ * @param <DBEntity>
+ * @param <ID>
+ */
 @RequiredArgsConstructor
-public class GenericRepositoryJpaAdapter<T, DBEntity, ID> implements GenericQueryPortService<T>, GenericRepositoryPort<T, ID> {
+public class GenericRepositoryJpaAdapter<T, DBEntity, ID> implements GenericOutRepositoryQueryService<T>, GenericOutPersistService<T, ID> {
 
     private final JpaRepository<DBEntity, Long> repository;
     private final EntityGenericMapper<T, DBEntity> mapper;

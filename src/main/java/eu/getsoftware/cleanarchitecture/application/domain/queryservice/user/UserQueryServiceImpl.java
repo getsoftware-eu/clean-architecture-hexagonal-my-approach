@@ -1,10 +1,10 @@
-package eu.getsoftware.cleanarchitecture.adapter.out.persistence.repository.service;
+package eu.getsoftware.cleanarchitecture.application.domain.queryservice.user;
 
-import eu.getsoftware.cleanarchitecture.adapter.out.persistence.mapper.UserDtoMapper;
+import eu.getsoftware.cleanarchitecture.application.domain.model.mapper.DtoGenericMapper;
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.UserDomainId;
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.UserRootDomainEntity;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.dto.UserClientDTO;
-import eu.getsoftware.cleanarchitecture.application.port.in.user.iqueryservice.UserCrudQueryService;
+import eu.getsoftware.cleanarchitecture.application.port.in.user.iqueryservice.UserInDTOQueryService;
 import eu.getsoftware.cleanarchitecture.application.port.out.user.IUserResponseDTOPortPresenter;
 import eu.getsoftware.cleanarchitecture.application.port.out.user.iportservice.gateways.UserGatewayService;
 import jakarta.persistence.EntityNotFoundException;
@@ -15,11 +15,11 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class UserCrudQueryServiceImpl implements UserCrudQueryService {
+public class UserQueryServiceImpl implements UserInDTOQueryService {
 
     private final UserGatewayService userGatewayService;
     private final IUserResponseDTOPortPresenter userResponseDTOPortPresenter;
-    private final UserDtoMapper userDtoMapper;
+    private final DtoGenericMapper<UserRootDomainEntity, UserClientDTO> userDtoMapper;
     
     @Override
     public UserClientDTO findExistingUserByName(String searchName)

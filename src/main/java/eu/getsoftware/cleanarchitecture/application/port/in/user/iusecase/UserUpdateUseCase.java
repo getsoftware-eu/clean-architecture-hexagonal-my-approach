@@ -13,7 +13,7 @@ import eu.getsoftware.cleanarchitecture.application.port.in.user.dto.UserUpdateR
  * The boundaries are contracts defining how components can interact. 
  * The input boundary exposes our use case to outer layers:
  */
-public interface UserCrudUseCase
+public interface UserUpdateUseCase
 {
     UserClientDTO updateExistingUser(UserUpdateRequestUseCaseDTO requestModel);
     

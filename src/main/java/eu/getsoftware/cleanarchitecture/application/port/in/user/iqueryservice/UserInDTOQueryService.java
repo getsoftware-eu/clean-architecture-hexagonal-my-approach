@@ -7,7 +7,7 @@ import eu.getsoftware.cleanarchitecture.application.port.in.user.dto.UserClientD
  * Команды (Commands) идут через UseCase.
  * Запросы (Queries) идут через QueryService.
  */
-public interface UserCrudQueryService {
+public interface UserInDTOQueryService {
     
     UserClientDTO findExistingUserByName(String searchName);
     UserClientDTO findExistingUserByDomainId(UserDomainId userId);

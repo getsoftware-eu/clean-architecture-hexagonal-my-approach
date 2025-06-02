@@ -1,12 +1,12 @@
 package eu.getsoftware.cleanarchitecture.application.domain.usecase.user;
 
-import eu.getsoftware.cleanarchitecture.adapter.out.persistence.mapper.UserDtoMapper;
 import eu.getsoftware.cleanarchitecture.application.domain.model.address.AddressValueObject;
+import eu.getsoftware.cleanarchitecture.application.domain.model.mapper.DtoGenericMapper;
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.UserDomainId;
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.UserRootDomainEntity;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.dto.UserClientDTO;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.dto.UserUpdateRequestUseCaseDTO;
-import eu.getsoftware.cleanarchitecture.application.port.in.user.iusecase.UserCrudUseCase;
+import eu.getsoftware.cleanarchitecture.application.port.in.user.iusecase.UserUpdateUseCase;
 import eu.getsoftware.cleanarchitecture.application.port.out.user.IUserResponseDTOPortPresenter;
 import eu.getsoftware.cleanarchitecture.application.port.out.user.iportservice.gateways.UserGatewayService;
 import jakarta.persistence.EntityNotFoundException;
@@ -14,7 +14,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
-import java.util.Optional;
 
 /**
  * DTO creation for Grenzen
@@ -23,11 +22,11 @@ import java.util.Optional;
  */
 @Service
 @RequiredArgsConstructor
-public class UserCrudUseCaseImpl implements UserCrudUseCase
+public class UserUpdateUseCaseImpl implements UserUpdateUseCase
 {
     private final UserGatewayService userGatewayService;
     private final IUserResponseDTOPortPresenter userResponseDTOPortPresenter;
-    private final UserDtoMapper userDtoMapper;
+    private final DtoGenericMapper<UserRootDomainEntity, UserClientDTO> userDtoMapper;
     
 
     @Override 

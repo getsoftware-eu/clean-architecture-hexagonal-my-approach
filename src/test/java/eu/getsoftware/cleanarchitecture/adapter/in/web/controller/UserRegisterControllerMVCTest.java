@@ -1,12 +1,9 @@
 package eu.getsoftware.cleanarchitecture.adapter.in.web.controller;
 
-import eu.getsoftware.cleanarchitecture.adapter.out.persistence.repository.UserRepositoryAdapter;
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.UserDomainId;
-import eu.getsoftware.cleanarchitecture.application.domain.model.user.UserRootDomainEntity;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.dto.UserClientDTO;
-import eu.getsoftware.cleanarchitecture.application.port.in.user.iqueryservice.GenericQueryPortService;
-import eu.getsoftware.cleanarchitecture.application.port.in.user.iqueryservice.UserCrudQueryService;
-import eu.getsoftware.cleanarchitecture.application.port.in.user.iusecase.UserCrudUseCase;
+import eu.getsoftware.cleanarchitecture.application.port.in.user.iqueryservice.UserInDTOQueryService;
+import eu.getsoftware.cleanarchitecture.application.port.in.user.iusecase.UserUpdateUseCase;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -25,10 +22,10 @@ public class UserRegisterControllerMVCTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private UserCrudUseCase userUseCase;    
+    private UserUpdateUseCase userUseCase;    
     
     @MockBean
-    private UserCrudQueryService userCrudQueryService;
+    private UserInDTOQueryService userCrudQueryService;
 
     private String domainEntityId = "550e8400-e29b-41d4-a716-446655440022";
 

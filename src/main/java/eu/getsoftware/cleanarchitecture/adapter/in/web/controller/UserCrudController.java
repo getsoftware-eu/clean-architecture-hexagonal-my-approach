@@ -1,14 +1,13 @@
 package eu.getsoftware.cleanarchitecture.adapter.in.web.controller;
 
-import eu.getsoftware.cleanarchitecture.adapter.out.persistence.repository.service.UserCrudQueryServiceImpl;
 import eu.getsoftware.cleanarchitecture.application.domain.model.address.AddressValueObject;
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.UserDomainId;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.dto.UserClientDTO;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.dto.UserUpdateRequestUseCaseDTO;
-import eu.getsoftware.cleanarchitecture.application.port.in.user.iqueryservice.UserCrudQueryService;
-import eu.getsoftware.cleanarchitecture.application.port.in.user.iusecase.RegisterUserUseCase;
+import eu.getsoftware.cleanarchitecture.application.port.in.user.iqueryservice.UserInDTOQueryService;
+import eu.getsoftware.cleanarchitecture.application.port.in.user.iusecase.UserRegisterUseCase;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.dto.UserRegisterRequestUseCaseDTO;
-import eu.getsoftware.cleanarchitecture.application.port.in.user.iusecase.UserCrudUseCase;
+import eu.getsoftware.cleanarchitecture.application.port.in.user.iusecase.UserUpdateUseCase;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.RequiredArgsConstructor;
@@ -21,9 +20,9 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class UserCrudController {
 
-    private final RegisterUserUseCase registerUserUseCase;
-    private final UserCrudUseCase userInputUseCase;
-    private final UserCrudQueryService userCrudQueryService;
+    private final UserRegisterUseCase registerUserUseCase;
+    private final UserUpdateUseCase userInputUseCase;
+    private final UserInDTOQueryService userInDTOQueryService;
 
     @PutMapping
     public UserClientDTO create(@Valid @RequestBody UserRegisterRequestUseCaseDTO requestModel) {
@@ -45,7 +44,7 @@ public class UserCrudController {
 //    
     @GetMapping("/name")
     public UserClientDTO findByName(@NotEmpty @PathVariable String name) {
-        return userCrudQueryService.findExistingUserByName(name); //.orElseThrow(() -> new EntityNotFoundException(id));
+        return userInDTOQueryService.findExistingUserByName(name); //.orElseThrow(() -> new EntityNotFoundException(id));
     }
 
     /**
@@ -56,7 +55,7 @@ public class UserCrudController {
      */
     @GetMapping("/{userId}")
     public UserClientDTO findById(@PathVariable @Valid UserDomainId domainId) {
-        return userCrudQueryService.findExistingUserByDomainId(domainId); //.orElseThrow(() -> new EntityNotFoundException(id));
+        return userInDTOQueryService.findExistingUserByDomainId(domainId); //.orElseThrow(() -> new EntityNotFoundException(id));
     }
 
     /**

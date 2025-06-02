@@ -9,7 +9,7 @@ import java.util.Optional;
  * TODO Use here not Entity, but as response only Dto or limited ReadOnly Record-Queries from DB
  * @param <DTO>
  */
-public interface GenericQueryPortService<DTO> {
+public interface GenericInDTOQueryService<DTO> {
 
     Collection<DTO> findAll();
 

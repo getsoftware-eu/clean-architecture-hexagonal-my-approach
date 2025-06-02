@@ -11,7 +11,7 @@ import eu.getsoftware.cleanarchitecture.application.port.in.user.dto.UserRegiste
  * The boundaries are contracts defining how components can interact. 
  * The input boundary exposes our use case to outer layers:
  */
-public interface RegisterUserUseCase
+public interface UserRegisterUseCase
 {
     UserClientDTO execute(UserRegisterRequestUseCaseDTO requestModel);
 }
