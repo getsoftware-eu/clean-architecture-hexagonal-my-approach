@@ -31,22 +31,6 @@ public class UserCrudUseCaseImpl implements UserCrudUseCase
     
 
     @Override 
-    public UserClientDTO findExistingUserByName(String searchName)
-    {
-        Optional<UserRootDomainEntity> entityByNameOpt = userGatewayService.findByField("name", searchName);
-
-        if (entityByNameOpt.isEmpty()) {
-            return userResponseDTOPortPresenter.prepareFailView("User not exists.");
-        }
-
-        UserRootDomainEntity domainEntity = entityByNameOpt.get();
-
-        return userDtoMapper.toDto(domainEntity);
-
-//        return formatModelDTOForClientView(userResponseDTO);
-    }
-
-    @Override 
     public UserClientDTO updateExistingUser(UserUpdateRequestUseCaseDTO requestModel)
     {
         UserRootDomainEntity entity;
@@ -83,21 +67,5 @@ public class UserCrudUseCaseImpl implements UserCrudUseCase
         return userResponseDTO;
     }
 
-    @Override 
-    public UserClientDTO findExistingUserByDomainId(UserDomainId userId)
-    {
-        UserRootDomainEntity entityById;
-        
-        try {
-              entityById = userGatewayService.findOrThrow(userId);
-        }
-        catch (EntityNotFoundException e) {
-            return userResponseDTOPortPresenter.prepareFailView(e.getMessage());
-        }
-
-        UserClientDTO userResponseDTO = userDtoMapper.toDto(entityById);
-
-        return userResponseDTO;
-//        return formatModelDTOForClientView(userResponseDTO);
-    }
+   
 }

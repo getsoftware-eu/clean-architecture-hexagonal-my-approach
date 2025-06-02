@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
  * Constructor will be filled manuell from UserDTO (dto from higher Level, but no IUser interface implementation here!)
  */
 
-@Entity
+@Entity(name = "UserEntity")
 @Data
 @Table(name = "users" /*, schema = "userschema"*/) //eu: Every bounded context stores its entities in its own DB schema
 @Getter 

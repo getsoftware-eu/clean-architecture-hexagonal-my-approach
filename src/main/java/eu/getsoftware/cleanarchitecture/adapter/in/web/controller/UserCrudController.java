@@ -1,9 +1,11 @@
 package eu.getsoftware.cleanarchitecture.adapter.in.web.controller;
 
+import eu.getsoftware.cleanarchitecture.adapter.out.persistence.repository.service.UserCrudQueryServiceImpl;
 import eu.getsoftware.cleanarchitecture.application.domain.model.address.AddressValueObject;
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.UserDomainId;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.dto.UserClientDTO;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.dto.UserUpdateRequestUseCaseDTO;
+import eu.getsoftware.cleanarchitecture.application.port.in.user.iqueryservice.UserCrudQueryService;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.iusecase.RegisterUserUseCase;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.dto.UserRegisterRequestUseCaseDTO;
 import eu.getsoftware.cleanarchitecture.application.port.in.user.iusecase.UserCrudUseCase;
@@ -21,6 +23,7 @@ public class UserCrudController {
 
     private final RegisterUserUseCase registerUserUseCase;
     private final UserCrudUseCase userInputUseCase;
+    private final UserCrudQueryService userCrudQueryService;
 
     @PutMapping
     public UserClientDTO create(@Valid @RequestBody UserRegisterRequestUseCaseDTO requestModel) {
@@ -42,14 +45,26 @@ public class UserCrudController {
 //    
     @GetMapping("/name")
     public UserClientDTO findByName(@NotEmpty @PathVariable String name) {
-        return userInputUseCase.findExistingUserByName(name); //.orElseThrow(() -> new EntityNotFoundException(id));
-    }      
-    
+        return userCrudQueryService.findExistingUserByName(name); //.orElseThrow(() -> new EntityNotFoundException(id));
+    }
+
+    /**
+     * eu: find query - only via service, not via useCase!!!
+     * 
+     * @param domainId
+     * @return
+     */
     @GetMapping("/{userId}")
     public UserClientDTO findById(@PathVariable @Valid UserDomainId domainId) {
-        return userInputUseCase.findExistingUserByDomainId(domainId); //.orElseThrow(() -> new EntityNotFoundException(id));
-    }  
-    
+        return userCrudQueryService.findExistingUserByDomainId(domainId); //.orElseThrow(() -> new EntityNotFoundException(id));
+    }
+
+    /**
+     * eu: updates - via useCase
+     * @param requestModel
+     * @param domainId
+     * @return
+     */
     @PostMapping("/{userId}")
     public UserClientDTO update(@RequestBody @Valid UserUpdateRequestUseCaseDTO requestModel, 
                                 @PathVariable(value = "domainId", required = false) UserDomainId domainId) {

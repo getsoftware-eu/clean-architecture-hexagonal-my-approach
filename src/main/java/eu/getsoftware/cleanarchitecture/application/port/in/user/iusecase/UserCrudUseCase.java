@@ -16,6 +16,6 @@ import eu.getsoftware.cleanarchitecture.application.port.in.user.dto.UserUpdateR
 public interface UserCrudUseCase
 {
     UserClientDTO updateExistingUser(UserUpdateRequestUseCaseDTO requestModel);
-   
+    
     UserClientDTO updateUserAddress(UserDomainId userDomainId, AddressValueObject addressValueObject);
 }
