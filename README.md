@@ -1,5 +1,6 @@
 # My vision of Clean Architecture (Hexagonal + Domain-driven design) implementation
 
+This is my reference project demonstrating a clean and pragmatic implementation of Clean Architecture with a Hexagonal (Ports & Adapters) approach.
 <b>Hexagonal</b> Architecture is focused on managing the boundaries between an application and the outside world. 
 
 Inside the 'hexagon', we can apply Domain-Driven Design (DDD) or a layered (Onion) architecture.
