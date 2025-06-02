@@ -19,7 +19,7 @@ import java.util.Optional;
  * @param <ID>
  */
 @RequiredArgsConstructor
-public class GenericRepositoryJpaAdapter<T, DBEntity, ID> implements GenericOutRepositoryQueryService<T>, GenericOutPersistService<T, ID> {
+public class GenericRepositoryJpaAdapter<T, DBEntity, ID> implements GenericOutRepositoryQueryService<T, ID>, GenericOutPersistService<T, ID> {
 
     private final JpaRepository<DBEntity, Long> repository;
     private final EntityGenericMapper<T, DBEntity> mapper;

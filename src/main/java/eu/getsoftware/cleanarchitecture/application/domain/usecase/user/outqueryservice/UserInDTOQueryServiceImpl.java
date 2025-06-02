@@ -1,4 +1,4 @@
-package eu.getsoftware.cleanarchitecture.application.domain.queryservice.user;
+package eu.getsoftware.cleanarchitecture.application.domain.usecase.user.outqueryservice;
 
 import eu.getsoftware.cleanarchitecture.application.domain.model.mapper.DtoGenericMapper;
 import eu.getsoftware.cleanarchitecture.application.domain.model.user.UserDomainId;
@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class UserQueryServiceImpl implements UserInDTOQueryService {
+public class UserInDTOQueryServiceImpl implements UserInDTOQueryService {
 
     private final UserGatewayService userGatewayService;
     private final IUserResponseDTOPortPresenter userResponseDTOPortPresenter;
